@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+		<title>比心拍卖</title>
+		<link rel="stylesheet" href="../../../assets/css/base.css?_=1">
+		<link rel="stylesheet" type="text/css" href="../../../assets/css/mescroll.min.css">
+		<style type="text/css">
+			body {
+				background-color: #FFFFFF;
+				padding: 0 16px;
+				font-size: 14px;
+			}
+
+			.activity-wrapper .car-source-item {
+				padding: 16px 0;
+				border-bottom: 1px solid #f0f0f0;
+				align-items: inherit;
+			}
+
+			.car-source-img {
+				width: 120px;
+				height: 90px;
+				margin-right: 12px;
+				position: relative;
+			}
+
+			.car-source-img img {
+				width: 100%;
+				height: 100%;
+			}
+
+			.count-down {
+				background: #ff3e51;
+				opacity: 0.85;
+				color: #ffffff;
+				font-size: 12px;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				padding: 6px 0;
+				text-align: center;
+			}
+
+			.unStart {
+				background: #167fff;
+			}
+			.noActive{
+				background-color: #999999;
+			}
+			.car-source-info {
+				flex: 1;
+			}
+
+			.car-source-info .name {
+				font-size: 15px;
+				color: #333333;
+				font-weight: 500;
+				margin-bottom: 10upx;
+			}
+
+			.car-source-info .price {
+				margin-top: 8px;
+				color: #ea6572;
+			}
+
+			.car-source-info .price .price-txt {
+				font-size: 18px;
+				margin-top: 4px;
+			}
+
+			.car-source-info .price .price-txt span {
+				margin-right: 4upx;
+				font-size: 14px;
+			}
+
+			.flex-start {
+				display: flex;
+				align-items: center;
+				justify-content: space-start;
+			}
+			.error-wrapper {
+			  margin-top: 50px;
+			  text-align: center;
+			  color: #B7B7B7;
+			  font-size: 16px;
+			}
+			
+			.error-wrapper div {
+			  margin-top: 6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mescroll" class="mescroll">
+			<ul class="activity-wrapper">
+				<!-- <li class="car-source-item flex-start" @click="goCarDetails(item)">
+					<div class="car-source-img">
+						<image :src="item.car_image" mode="aspectFill"></image>
+						<div class="count-down" v-if="item.auction_state=='1'">{{item.bid_end_time}}结束</div>
+						<div class="count-down unStart" v-if="item.auction_state=='2'">{{item.bid_star_time}} 开始</div>
+					</div>
+					<div class="car-source-info">
+						<div class="name">{{item.car_name}}</div>
+						<div class="price">
+							<span v-if="item.auction_state == 1">当前出价</span>
+							<span v-if="item.auction_state == 2">起拍价</spanspan>
+							<span v-if="item.auction_state == 0">成交价</span>
+							<div class="price-txt flex-start"><span>¥</span>{{item.bid_price | toThousandFilter}}</div>
+						</div>
+					</div>
+				</li> -->
+			</ul>
+			<div class="error-wrapper" id="error-container">
+				<img src="../../../assets/images/bg-empty.png" width="230">
+				<div>暂无数据~</div>
+			</div>
+		</div>
+		
+		<script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
+		<script src="../../../assets/js/lib/layer/layer.js"></script>
+		<script src="../../../assets/js/lib/mescroll/mescroll.min.js"></script>
+		<script src="../../../assets/js/common.js?_=5"></script>
+		<script type="text/javascript">
+			var mescroll,
+				env = common.getQuery().env,
+				auctionId = common.getQuery().auctionId,
+				listHtml = "";
+				var envStr = '';
+				if (env) {
+					envStr = 'env=' + env
+				}
+				
+
+			var initModule = {
+				init: function() {
+					this.loadMescroll();
+					this.hadleDetail();
+				},
+				loadMescroll: function() {
+					var self = this;
+					mescroll = new MeScroll('mescroll', {
+						down: {
+							callback: self.refresh,
+							isBounce: false,
+						},
+						up: {
+							callback: self.loadData,
+							page: {
+								num: 0,
+								size: 20
+							},
+							htmlNodata: '<p class="upwarp-nodata">没有更多数据了</p>'
+						}
+					})
+				},
+				refresh: function() {
+					$('.mescroll ul').html('');
+					listHtml = "";
+					mescroll.resetUpScroll()
+				},
+				loadData: function(page) {
+					var self = this;
+					let param = {
+						pageNo: page.num,
+						pageSize: page.size,
+						auctionId: auctionId
+					}
+
+					common.ajax({
+						// url: 'auction-activity-list.json',
+						// method: 'GET',
+						url: common.erpDomain + '/carDealer/carAuction/carList',
+						param: param,
+						success: function(res) {
+							var result = res.result;
+							if (res.code === '1' && result.items) {
+								$('#error-container').addClass('hide');
+								$('#mescroll ul').removeClass('hide');
+								initModule.addListHTml(result.items);
+								var hasNext = (page.size == result.items.length);
+								mescroll.endSuccess(page.size, hasNext)
+							} else {
+								mescroll.endErr();
+								$('#mescroll ul').addClass('hide');
+								$('#error-container').removeClass('hide');
+								if (res.code == '100004') {
+									location.href = '../user/new_login.html?' + envStr + '&redirect=' + encodeURIComponent(window.location.href)
+								}
+								if(res.code === '0'){
+									location.href = 'auction-list.html?' +envStr
+								}
+							}
+
+						},
+						error: function(err) {
+							mescroll.endErr();
+							$('#mescroll').addClass('hide')
+							$('#error-container').removeClass('hide')
+						}
+					})
+				},
+				addListHTml: function(list) {
+					var auctionStateTxt;
+
+					list.map(item => {
+						var timeHtml = "",priceHTml="";
+						if (item.auctionState === 0) {
+							auctionStateTxt = '成交价';
+							priceHTml = '<div class="price-txt flex-start"><span>' +auctionStateTxt+':</span>'+'<span>¥ </span>' + (item.bidPrice ? item.bidPrice : 0) + '</div>';
+						} else if (item.auctionState === 1) {
+							auctionStateTxt = '当前出价';
+							timeHtml = '<div class="count-down">' + item.bidEndTime + ' 结束</div>';
+							priceHTml = '<div class="price-txt flex-start"><span>' +auctionStateTxt+':</span>'+'<span>¥ </span>' + (item.bidPrice ? item.bidPrice : 0) + '</div>';
+						} else if (item.auctionState === 2) {
+							auctionStateTxt = '起拍价';
+							timeHtml = '<div class="count-down unStart">' + item.bidStarTime + ' 开始</div>';
+							priceHTml = '<div class="price-txt flex-start"><span>' +auctionStateTxt+':</span>'+'<span>¥ </span>'+ (item.bidPrice ? item.bidPrice : 0) + '</div>';
+						}else if (item.auctionState === 3) {
+							auctionStateTxt = '';
+							timeHtml = '<div class="count-down noActive">已流拍</div>';
+							priceHTml="";
+						}
+						listHtml += '<li class="car-source-item flex-start" data-id="' + item.carId + '">' +
+									'<div class="car-source-img">' +
+										'<img src="' + item.carImage + '">' +
+										timeHtml +
+									'</div>' +
+									'<div class="car-source-info">' +
+										'<div class="name">' + item.carName + '</div>' +
+										'<div class="price">' +
+											// '<span>' + auctionStateTxt + '</span>' +
+											 priceHTml+
+										'</div>' +
+									'</div>' +
+								'</li>'
+					})
+					$('#mescroll ul').html(listHtml)
+				},
+				hadleDetail: function() {
+					$('#mescroll ul').on('click', 'li', function() {
+						let id = $(this).data('id');
+						location.href = 'car-detail.html?carId=' + id +'&' +envStr;
+					})
+				}
+			}
+			initModule.init();
+		</script>
+	</body>
+</html>

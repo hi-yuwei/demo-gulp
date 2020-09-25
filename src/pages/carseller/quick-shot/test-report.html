@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+		<title>检测报告</title>
+		<link rel="stylesheet" href="../../../assets/css/base.css?_=1">
+		<link rel="stylesheet" type="text/css" href="../../../assets/css/swiper/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../assets/css/test-report.css" />
+		<style type="text/css">
+			.defect-wrapper .wrapper .wrapper-item {
+				background: rgba(248, 248, 248, 1);
+				border-radius: 2px;
+				margin-bottom: 8px;
+				padding: 14px 12px 16px;
+			}
+
+			.defect-wrapper .wrapper .wrapper-item .fault-desc {
+				margin-bottom: 8px;
+				color: #666666;
+			}
+
+			.defect-wrapper .wrapper .wrapper-item .fault-imgs {
+				white-space: nowrap;
+				width: 100%;
+				overflow: hidden;
+				overflow-x: scroll;
+				margin-bottom: 12px;
+			}
+
+			.defect-wrapper .wrapper .wrapper-item .fault-imgs img {
+				width: 108px;
+				height: 81px;
+				border-radius: 2px;
+				margin-right: 8px;
+			}
+
+			.no-data {
+				color: #B7B7B7;
+				font-size: 13px;
+				text-align: center;
+			}
+
+			.js-tab-wrapper {
+				height: 44px;
+				line-height: 44px;
+				
+				background-color: #fff;
+				width: 100%;
+				padding: 0 16px;
+			}
+			.tab-fixed{
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
+
+			.js-tab-wrapper ul {
+				overflow: hidden;
+				overflow-x: scroll;
+				white-space: nowrap;
+				width: 100%;
+			}
+
+			.js-tab-wrapper ul li {
+				position: relative;
+				color: #666666;
+				margin-right: 28px;
+			}
+
+			.js-tab-wrapper ul li.active {
+				font-size: 18px;
+				color: #333333;
+				font-weight: 600;
+			}
+
+			.js-tab-wrapper ul li.active::after {
+				content: '';
+				position: absolute;
+				bottom: 2px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 50%;
+				height: 2px;
+				background-color: #0274FF;
+				border-radius: 1px;
+			}
+
+			.evaluate-info {
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<!-- 评估师信息 -->
+			<div class="point-info">
+				<!-- <div class="info-item"><span>评估师:</span>评估师</div>
+				<div class="info-item"><span>评估时间:</span>评估师</div>
+				<div class="info-item"><span>综合评分：</span>评估师</div> -->
+			</div>
+
+			<div class="js-tab-wrapper">
+				<ul class="flex-between">
+					<li class="active">整体评价</li>
+					<li>外观检测</li>
+					<li>内饰检测</li>
+					<li>骨架检测</li>
+					<li>机电检测</li>
+				</ul>
+			</div>
+			<!-- 整体评价 -->
+			<div class="evaluate-info tabView" id="tab0">
+				<div class="title">整体评价</div>
+				<div class="info-wrapper">
+					<!-- <div class="info-item">
+						<div class="name">外观评价：</div>
+						<div class="content">套用模型省时省力，不用冥思苦想，但是，每一个需要设计的内容和体系应该是迥然不同的，所以每一个设计方案也都应该是不可复制的</div>
+					</div>$('.evaluate-info .info-wrapper')
+					<div class="info-item">
+						<div class="name">外观评价：</div>
+						<div class="content">套用模型省时省力，不用冥思苦想，但是，每一个需要设计的内容和体系应该是迥然不同的，所以每一个设计方案也都应该是不可复制的</div>
+					</div>
+					<div class="info-item">
+						<div class="name">外观评价：</div>
+						<div class="content">套用模型省时省力，不用冥思苦想，但是，每一个需要设计的内容和体系应该是迥然不同的，所以每一个设计方案也都应该是不可复制的</div>
+					</div> -->
+				</div>
+			</div>
+			<!-- 检测信息 -->
+			<div class="detection-info">
+				<!-- <div class="detection-info-item">
+					<div class="item-type flex-between">
+						<div class="title">外观检测</div>
+						<div class="num">共<span>20处</span>损伤<img src="../../activity/img/icon-arrow-down.png"></div>
+					</div>
+					<div class="defect-wrapper">
+						<ul class="wrapper">
+							<li class="wrapper-item">
+								<p class="fault-desc">关于损伤的描述关于损伤的描述关于损伤的描述关于损伤的描述关于损伤的描述</p>
+								<div class="fault-imgs">
+									<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/8659986993884.jpg">
+									<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/34937708041739.jpg">
+									<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/34913673872950.png">
+									<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/34913673872950.png">
+								</div>
+							</li>
+							<li class="wrapper-item">
+								<p class="fault-desc">关于损伤的描述关于损伤的描述关于损伤的描述关于损伤的描述关于损伤的描述</p>
+								<div class="fault-imgs">
+									<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/8659986993884.jpg">
+									<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/34937708041739.jpg">
+									<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/34913673872950.png">
+									<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/34913673872950.png">
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div> -->
+
+				<!-- <div class="detection-info-item">
+					<div class="item-type flex-between">
+						<div class="title">外观检测</div>
+						<div class="num">共<span>20处</span>损伤<img src="../../activity/img/icon-arrow-down.png"></div>
+					</div>
+					<div class="defect-wrapper">
+						<img src="../../../assets/images/order-nodata.png" >
+						<p class="no-data">没有发现损伤信息</p>
+					</div>
+					
+				</div> -->
+			</div>
+		</div>
+		<!-- 大图 -->
+		<div class="showBigImg">
+			<div class="showBigImgWrap swiper-container">
+				<div class="allImgBox swiper-wrapper">
+					<!-- <div class="imgIte swiper-slide">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/140_店长1(test1)_1576736069334.jpg">
+					</div>
+					<div class="imgIte swiper-slide">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/140_店长1(test1)_1576736069334.jpg">
+					</div> -->
+				</div>
+				<!-- 分页器 -->
+				<!-- <div class="swiper-pagination"></div> -->
+			</div>
+		</div>
+		<!-- 大图 -->
+		<script src="../../../assets/js/lib/swiper/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
+		<script src="../../../assets/js/common.js?_=5"></script>
+		<script type="text/javascript">
+			let env = common.getQuery().env,
+				evaluateId = common.getQuery().evaluateId,
+				carId = common.getQuery().carId,
+				myBigSwiper,
+				topArr = [];
+			// var vConsole = new VConsole();
+			let initModule = {
+				init: function() {
+					this.loadData();
+					this.bigImgSwiper();
+
+				},
+				// 大图-start
+				bigImgSwiper: function() {
+					myBigSwiper = new Swiper('.showBigImgWrap', {
+						// pagination: {
+						// 	el: '.swiper-pagination',
+						// 	type: 'fraction',
+						// },
+					})
+					$('.showBigImg').click(function() {
+						$(".showBigImg").css('display', 'none'); //显示
+					})
+				},
+				openBigImg: function() {
+					var that = this;
+					var $img = $('.detection-info .detection-info-item .defect-wrapper .fault-imgs');
+					console.log($img)
+					$img.on('click', 'img', function() {
+						var arr = [];
+						console.log($(this).parent())
+						$(this).parent().children().each(function() {
+							let obj = {
+								// name: $(this)[0].text(),
+								url: $(this).data('img-url')
+							}
+							arr.push(obj)
+						})
+						that.bigImgSlide(arr, $(this).index());
+					})
+
+				},
+				bigImgSlide: function(scArr, posi) {
+					$(".showBigImg").css('display', 'block'); //显示
+					var str = "";
+					for (var i = 0; i < scArr.length; i++) {
+						str += '<div class="imgIte swiper-slide"><img src=' + scArr[i].url + ' alt="" style="height:auto"></div>'
+					}
+					$('.allImgBox').html(str);
+					myBigSwiper.update();
+					myBigSwiper.slideTo(posi, 0);
+				},
+				// 大图-end
+				loadData: function() {
+					let that = this;
+					let param = {
+						carId: carId ? carId : ''
+					}
+
+					common.ajax({
+						url: common.erpDomain + '/usedCar/testReport',
+						param: param,
+						success: function(res) {
+							if (res.code === '1') {
+								let {
+									inspectorName,
+									assessmentTime,
+									detectionInfo,
+									evaluateContent
+								} = res.result;
+								// 评估师信息
+								let pointInfoStr = "";
+								pointInfoStr = '<div class="info-item"><span>评估师:</span>' + inspectorName + '</div>' +
+									'<div class="info-item"><span>评估时间:</span>' + assessmentTime + '</div>';
+								$('.point-info').html(pointInfoStr);
+
+								// 整体评价
+								let evaluateInfoStr = "";
+								evaluateContent.map(item => {
+									evaluateInfoStr += '<div class="info-item">' +
+										'<div class="name">' + that.typeFormat(item.type) + '：</div>' +
+										'<div class="content">' + item.content + '</div>' +
+										'</div>'
+								})
+								$('.evaluate-info .info-wrapper').html(evaluateInfoStr);
+
+
+
+								that.addDetectionInfo(detectionInfo);
+
+
+							}
+						}
+					})
+
+					$('.detection-info').on('click', '.detection-info-item .item-type .num', function() {
+						let cssFlag = $(this).parent().siblings().hasClass('hide');
+						if (cssFlag) {
+							$(this).parent().siblings().removeClass('hide');
+							$(this).children('img').addClass('rotate');
+						} else {
+							$(this).parent().siblings().addClass('hide');
+							$(this).children('img').removeClass('rotate');
+						}
+					})
+				},
+				addDetectionInfo: function(list) {
+					console.log(list)
+					var html = "";
+					list.map((item, index) => {
+						var subHtml = "";
+						if (item.mainCount !== '0') {
+							subHtml += '<ul class="wrapper">' +
+								initModule.addDefectHtml(item.subList) +
+								'</ul>'
+						} else {
+							subHtml += '<img src="../../../assets/images/order-nodata.png" >' +
+								'<p class="no-data">没有发现损伤信息</p>'
+						}
+
+						html += '<div class="detection-info-item tabView" id=tab"' + (index + 1) + '">' +
+							'<div class="item-type flex-between">' +
+							'<div class="title">' + item.mainName + '</div>' +
+							'<div class="num">共<span>' + item.mainCount +
+							'处</span>损伤<img src="../../activity/img/icon-arrow-down.png"></div>' +
+							'</div>' +
+							'<div class="defect-wrapper">' +
+							subHtml +
+							'</div>' +
+							'</div>'
+					})
+					$('.detection-info').html(html)
+					initModule.openBigImg();
+					this.loadScroll();
+				},
+				addDefectHtml: function(list) {
+					var html = "";
+					list.map(item => {
+						item.images = item.images.split(";");
+
+						var imgHtml = "";
+
+						item.images.map(item => {
+							let url = encodeURI(common.reportImgDomain + item) + "?x-oss-process=image/resize,m_fill,h_146,w_216";
+							imgHtml += '<img src="' + url + '" data-img-url="' + encodeURI(common.reportImgDomain + item) + '">'
+						})
+
+						html += '<li class="wrapper-item">' +
+							'<p class="fault-desc">' + item.describe + '</p>' +
+							'<div class="fault-imgs">' +
+							imgHtml +
+							'</div>' +
+							'</li>'
+					})
+					return html;
+				},
+				loadScroll: function() {
+					var $navs = $(".js-tab-wrapper ul li");
+					var viewBox = $('.tabView');
+					var scrollTop = $(window).scrollTop();
+					for (var i = 0; i < viewBox.length; i++) {
+						topArr.push($(viewBox[i]).offset().top)
+					}
+
+					window.addEventListener('scroll', function(e) {
+						var scrollTop = $(window).scrollTop();
+						for (var i = 0; i < viewBox.length; i++) {
+							if (scrollTop > topArr[i] - 128) {
+								$navs.eq(i).addClass("active").siblings().removeClass("active");
+								if(i === 2){
+									$(".js-tab-wrapper ul").scrollLeft(375);
+								}else{
+									$(".js-tab-wrapper ul").scrollLeft(0);
+								}
+							}
+							if(scrollTop > topArr[0] - 64){
+								$(".js-tab-wrapper").addClass("tab-fixed")
+							}else{
+								$(".js-tab-wrapper").removeClass("tab-fixed")
+							}
+							
+						}
+					})
+					$navs.click(function () {
+						var i = $(this).index();
+						$(window).scrollTop(topArr[i] - 108);
+					});
+				},
+				typeFormat: function(value) {
+					if (value === '1') {
+						return '外观评价'
+					} else if (value === '2') {
+						return '内饰评价'
+					} else if (value === '3') {
+						return '骨架评价'
+					} else if (value === '4') {
+						return '机电评价'
+					} else if (value === '5') {
+						return '综合评价'
+					}
+				}
+			}
+			initModule.init();
+		</script>
+	</body>
+</html>

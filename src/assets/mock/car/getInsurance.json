@@ -1,0 +1,39 @@
+{
+    "code": "0",
+    "message": "success",
+    "result": {
+        "id": "1",
+        "userInfo": {
+            "carNo": "浙A11111",
+            "modleName": "奔驰CEY81242127SY轿车",
+            "engineNo": "1231235341",
+            "enterTime": "2019-01-01",
+            "registerTime": "2018-09-01",
+            "carVin": "121212121"
+        },
+        "carOwnerInfo": {
+            "ownerName": "杨斌1",
+            "certificateName": "身份证1",
+            "certificateNo": "341221198007208091"
+        },
+
+        "insuranceInfo": {
+            "id": "",
+            "companyName": "平安1",
+            "trafficExpiredTime": "2019-02-01",
+            "commercialExpiredTime": "2019-02-01",
+            "insuranceList": [
+                {
+                    "name": "交强险/车船税1",
+                    "insuredAmount": "投保1"
+                },
+                {
+                    "name": "交强险/车船税2",
+                    "insuredAmount": "投保2"
+                }
+            ]
+
+        }
+    },
+    "code": "0"
+}

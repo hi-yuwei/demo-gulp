@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+        <title>售后预约</title>
+
+        <link rel="stylesheet" href="../../assets/css/base.css?_=1" />
+        <link rel="stylesheet" href="../../assets/css/mescroll.min.css" />
+        <link rel="stylesheet" href="../../assets/css/vant.css" />
+        <link rel="stylesheet" href="css/index.min.css?v=1" />
+    </head>
+    <body>
+        <div id="app" :class="{search:urlParams.type}" v-cloak>
+            <!-- 首页 -->
+            <template v-if="urlParams.type!=='search'">
+                <header>
+                    <div class="header-bar">
+                        <a class="icon-nav icon-left" @click="goBack"></a>
+                        <div class="header-search" @click="goSearch">
+                            <input type="search" placeholder="输入车牌号查询" />
+                        </div>
+                    </div>
+                    <ul class="nav" @click="handleChangeTab">
+                        <li :class="{active:tabType==1}" data-type="1">待处理</li>
+                        <li :class="{active:tabType==2}" data-type="2">待服务</li>
+                        <li :class="{active:tabType==3}" data-type="3">已完成</li>
+                        <li :class="{active:tabType==4}" data-type="4">已取消</li>
+                    </ul>
+                </header>
+            </template>
+            <!-- 搜索 -->
+            <template v-else>
+                <header>
+                    <div class="header-bar">
+                        <a class="icon-nav icon-left" @click="goBackIndex"></a>
+                        <div class="header-search">
+                            <input v-model="searchTxt" class="mui-input-clear" v-on:keyup.enter="handleSearch" placeholder="输入车牌号查询" />
+                        </div>
+                        <a class="icon-nav icon-right" @click="handleSearch">搜索</a>
+                    </div>
+                </header>
+            </template>
+
+            <div id="mescroll" class="main mescroll">
+                <ul>
+                    <li class="card" v-for="(item,index) in list" :key="index">
+                        <!-- 服务类型 -->
+                        <div class="title">
+                            <div class="from">
+                                <div class="origin">来源：{{sourceEnum[item['source']]}}</div>
+                                <div class="type">{{ appointmentTypeEnum[item['appointmentType']]}}</div>
+                            </div>
+                            <div class="car">
+                                <p v-if="item['car']">{{item['car']}}</p>
+                                <p>{{item['modleName']}}</p>
+                            </div>
+                        </div>
+                        <!-- 车辆信息 -->
+                        <div class="details">
+                            <div class="content">
+                                <div v-if="item['currentMileage']"><span>行驶里程：</span><span>{{item['currentMileage']}}</span></div>
+                                <div>预约时间：<span :class="getTimeTheme(item['appointmentTime'])">{{item['appointmentTime']}}</span></div>
+                                <div>指派SA：<span>{{item['saEmployee']||'未分配'}}</span></div>
+                                <div v-if="item['pickUpTime']"><span>接车时间：</span><span>{{item['pickUpTime']}}</span></div>
+                                <div v-if="item['pickUpAddress']"><span>接车地址：</span><span>{{item['pickUpAddress']}}</span></div>
+                                <div v-if="item['returnTime']"><span>还车时间：</span><span>{{item['returnTime']}}</span></div>
+                                <div v-if="item['returnAddress']"><span>还车地址：</span><span>{{item['returnAddress']}}</span></div>
+                                <div v-if="item['appointmentProject']"><span>预约项目：</span><span>{{item['appointmentProject']}}</span></div>
+                                <div>预约客户：<span>{{item['customer']}} {{item['customerMobile']}}</span></div>
+                            </div>
+                            <!-- 图片 -->
+                            <div class="img" v-if="item.repaireImg">
+                                <div v-for="(imgUrl,imgIndex) in item.repaireImg" :key="index" @click="handleImagePreview(item.repaireImg,imgIndex)">
+                                    <img :src="imgUrl" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 操作 -->
+                        <div class="operate">
+                            <div @click="callPhone(item.customerMobile)" class="contact"><i class="icon-phone"></i><span>联系客户</span></div>
+
+                            <div class="btns">
+                                <!-- 待处理 || 待服务 -->
+                                <template v-if="tabType==1||tabType==2">
+                                    <button type="button" class="btn-cancel" @click="handleCancelSubscribe(item.id,index)">取消预约</button>
+                                </template>
+
+                                <!-- 待处理 -->
+                                <template v-if="tabType==1">
+                                    <button type="button" @click="handleConfirmSubscribe(item,index)">确认预约</button>
+                                </template>
+
+                                <!-- 待服务 -->
+                                <template v-if="tabType==2">
+                                    <!-- 1未到2已到 -->
+                                    <button type="button" @click="openToStoreDate(item)" v-if="item.isToStore=='1'">设为已到店</button>
+                                    <button type="button" @click="handleCancelToStore(item)" v-if="item.isToStore=='2'">取消到店</button>
+                                </template>
+
+                                <!-- 待处理||待服务 -->
+                                <template v-if="tabType==1||tabType==2">
+                                    <button type="button" @click="openPromiseDate(item)">改预约时间</button>
+                                </template>
+
+                                <!-- 已完成 -->
+                                <template v-if="tabType==3">
+                                    <button type="button" @click="handleViewService(item)">查看服务工单</button>
+                                </template>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div v-if="!list.length&&urlParams.type!=='search'" class="no-data">
+                    <img src="./img/bg-empty.png" />
+                    <div>暂无数据~</div>
+                </div>
+                <template v-if="!list.length&&urlParams.type==='search'&&searchResult">
+                    <div class="no-data">
+                        <img src="./img/no-data.png" />
+                        <div>{{searchResult?`"${searchResult}"`:''}}暂无待处理或待服务的预约信息</div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- 指派SA -->
+            <van-popup v-model="showSA" position="bottom"> <van-picker title="指派SA并确认服务" show-toolbar :columns="saData" value-key="name" @cancel="showSA=false" @confirm="handleConfirmSA" /></van-popup>
+
+            <!-- 选择预约时间 -->
+            <van-popup v-model="showDate" position="bottom">
+                <van-picker :loading="loadingPromiseDate" value-key="dateTime" show-toolbar title="预约时间" :columns="promiseDateOptions" @cancel="showDate=false" @confirm="handleConfirmDate" @change="changeDate" />
+            </van-popup>
+
+            <!-- 到店时间 -->
+            <van-popup v-model="showToStoreDate" position="bottom"> <van-datetime-picker v-model="toStoreDate" type="datetime" :formatter="formatter" title="到店时间" @cancel="showToStoreDate=false" @confirm="handleConfirmToStoreDate" /></van-popup>
+
+            <!-- 图片预览 -->
+            <van-image-preview v-model="showImage" :images="images" :start-position="startIndexImg" @change="handleChangeImage">
+                <template v-slot:index>第{{ imageIndex }}页</template>
+            </van-image-preview>
+        </div>
+
+        <script src="../../assets/js/lib/vue.min.js"></script>
+        <script src="../../assets/js/lib/vant.min.js"></script>
+        <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
+        <script src="../../assets/js/day.min.js"></script>
+        <script src="../../assets/js/rem.js"></script>
+        <script src="../../assets/js/fastclick.js"></script>
+        <script src="../../assets/js/common.js"></script>
+        <script src="../../assets/js/lib/mescroll/mescroll.min.js"></script>
+        <script src="../../assets/js/CMWebBridge.js"></script>
+        <script src="../../assets/js/CarmeJsBridgeNoEvent.js"></script>
+        <script src="https://jscdn.car-me.com/assets/js/layer.mobile/layer.js"></script>
+        <script src="../../assets/js/babel.min.js"></script>
+
+        <script type="text/babel">
+            let mescroll = null
+
+            const app = new Vue({
+                el: '#app',
+                data: {
+                    currentData: {},
+                    currentIndex: '',
+
+                    urlParams: window.common.getQuery(),
+
+                    showImage: false,
+                    startIndexImg: 0,
+                    imageIndex: 0,
+                    images: [],
+
+                    // 指定SA
+                    showSA: false,
+                    saData: [],
+
+                    //选择预约日期
+                    showDate: false,
+                    promiseDateOptions: [],
+                    loadingPromiseDate: false,
+
+                    //选择到店日期
+                    showToStoreDate: false,
+                    toStoreInfo: {},
+                    toStoreDate: '',
+
+                    test: 10,
+                    tabType: 1,
+                    list: [
+                        /*             {
+                  workorderId: '', //工单id
+                  source: 'BLD-ME',
+                  appointmentType: '1', //1维修,2保养
+                  car: '浙AR159T', //车牌号码
+                  modleName: '奔驰 C级（进口） 2018 C200 轿跑车',
+                  currentMileage: '2100km',
+                  appointmentTime: '2020-09-09 16:00:00',
+                  saEmployee: '张三',
+                  pickUpTime: '2019-03-01 12:30',
+                  pickUpAddress: '浙江省杭州市西湖区公元大厦（8Km）',
+                  appointmentProject: 'A保养，更换火花塞',
+                  customer: '杨斌',
+                  customerMobile: '18221117862',
+                  repaireImg: [],
+                  returnTime: '',
+                  returnAddress: '',
+                  fontColor: '', //1金黄2红色null无色
+                  isToStore: 1
+                } */
+                    ],
+
+                    /* 搜索 */
+                    searchTxt: '',
+                    searchResult: ''
+                },
+                computed: {
+                    appointmentTypeEnum() {
+                        return {
+                            1: '维修',
+                            2: '保养',
+                            3: '索赔',
+                            4: '召回',
+                            5: '其他'
+                        }
+                    },
+                    sourceEnum() {
+                        return {
+                            1: '电话预约',
+                            2: 'BLD-me',
+                            3: '官方APP/微信',
+                            4: '主动邀约',
+                            5: '客户联系SA',
+                            6: '其它'
+                        }
+                    }
+                },
+
+                mounted() {
+                    this.getSA()
+
+                    FastClick.attach(document.body)
+
+                    this.$nextTick(function () {
+                        mescroll = new MeScroll('mescroll', {
+                            down: {
+                                auto: false,
+                                callback: this.refresh
+                            },
+                            up: {
+                                auto: this.urlParams.type === 'search' ? false : true,
+                                callback: this.loadData,
+                                noMoreSize: '2',
+                                page: {
+                                    num: 0,
+                                    size: 10
+                                },
+                                htmlNodata: '<p class="upwarp-nodata">没有更多数据了</p>'
+                            }
+                        })
+                    })
+                },
+
+                methods: {
+                    /* 下拉刷新 */
+                    refresh() {
+                        this.list = []
+                        mescroll.resetUpScroll()
+                    },
+
+                    /* 上拉加载 */
+                    loadData(page) {
+                        const that = this
+
+                        let param = {
+                            storeId: this.urlParams.ssssId || '',
+                            isRepaireOrMaintain: '1',
+                            pageNo: page.num,
+                            pageSize: page.size,
+
+                            state: this.urlParams.type == 'search' ? '' : this.tabType, //搜索时不传
+                            isSelect: this.urlParams.type == 'search' ? '1' : '', //搜索
+                            carNoMatch: this.urlParams.type == 'search' ? this.searchTxt : '' //搜索
+                        }
+
+                        common.ajax({
+                            url: common.erpDomain + '/afterAppointmentApi/list',
+                            param: param,
+
+                            success: function (res) {
+                                let { code, result } = res
+                                if (code === '1') {
+                                    that.list = that.list.concat(result.list)
+
+                                    let hasNext = page.size == result.list.length
+                                    mescroll.endSuccess(result.list.length, hasNext)
+                                } else {
+                                    mescroll.endErr()
+                                }
+                            },
+                            error: function () {
+                                mescroll.endErr()
+                            }
+                        })
+                    },
+
+                    /* 获取SA */
+                    getSA() {
+                        common.ajax({
+                            method: 'get',
+                            url: common.erpDomain + '/afterAppointmentApi/employeeOption/' + this.urlParams.ssssId,
+
+                            success: res => {
+                                let { code, result } = res
+                                if (code === '1') {
+                                    this.saData = result.list
+                                }
+                            },
+                            error: function () {}
+                        })
+                    },
+
+                    /* 返回 */
+                    goBack() {
+                        CMWebBridge.webCallAppInJs('goBack', { refresh: '0' })
+                    },
+
+                    /* 去搜索页面 */
+                    goSearch() {
+                        let { env, ssssId } = this.urlParams
+                        location.href = `index.html?type=search&env=${env}&ssssId=${ssssId}`
+                    },
+
+                    /* 切换tab */
+                    handleChangeTab() {
+                        let {
+                            target: { dataset }
+                        } = event
+
+                        this.tabType = dataset.type
+                        this.list = []
+                        mescroll.resetUpScroll()
+                    },
+
+                    /* 取消预约 */
+                    handleCancelSubscribe(id, itemIndex) {
+                        const that = this
+                        let index = window.layer.open({
+                            content: '是否确定取消预约？',
+                            btn: ['确定', '取消'],
+                            yes: function (index) {
+                                common.ajax({
+                                    method: 'get',
+                                    url: common.erpDomain + '/afterAppointmentApi/changeState/' + id,
+                                    success: function (res) {
+                                        let { code, result } = res
+                                        if (code == 1) {
+                                            let str = that.list.splice(itemIndex, 1)
+                                            layer.close(index)
+                                            that.$toast(result)
+                                        }
+                                    },
+                                    error: function () {}
+                                })
+                            }
+                        })
+                    },
+
+                    /* 确认预约 */
+                    handleConfirmSubscribe(item, index) {
+                        this.currentData = item
+                        this.currentIndex = index
+
+                        if (item['emplyeeId']) {
+                            window.layer.open({
+                                content: '确定确认预约吗？',
+                                btn: ['确定', '取消'],
+                                yes: () => {
+                                    this.addSA(this.currentData.id, item['emplyeeId'])
+                                }
+                            })
+                        } else {
+                            //指派SA
+                            this.showSA = true
+                        }
+                    },
+
+                    /* 确认预约 */
+                    handleConfirmSA({ id: employeeId }) {
+                        this.addSA(this.currentData.id, employeeId)
+                    },
+
+                    addSA(id, employeeId) {
+                        let params = {
+                            id,
+                            employeeId
+                        }
+                        common.ajax({
+                            url: common.erpDomain + '/afterAppointmentApi/addEmployee',
+                            param: params,
+                            success: res => {
+                                let { code } = res
+                                if (code == '1') {
+                                    layer.closeAll()
+                                    this.showSA = false
+                                    this.list.splice(this.currentIndex, 1)
+                                    this.$toast('预约成功')
+                                }
+                            },
+                            error: function () {}
+                        })
+                    },
+
+                    /* 查看服务工单 */
+                    handleViewService(item) {
+                        window.appBridgeNoEvent({
+                            flag: 'sub_after_sale_workorder',
+                            extra: { id: String(item.workorderId) }
+                        })
+                    },
+
+                    formatter(type, val) {
+                        if (type === 'year') {
+                            return val + '年'
+                        }
+                        if (type === 'month') {
+                            return val + '月'
+                        }
+                        if (type === 'day') {
+                            return val + '日'
+                        }
+                        return val
+                    },
+
+                    /* 打开到店时间 */
+                    openToStoreDate(item) {
+                        this.currentData = item
+                        this.showToStoreDate = true
+                        this.toStoreDate = new Date()
+                    },
+
+                    /* 确认到店时间 */
+                    handleConfirmToStoreDate() {
+                        var params = { id: this.currentData.id, isToStore: '2', toStoreTime: this.toStoreDate.format('yyyy-MM-dd hh:mm') }
+
+                        this.updateToStoreStatus(params)
+                    },
+
+                    /* 取消到店 */
+                    handleCancelToStore(item) {
+                        this.currentData = item
+                        const that = this
+                        window.layer.open({
+                            content: '确定取消到店？',
+                            btn: ['确定', '取消'],
+                            yes: function (index) {
+                                var params = { id: item.id, isToStore: '1' }
+                                that.updateToStoreStatus(params)
+                            }
+                        })
+                    },
+
+                    /* 变更到店状态 */
+                    updateToStoreStatus(param) {
+                        common.ajax({
+                            url: common.erpDomain + '/afterAppointmentApi/editIsToStore',
+                            param: param,
+
+                            success: res => {
+                                let { code, result, message } = res
+                                if (code === '1') {
+                                    this.currentData.isToStore = param.isToStore
+                                    this.showToStoreDate = false
+                                    if (param.isToStore == 2) {
+                                        this.$toast('设置成功')
+                                    } else {
+                                        layer.closeAll()
+                                        this.$toast('取消成功')
+                                    }
+                                } else {
+                                    this.$toast(message)
+                                }
+                            },
+                            error: function () {}
+                        })
+                    },
+
+                    /*打开预约时间 */
+                    openPromiseDate(item) {
+                        this.currentData = item
+                        let today = dayjs().format('YYYY/MM/DD')
+
+                        this.getEnabledPromiseDate(today)
+                        this.showDate = true
+                    },
+
+                    /* 处理可选择的日期 */
+                    handleDateData(pickerDate, enabledTimes) {
+                        const getMonth = date => {
+                            return dayjs(date).month() + 1
+                        }
+
+                        let today = dayjs().format('YYYY/MM/DD')
+
+                        // 选择的日期
+                        pickerDate = dayjs(pickerDate)
+                        let pickerYear = pickerDate.year(),
+                            pickerMonth = getMonth(pickerDate),
+                            pickerDay = pickerDate.date(),
+                            pickerDaysInMonth = pickerDate.daysInMonth() //月份最大天数
+
+                        /* 获取年份 */
+                        let years = [],
+                            nowYear = dayjs(today).year(),
+                            // 12月，递增一年
+                            endYear = getMonth(today) === 12 ? nowYear + 1 : nowYear
+                        for (nowYear; nowYear <= endYear; nowYear++) {
+                            years.push(nowYear)
+                        }
+
+                        // 获取月份
+                        let months = [],
+                            startMonth = dayjs(`${pickerYear}`).diff(dayjs().format('YYYY')) == 0 ? getMonth(today) : 1
+                        for (startMonth; startMonth <= 12; startMonth++) {
+                            months.push(startMonth)
+                        }
+
+                        // 获取天数列表
+                        let days = [],
+                            startDay = dayjs(`${pickerYear}/${pickerMonth}`).diff(dayjs().format('YYYY/MM')) == 0 ? dayjs(today).date() : 1
+                        for (startDay; startDay <= pickerDaysInMonth; startDay++) {
+                            days.push(startDay)
+                        }
+
+                        const getDaysIndex = pickerDay => {
+                            return pickerDay > pickerDaysInMonth ? pickerDaysInMonth - 1 : pickerMonth == getMonth(today) ? pickerDay - dayjs(today).date() : pickerDay - 1
+                        }
+
+                        this.promiseDateOptions = [
+                            {
+                                values: years,
+                                defaultIndex: 0
+                            },
+                            {
+                                values: months,
+                                defaultIndex: 0
+                            },
+                            {
+                                values: days,
+                                defaultIndex: getDaysIndex(pickerDay)
+                            },
+                            {
+                                values: enabledTimes,
+                                defaultIndex: 0
+                            }
+                        ]
+                    },
+
+                    /* 获取可选择的时间 */
+                    getEnabledPromiseDate(date) {
+                        this.loadingPromiseDate = true
+                        var param = {
+                            storeId: this.urlParams.ssssId || '',
+                            appointmentTime: dayjs(date).format('YYYY-MM-DD')
+                        }
+                        common.ajax({
+                            url: common.erpDomain + '/afterAppointmentApi/option',
+                            param: param,
+                            success: res => {
+                                let { code, result } = res
+                                if (code === '1') {
+                                    let { list = [] } = result
+                                    let enabledTimes = []
+                                    list.forEach(item => {
+                                        if (item.disabled == 1) {
+                                            enabledTimes.push({
+                                                dateTime: item.remark.substr(0, 5),
+                                                timeType: item.timeType
+                                            })
+                                        }
+                                    })
+
+                                    this.loadingPromiseDate = false
+                                    this.handleDateData(date, enabledTimes)
+                                }
+                            },
+                            error: function () {}
+                        })
+                    },
+
+                    changeDate(picker, value, changeDateIndex) {
+                        let [year, month, day] = value
+
+                        let maxDay = new Date(year, month, 0).getDate() //当月总天数
+                        day = day > maxDay ? maxDay : day
+
+                        //选择了当前月
+                        if (dayjs(`${year}/${month}`).diff(dayjs().format('YYYY/MM')) == 0) {
+                            day = day < dayjs().date() ? dayjs().date() : day
+                        }
+
+                        if ([0, 1, 2].includes(changeDateIndex)) {
+                            //请求后台
+                            this.getEnabledPromiseDate(dayjs(`${year}/${month}/${day}`).format('YYYY/MM/DD'))
+                        }
+                    },
+
+                    /* 确认时间*/
+                    handleConfirmDate(value) {
+                        console.log(value)
+                        let [year, month, day, { timeType, dateTime }] = value
+
+                        var params = {
+                            id: this.currentData.id,
+                            setTimeType: timeType,
+                            setAppointmentTime: `${year}-${month}-${day}`
+                        }
+
+                        common.ajax({
+                            url: common.erpDomain + '/afterAppointmentApi/editAppointmentTime',
+                            param: params,
+                            success: res => {
+                                let { code, result } = res
+                                if (code === '1') {
+                                    this.showDate = false
+                                    this.currentData.appointmentTime = `${year}-${month}-${day} ${dateTime}`
+                                    this.$toast(result)
+                                }
+                            },
+                            error: function () {}
+                        })
+                    },
+
+                    /**
+                     * 预约时间theme
+                     * @param {string} dateTime - 预约时间
+                     * @returns {string} 样式
+                     */
+                    getTimeTheme(dateTime) {
+                        if (!dateTime) {
+                            return ''
+                        }
+
+                        let nowDate = new Date().getTime(),
+                            thirtyMinute = 30 * 60 * 1000,
+                            orderDateTime = new Date(dateTime.replace(/\-/g, '/')).getTime()
+
+                        let diffTime = nowDate - orderDateTime
+
+                        if (diffTime > thirtyMinute) {
+                            // 超时30分钟
+                            return 'danger'
+                        } else if (diffTime >= 60 * 1000 && diffTime <= thirtyMinute) {
+                            // 超时1-30分钟
+                            return 'warn'
+                        } else {
+                            //默认
+                            return ''
+                        }
+                    },
+
+                    handleImagePreview(imgList, index) {
+                        this.startIndexImg = index
+                        this.imageIndex = index + 1
+                        this.images = imgList
+                        this.showImage = true
+                    },
+
+                    handleChangeImage(index) {
+                        this.imageIndex = ++index
+                    },
+
+                    callPhone(mobile) {
+                        window.appBridgeNoEvent({
+                            flag: 'tel',
+                            extra: { phone: mobile }
+                        })
+                    },
+
+                    /* =================== 搜索页面 =================== */
+
+                    goBackIndex() {
+                        window.history.go(-1)
+                    },
+
+                    handleSearch() {
+                        if (!this.searchTxt) {
+                            this.$toast('请输入搜索内容')
+                            return false
+                        }
+                        this.list = []
+                        this.searchResult = this.searchTxt
+                        mescroll.resetUpScroll()
+                    },
+
+                    handleCancelSearch() {
+                        this.searchTxt = ''
+                        this.searchResult = ''
+                        this.list = []
+                        mescroll.resetUpScroll()
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="../../assets/css/base.css?_=9">
+    <title>核销订单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header,
+        body,
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+			/* touch-action: none; */
+        }
+
+        .timeout {
+            color: #B49A83;
+            font-size: 12px;
+        }
+
+        .lineImg {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 0px;
+            height: 1px;
+            background-color: #F3F5F8;
+        }
+
+        .order-detail-back {
+            background-color: #ffffff;
+        }
+		
+		.buy-car-info{
+			width: 100%;
+			overflow: hidden;
+		}
+
+        .product-back {
+            position: relative;
+        }
+
+        .product-back .product-tag ,.product-back .store-tag {
+            height: 48px;
+            line-height: 48px;
+            margin-left: 16px;
+            color: #333333;
+            font-size: 20px;
+            font-weight: bold;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .product-back .product-img {
+            display: inline-block;
+            width: 96px;
+            height: 72px;
+            background-color: #999999;
+            vertical-align: top;
+            margin-left: 16px;
+            margin-bottom: 12px;
+        }
+		
+		.store-info{
+			width: 100%;
+			overflow: hidden;
+			margin-top:48px;
+		}
+		.store-info .store-box .img-box{
+			width: 96px;
+			height: 78px;
+			margin-left: 16px;
+		}
+		
+		.img-box .store-img{
+			width: 100%;
+			height: 100%;
+		}
+		
+		.store-box .info-box{
+			flex: 1;
+			height: 78px;
+			margin-left: 15px;
+		}
+		
+        .product-back .product-name {
+            display: inline-block;
+            position: absolute;
+            vertical-align: top;
+            left: 124px;
+            right: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #333333;
+            font-size: 14px;
+            max-height: 60px;
+        }
+		
+		.info-box .car-name{
+			width: 95%;
+			overflow : hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			word-break: break-all;
+			color: #333333;
+			font-size: 14px;
+			max-height: 40px;
+		}
+		.info-box .car-color{
+			color: #999;
+			font-size: 12px;
+			font-weight: bold;
+			width: 50%;
+			margin: 5px 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			text-align: left;
+		}
+		.info-box .car-price{
+			width: 95%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			text-align: left;
+		}
+		.car-price-text,.car-price-value{
+			color:#EA6572;
+			font-size:16px;
+		}
+		.car-market,.car-market-value{
+			color: #9B9B9B;
+			font-size: 12px;
+			width: 104px;
+			text-decoration: line-through;
+			text-align: left;
+		}
+
+        .product-back .product-price {
+            display: inline-block;
+            position: absolute;
+            right: 16px;
+            top: 48px;
+            color: #424242;
+            font-size: 16px;
+            font-weight: bold;
+            width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .product-back .product-storeprice {
+            display: inline-block;
+            position: absolute;
+            right: 16px;
+            top: 70px;
+            color: #999999;
+            font-size: 14px;
+            font-weight: bold;
+            width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: right;
+            text-decoration: line-through;
+        }
+
+        .product-back .product-num {
+            display: inline-block;
+            position: absolute;
+            right: 16px;
+            top: 95px;
+            color: #424242;
+            font-size: 12px;
+            width: 50px;
+            text-align: right;
+        }
+		
+		.pad-bot20{
+			padding-bottom: 20px;
+		}
+
+        .price-back {
+            position: relative;
+        }
+
+        .price-back .product-price-back {
+            position: relative;
+            width: 100%;
+            height: 48px;
+        }
+
+        .price-left-tag {
+            display: inline-block;
+            width: 67px;
+            height: 48px;
+            line-height: 48px;
+            margin-left: 16px;
+            color: #999999;
+            font-size: 14px;
+        }
+		
+		.info-left-tag{
+            display: inline-block;
+            width: 97px;
+            height: 48px;
+            line-height: 48px;
+            margin-left: 16px;
+            color: #999999;
+            font-size: 14px;
+        }
+
+        .price-right-tag {
+            display: inline-block;
+            position: absolute;
+            left: 90px;
+            right: 16px;
+            height: 48px;
+            line-height: 48px;
+            color: #B49A83;
+            font-size: 14px;
+            text-align: right;
+        }
+		
+		.info-right-tag{
+			display: inline-block;
+			position: absolute;
+			left: 90px;
+			right: 16px;
+			width: 70%;
+			height: 48px;
+			line-height: 48px;
+			color: #333;
+			font-size: 14px;
+			text-align: left;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.buy-car-store{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+        .pay-back {}
+
+        .pay-back .order-price-back {
+            text-align: right;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .pay-back .order-price-back .order-price {
+            color: #666666;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .pay-back .pay-price-back {
+            text-align: right;
+            width: 100%;
+            margin-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .pay-back .pay-price-back .pay-price {
+            color: #EA6572;
+            font-size: 16px;
+            font-weight: bold;
+        }
+		
+		.buy-car-address{
+			text-align: left;
+			padding-left:90px;
+			width: 73%;
+			height: 33px;
+			padding-bottom: 8px;
+			color: #666;
+			font-size: 12px;
+			overflow : hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			word-break: break-all;
+		}
+
+        .pay-left-tag {
+            color: #666666;
+            font-size: 14px;
+        }
+
+        .pay-right-tag {
+            margin-right: 16px;
+        }
+
+        .order-info-back {
+			width: 100%;
+			overflow: hidden;
+            margin-bottom: 60px;
+            background-color: #ffffff;
+        }
+
+        .order-info-back .order-tag {
+            height: 48px;
+            line-height: 48px;
+            margin-left: 16px;
+            color: #333333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .order-info-back .orderInfo-commonTag {
+            color: #999999;
+            font-size: 14px;
+            margin-left: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-bottom: 12px;
+        }
+		
+		.order-info-back .new-car{
+			color: #999999;
+			font-size: 14px;
+			margin-left: 16px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			padding-bottom: 12px;
+		}
+
+        .placeholderLineImg {
+            width: 100%;
+            height: 1px;
+            margin-top: 16px;
+        }
+
+        .hiddent {
+            display: none;
+        }
+
+        .placeHolder {
+            position: fixed;
+            top: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #ffffff;
+        }
+
+        .placeHolder img {
+            width: 100%;
+            margin-top: 110px;
+
+        }
+
+        .placeHolder span {
+			width: 100%;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            color: #B7B7B7;
+        }
+
+        .usedTime-back {
+            position: relative;
+            width: 100%;
+            height: 48px;
+        }
+
+        .usedTime-back .usedTime-tag {
+            display: inline-block;
+            margin-left: 16px;
+            height: 48px;
+            line-height: 48px;
+            color: #283540;
+            font-weight: bold;
+            font-size: 14px;
+
+        }
+
+        .usedTime-back .used-time {
+            display: inline-block;
+            float: right;
+            height: 48px;
+            line-height: 48px;
+            margin-right: 16px;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .usedNotice-back {
+            position: relative;
+            width: 100%;
+            min-height: 48px;
+        }
+
+        .usedNotice-back .jiantou-btn {
+            position: absolute;
+            display: inline-block;
+            background-image: url('../../assets/images/jiantou_bottom.png');
+            background-size: 16px 16px;
+            width: 16px;
+            height: 16px;
+            right: 16px;
+            top: 16px;
+        }
+
+        .usedNotice-back .show {
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+            -webkit-transtion: all .3s linear;
+        }
+
+        .usedNotice-back .unShow {
+            transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -webkit-transtion: all .3s linear;
+        }
+
+        .usedNotice-back .usedNotice-tag {
+            display: inline-block;
+            margin-left: 16px;
+            height: 48px;
+            line-height: 48px;
+            color: #283540;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .usedNotice-back .used-notice {
+            margin-left: 16px;
+            margin-right: 16px;
+            overflow: hidden;
+        }
+
+        .usedNotice-back .used-notice span {
+            display: inline-block;
+            font-size: 12px;
+            color: #666666;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+        }
+
+        .QRCode-back,.newCarNum {
+			position: relative;
+            width: 100%;
+            text-align: center;
+            font-size: 0;
+        }
+		
+		.newCarNum{
+			margin-bottom: 20px;
+		}
+
+        .QRCode-back .QRBack-img {
+            width: 78%;
+        }
+
+        .QRNumber-back {
+            position: relative;
+            text-align: center;
+            margin-top: 48px;
+            margin-bottom: 48px;
+        }
+
+        .QRNumber-back .QRNumbr-tag {
+            position: absolute;
+            font-size: 16px;
+            color: #666666;
+            top: 35px;
+            width: 100%;
+        }
+		.newCarNum-cont{
+			position: relative;
+			text-align: center;
+			margin-top: 48px;
+			margin-bottom: 48px;
+		}
+		.newCarNum-cont .newCarNum-tag {
+		    font-size: 16px;
+		    color: #666666;
+		    width: 200px;
+		}
+		
+		.newCarNum-cont .newCarNum-title{
+			width: 40%;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.newCarNum-title .newCarNum-icon{
+			width: 15px;
+			height: 15px;
+			margin-right: 10px;
+			/* vertical-align: top; */
+		}
+
+        .QRNumber-back .QRNumber-code {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            color: #333333;
+            background-color: transparent;
+            top: 63px;
+            left: 18%;
+            width: 64%;
+            border: none;
+            outline: none;
+        }
+		
+		.newCarNum-cont .CarNum-code {
+		    font-size: 24px;
+		    font-weight: bold;
+		    text-align: center;
+			border-radius:4px;
+		    color: #333333;
+		    width: 284px;
+			height: 42px;
+			margin: 16px auto 14px;
+			line-height: 42px;
+		    border: 1px solid #B7B7B7;
+		}
+		.newCarNum-cont .input-checkbox{
+			width: 80%;
+			margin: 0 auto;
+			height: 14px;
+			line-height: 14px;
+		}
+		
+		.input-checkbox input,.input-checkbox span{
+			color: #666;
+		}
+		.input-checkbox input{
+			margin-right: 8px;
+		}
+		.input-checkbox span{
+			font-size:12px;
+		}
+
+        .QRStateImg {
+            position: absolute;
+            width: 64px;
+            height: 49px;
+            top: 34px;
+            left: 55%;
+        }
+
+        .endBtn-back {
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            height: 60px;
+            background-color: #ffffff;
+			overflow: hidden;
+        }
+
+        .endBtn {
+            margin-top: 8px;
+            background-color: #1967B5;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-left: 5%;
+            width: 90%;
+            height: 44px;
+            line-height: 44px;
+            border-radius: 22px;
+        }
+
+        .successBackView {
+            position: fixed;
+            top: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #ffffff;
+        }
+
+        .successBackView img {
+            width: 44px;
+            height: 50px;
+            margin-top: 76px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .successBackView div:nth-of-type(1) {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            margin-top: 15px;
+            color: #1967B5;
+            font-size: 18px;
+        }
+
+        .successBackView div:nth-of-type(2) {
+            width: 33.3%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            margin-top: 63px;
+            color: #999999;
+            font-size: 16px;
+            border: 1px solid #999999;
+            border-radius: 20px;
+            margin-left: 33.3%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <!-- 核销码 -->
+        <div class="QRCode-back">
+            <div class="QRNumber-back">
+                <img class="QRBack-img" src="../../assets/images/qr-back.png" alt="">
+                <div class="QRNumbr-tag">核销码</div>
+                <!-- <div class="QRNumber-code">3681162793</div> -->
+                <input type="text" class="QRNumber-code">
+                <img src="../../assets/images/orderState1.png" alt="" class="QRStateImg hiddent">
+            </div>
+        </div>
+		<!-- 关联新车订单号-->
+		<div class="newCarNum">
+		    <div class="newCarNum-cont">
+				<div class="newCarNum-title">
+					<img class="newCarNum-icon" src="../../assets/images/newCarNum.png" alt="关联新车订单号">
+					<div class="newCarNum-tag">关联新车订单号</div>
+				</div>
+		        <input type="text" class="CarNum-code" value="">
+		        <div class="input-checkbox">
+		        	<input type="checkbox" name="checkboxPri" id="agree" checked />
+		        	<span>将该笔订金同步到新车订单的收款信息中</span>
+		        </div>
+		    </div>
+		</div>
+        <!-- 订单详情 -->
+        <div class="order-detail-back">
+            <!-- 商品信息 -->
+            <div class="product-back">
+                <div class="product-tag">商品详情</div>
+                <img class="product-img" src="" alt="">
+                <span class="product-name">-----</span>
+                <span class="product-price">¥----</span>
+                <span class="product-storeprice">¥----</span>
+                <span class="product-num">x--</span>
+                <div class="lineImg"></div>
+            </div>
+            <!-- 使用日期 -->
+            <div class="usedTime-back">
+                <span class="usedTime-tag">使用日期</span>
+                <span class="used-time">2019-08-21至2019-09-21</span>
+                <div class="lineImg"></div>
+            </div>
+            <!-- 使用须知 -->
+            <div class="usedNotice-back">
+                <span class="usedNotice-tag">使用须知</span>
+                <div class="jiantou-btn"></div>
+                <div class="used-notice"><span></span></div>
+                <div class="lineImg"></div>
+            </div>
+            <!-- 价格信息 -->
+            <div class="price-back">
+                <div class="product-price-back">
+                    <span class="price-left-tag">商品金额</span>
+                    <span class="price-productPrice price-right-tag">¥----</span>
+                </div>
+                <div class="lineImg"></div>
+            </div>
+            <!-- 支付信息 -->
+            <div class="pay-back">
+                <div class="order-price-back">
+                    <span class="pay-left-tag">合计：</span>
+                    <span class="order-price pay-right-tag">¥----</span>
+                </div>
+                <div class="pay-price-back">
+                    <span class="pay-left-tag">实付款：</span>
+                    <span class="pay-price pay-right-tag">¥----</span>
+                </div>
+            </div>
+            </span>
+        </div>
+		
+		<!-- 购车详情 -->
+		<div class="buy-car-info">
+		    <!-- 价格信息 -->
+			<div class="product-back">
+			    <div class="product-tag">购车信息</div>
+			</div>
+		    <div class="price-back">
+		        <div class="product-price-back">
+		            <span class="info-left-tag">购车人</span>
+		            <span class="buy-car-name info-right-tag">张老师</span>
+		        </div>
+		        <div class="lineImg"></div>
+		    </div>
+			<div class="price-back">
+			    <div class="product-price-back">
+			        <span class="info-left-tag">手机号码</span>
+			        <span class="buy-car-phone info-right-tag">15269874587</span>
+			    </div>
+			    <div class="lineImg"></div>
+			</div>
+		    <!-- 支付信息 -->
+		    <div class="pay-back">
+		        <div class="product-price-back">
+			        <span class="info-left-tag">预约4S店</span>
+			        <span class="buy-car-store info-right-tag smqk">奔驰萧山店</span>
+			    </div>
+		        <div class="buy-car-address">1.8km浙江萧山区经济技术</div>
+		    </div>
+		    </span>
+		</div>
+		
+		<!-- 门店信息 -->
+		<div class="store-info">
+		    <!-- 商品信息 -->
+		    <div class="product-back pad-bot20">
+		        <div class="store-tag">---</div>
+				<div class="store-box flex-between">
+					<div class="img-box">
+						<img class="store-img" src="" alt="">
+					</div>
+					<div class="info-box">
+						<p class="car-name">--</p>
+						<p class="car-color">颜色：<span class="car-color-value">--</span></p>
+						<p class="car-price">
+							<span class="car-price-text">一口价：</span><span class="car-price-value"></span>
+							<span class="car-market">指导价：</span><span class="car-market-value"></span>
+						</p>
+					</div>
+				</div>
+		        <div class="lineImg"></div>
+		    </div>
+		    <!-- 价格信息 -->
+		    <div class="price-back">
+		        <div class="product-price-back">
+		            <span class="price-left-tag">订金</span>
+		            <span class="price-productPrice price-right-tag">¥----</span>
+		        </div>
+		        <div class="lineImg"></div>
+		    </div>
+		    <!-- 支付信息 -->
+		    <div class="pay-back">
+		        <div class="order-price-back">
+		            <span class="pay-left-tag">合计：</span>
+		            <span class="order-price pay-right-tag">¥----</span>
+		        </div>
+		        <div class="pay-price-back">
+		            <span class="pay-left-tag">实付款：</span>
+		            <span class="pay-price pay-right-tag">¥----</span>
+		        </div>
+		    </div>
+		    </span>
+		</div>
+		
+		
+        <!-- 订单信息 -->
+        <div class="order-info-back">
+            <div class="order-tag">订单详情</div>
+            <div class="orderInfo-orderNo orderInfo-commonTag">订单编号: ---------------</div>
+            <div class="orderInfo-userName orderInfo-commonTag">客户姓名: ---</div>
+            <div class="orderInfo-userPhone orderInfo-commonTag">联系手机: ----.--.-- --:--</div>
+			<div class="new-car order-time">---------------</div>
+			<div class="new-car payment-type">---------------</div>
+			<div class="new-car payment-time">---------------</div>
+            <div class="new-car placeholderLineImg"></div>
+        </div>
+        <div class="endBtn-back hiddent">
+            <div class="endBtn">确认核销</div>
+        </div>
+    </div>
+
+    <div class="placeHolder">
+        <img src="../../assets/images/order-nodata.png" alt="">
+        <span></span>
+    </div>
+    <div class="successBackView hiddent">
+        <img src="../../assets/images/order-success.png" alt="">
+        <div>核销成功</div>
+        <div class="backBtn">返回</div>
+    </div>
+
+    <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
+    <script src="../../assets/js/lib/layer/layer.js"></script>
+    <script src="../../assets/js/common.js?_=3"></script>
+    <script src="../../assets/js/CMWebBridge.js"></script>
+
+    <script>
+        var urlParams = common.getQuery();
+        var order_id = urlParams.order_id || '';
+        var env = urlParams.env;
+        var adminToken = urlParams.adminToken || '';
+        var authority = urlParams.authority || ''
+        var activityFromApp = urlParams.activityFromApp || ''
+		var newCarFlag = false;
+		
+
+        var usedNoticeH = 0
+
+        var orderDetail = {
+            init: function () {
+                if (authority === '0') {
+                    $('.placeHolder span').html('您暂无核销权限')
+                } else {
+                    this.loadOrderData()
+                }
+            },
+            loadOrderData: function () {
+                common.ajax({
+                    url: common.erpDomain + '/verification/detail.json',
+                    // url: '../../assets/mock/order-verification/order-verification.json',
+                    param: { "orderId": order_id, 'adminToken': adminToken },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("--+++>", this.url, data)
+                        if (data.code == '1' && data.result) {
+							if(data.result.order && data.result.order.orderType !== 6){
+								newCarFlag = false
+								$('.newCarNum').addClass('hiddent')
+								$('.buy-car-info').addClass('hiddent')
+								$('.store-info').addClass('hiddent')
+								$('.order-time').addClass('hiddent')
+								$('.payment-type').addClass('hiddent')
+								$('.payment-time').addClass('hiddent')							
+							}else{
+								newCarFlag = true
+								$('.order-detail-back').addClass('hiddent')
+							}
+							
+                            if (data.result.flag == '1') {
+                                $('.placeHolder').addClass('hiddent')
+                                orderDetail.setValueForUI(data.result)
+                            } else {
+                                $('.placeHolder span').html(data.result.notice)
+                            }
+                        } else {
+                            if (data.code == '2') { // erp表示登录失效，需登录
+                                var str = 'verification=' + encodeURIComponent(window.location.href)
+                                if (env) {
+                                    str += '&env=' + env
+                                }
+                                window.location.replace('../user/login.html?' + str)
+                            }else{
+                                $('.placeHolder span').html(data.message)
+                            }
+                        }
+                    },
+                    error: function () {
+                        $('.placeHolder span').html('系统繁忙')
+                    }
+                });
+            },
+            setValueForUI: function (result) {
+                //核销码
+                if (result.redeem) {
+                    $('.QRNumber-code').val(result.redeem.verificationNo)
+                    if (result.redeem.status == '1') {
+                        $('.QRStateImg').removeClass('hiddent')
+                        $('.QRStateImg').attr('src', '../../assets/images/orderState1.png')
+                        $('.QRNumbr-tag').css('opacity', '0.3')
+                        $('.QRNumber-code').css('opacity', '0.3')
+                        $('.QRNumber-code').attr('disabled', 'disabled')
+                    }
+                    if (result.redeem.status == '3') {
+                        $('.QRStateImg').removeClass('hiddent')
+                        $('.QRStateImg').attr('src', '../../assets/images/orderState3.png')
+                        $('.QRNumbr-tag').css('opacity', '0.3')
+                        $('.QRNumber-code').css('opacity', '0.3')
+                        $('.QRNumber-code').attr('disabled', 'disabled')
+                    }
+                    if (result.redeem.status == '2' || result.redeem.status == '3') {
+                        $('.endBtn-back').removeClass('hiddent')
+                    }
+                }
+				
+				if(result.customer){
+					$('.buy-car-name').html(result.customer.name)
+					$('.buy-car-phone').html(result.customer.phone)
+					$('.buy-car-store').html(result.customer.storeName)
+					$('.buy-car-address').html(result.customer.storeAddress)
+				}
+
+                if (result.product) {
+                    var imageArr = result.product.img.split(',')
+                    if (imageArr.length > 0) {
+                        var imgStr = imageArr[0] + '?x-oss-process=image/resize,m_fill,h_144,w_192'
+                    }
+					if(result.order && result.order.orderType !==6){
+						$('.product-img').attr('src', imgStr)
+						$('.product-tag').html(result.product.storeName)
+						$('.product-name').html(result.product.name)
+					}else{
+						$('.store-img').attr('src', imgStr)
+						$('.store-tag').html(result.customer.storeName)
+						$('.car-name').html(result.product.name)
+						$('.car-color-value').html(result.product.color)
+						$('.car-price-value').html('￥'+ result.product.price +'万')
+						if(result.product.marketPrice > result.product.price){
+							$('.car-market-value').html('￥'+ result.product.marketPrice +'万')
+						}else{
+							$('.car-market').addClass('hiddent')
+						}
+						
+						
+					}
+                }
+
+                if (result.order.payType == '3') {
+                    $('.product-price').html(result.product.price + '积分')
+                } else {
+                    $('.product-price').html('¥' + result.product.price)
+                }
+
+                if (result.order.payType == '3') {
+                    if (result.product.marketPrice) {
+                        $('.product-storeprice').html('¥' + result.product.marketPrice)
+                    } else {
+                        $('.product-storeprice').html('')
+                    }
+                } else {
+                    if (result.product.marketPrice && result.product.marketPrice * 1 > result.product.price * 1) {
+                        $('.product-storeprice').html('¥' + result.product.marketPrice)
+                    } else {
+                        $('.product-storeprice').html('')
+                    }
+                }
+
+                $('.product-num').html('x' + result.product.quantity)
+
+                //使用时间
+                if (result.redeem && result.redeem.expirationDate && result.redeem.expirationDate != '') {
+                    $('.usedTime-back').removeClass('hiddent')
+                    $('.used-time').html(result.redeem.expirationDate)
+                } else {
+                    $('.usedTime-back').addClass('hiddent')
+                }
+
+                //使用须知
+                if (result.redeem && result.redeem.usageNotice && result.redeem.usageNotice != '') {
+                    $('.usedNotice-back').removeClass('hiddent')
+                    $('.used-notice span').html(result.redeem.usageNotice)
+                } else {
+                    $('.usedNotice-back').addClass('hiddent')
+                }
+
+                window.usedNoticeH = $('.usedNotice-back .used-notice').height()
+                $('.usedNotice-back .used-notice').height(0)
+
+                //金额信息
+                if (result.price) {
+                    if (result.price.productPrice) {
+                        if (result.order.payType == '3') {
+                            $('.price-productPrice').html(result.price.productPrice + '积分')
+                        } else {
+                            $('.price-productPrice').html('¥' + result.price.productPrice)
+                        }
+                    }
+                    if (result.price.orderPrice) {
+                        if (result.order.payType == '3') {
+                            $('.order-price').html(result.price.orderPrice + '积分')
+                        } else {
+                            $('.order-price').html('¥' + result.price.orderPrice)
+                        }
+                    }
+                    if (result.price.payPrice) {
+                        if (result.order.payType == '3') {
+                            $('.pay-price').html(result.price.payPrice + '积分')
+                        } else {
+                            $('.pay-price').html('¥' + result.price.payPrice)
+                        }
+                    }
+                }
+
+                //订单详情
+                if (result.order.orderNo) {
+                    $('.orderInfo-orderNo').html('订单编号: ' + result.order.orderNo)
+                } else {
+                    $('.orderInfo-orderNo').addClass('hiddent')
+                }
+                if (result.order.userName) {
+                    $('.orderInfo-userName').html('客户姓名: ' + result.order.userName)
+                } else {
+                    $('.orderInfo-userName').addClass('hiddent')
+                }
+                if (result.order.userPhone) {
+                    $('.orderInfo-userPhone').html('联系手机: ' + result.order.userPhone)
+                } else {
+                    $('.orderInfo-userPhone').addClass('hiddent')
+                }
+				if (result.order.orderTime) {
+				    $('.order-time').html('下单时间: ' + result.order.orderTime)
+				} else {
+				    $('.order-time').addClass('hiddent')
+				}
+				if (result.order.payTime) {
+				    $('.payment-time').html('支付时间: ' + result.order.payTime)
+				} else {
+				    $('.payment-time').addClass('hiddent')
+				}
+				if (result.order.payTime) {
+					let typeStr = ''
+					if(result.order.payType === 1){
+						typeStr = '支付宝'
+					}else if(result.order.payType === 2){
+						typeStr = '微信'
+					}else{
+						typeStr = '积分兑换'
+					}
+				    $('.payment-type').html('支付方式:' + typeStr)
+				} else {
+				    $('.payment-type').addClass('hiddent')
+				}
+
+                //使用须知
+                $('.usedNotice-back').off('click')
+                var show = false
+                $('.usedNotice-back').on('click', function () {
+                    var H = show ? 0 : window.usedNoticeH
+                    $('.usedNotice-back .used-notice').animate({
+                        height: H + 'px'
+                    })
+                    if (show) {
+                        $('.usedNotice-back .jiantou-btn').removeClass('show')
+                    } else {
+                        $('.usedNotice-back .jiantou-btn').addClass('show')
+                    }
+                    show = !show
+                })
+
+                //确认核销
+                $('.endBtn').off('click')
+                $('.endBtn').on('click', function () {
+					let paramData = {}
+					if(newCarFlag){
+						paramData = {
+							"orderId": order_id, 
+							"verificationNo": $('.QRNumber-code').val(),
+							"newCarOrderNo":$('.CarNum-code').val(),
+							"syncPayment":$('#agree[name="checkboxPri"]:checked').prop("checked") ? '1' :'0',
+						}
+					}else{
+						paramData = {"orderId": order_id, "verificationNo": $('.QRNumber-code').val()}
+					}
+                    common.ajax({
+                        url: common.erpDomain + '/verification/sweep.json',
+                        param: paramData,
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log("--+++>", this.param, data)
+                            if (data.code == '1' && data.result) {
+                                if (data.result.flag == '1') {
+                                    $('.successBackView').removeClass('hiddent')
+                                } else if (data.result.flag == '2') {
+                                    layer.open({
+                                        content: data.result.notice
+                                        , skin: 'msg'
+                                        , time: 2
+                                    });
+                                    $('.QRNumber-code').focus()
+                                } else {
+                                    layer.open({
+                                        content: data.result.notice
+                                        , skin: 'msg'
+                                        , time: 2
+                                    });
+                                }
+                            } else {
+                                layer.open({
+                                    content: data.message
+                                    , skin: 'msg'
+                                    , time: 2
+                                });
+                            }
+                        },
+                        error: function () {
+                            layer.open({ content: data.message, btn: '我知道了', yes: function (index) { location.reload(); } });
+                        }
+                    });
+                })
+
+                //返回
+                $('.backBtn').off('click')
+                $('.backBtn').on('click', function () {
+                    if (activityFromApp == '1') {
+                        CMWebBridge.webCallAppInJs("goBack", { "refresh": "1" })
+                    } else {
+                        var ua = navigator.userAgent.toLowerCase();
+                        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                            WeixinJSBridge.call('closeWindow');
+                        } else {
+                            window.history.back();
+                        }
+                    }
+                })
+
+            }
+
+        }
+        orderDetail.init()
+    </script>
+
+</body>
+
+</html>

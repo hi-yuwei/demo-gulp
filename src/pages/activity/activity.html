@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+    <title>自定义H5活动设置页</title>
+  <link rel="stylesheet" href="../../assets/css/base.css?_=2">
+    <link rel="stylesheet" href="../../assets/css/lib/spectrum.css?_=1">
+    <style type="text/css">
+      body {
+        background: white;
+      }
+      .c-gray-light {
+        color: #999999;
+      }
+      .fs12 {
+        font-size: 12px;
+      }
+      .mt8 {
+        margin-top: 8px;
+      }
+      .mt10 {
+        margin-top: 10px;
+      }
+      .mt15 {
+        margin-top: 15px;
+      }
+      .w60 {
+        width: 60px;
+      }
+      .w80 {
+        width: 80px;
+      }
+      .w100 {
+        width: 100px;
+      }
+      .w200 {
+        width: 200px;
+      }
+      .top-bg {
+        text-align: center;
+      }
+      .phone-wrapper {
+        position: relative;
+      }
+      .phone-box {
+        position: relative;
+        width: 375px;
+        height: 667px;
+        margin: 30px 0 0 30px;
+        border: 1px solid #CCCCCC;
+      }
+      .phone-box .phone-header {
+        position: relative;
+        font-weight: bold;
+        text-align: center;
+      }
+      .phone-box .header-title {
+        padding: 10px;
+        font-size: 17px;
+      }
+      .phone-top {
+        position: absolute;
+        top: 0;
+        bottom: 59.67px;
+        overflow: auto;
+      }
+      .icon-share {
+        position: absolute;
+        right: 10px;
+        top: 28px;
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: url('./img/icon-share.png') no-repeat;
+        background-size: cover;
+      }
+
+      .enroll-box {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
+      .selected {
+        border: 2px solid red;
+      }
+      
+/*      .btn-box {
+        width: 375px;
+        margin: 50px 0 20px 30px;
+        text-align: center;
+      }*/
+      .btn-box .btn-title {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .btn-box .btn-cont {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+      .btn-box .btn-cont span {
+        display: inline-block;
+        border: 1px solid #77A3E7;
+        border-radius: 2px;
+        color: #3A75CE;
+        font-size: 16px;
+        width: 117px;
+        height: 36px;
+        line-height: 36px;
+      }
+      .img-box img,
+      .rich-text-box img,
+      .oper-box img {
+        /*margin-bottom: 2px;*/
+      }
+        
+      .popup-box {
+        padding: 15px;
+      }
+      .popup-box li {
+        display: flex;
+        font-size: 14px;
+        margin-bottom: 15px;
+        align-items: center;
+      }
+      .align-start {
+        align-items: start!important;
+      }
+      .popup-box li .item-label {
+        display: inline-block;
+        min-width: 85px;
+        max-width: 95px;
+        color: #999999;
+        font-size: 14px;
+        text-align: left;
+      }
+      .popup-box li .item-label ~ div {
+        flex: 1;
+        text-align: left;
+      }
+      .popup-box li input {
+        padding: 3px 5px;
+      }
+      .popup-box input[type='text'],
+      .popup-box input[type='tel'] {
+        width: 95%;
+        box-sizing: border-box;
+        height: 38px;
+        border-radius:2px;
+        border: 1px solid #CCCCCC;
+        font-size:14px;
+        outline:none;
+        color: #333333;
+        padding: 0 10px;
+        text-align: left;
+      }
+       input::-webkit-input-placeholder {
+        color: #AAAAAA; 
+        font-size: 12px;
+      }
+      .popup-box li select {
+        width: 95%;
+        padding: 3px 5px;
+        box-sizing: border-box;
+        height: 38px;
+        background: transparent;
+        outline: none;
+        border: 1px solid #CCCCCC;
+        font-size: 14px;
+        color: #999999;
+      }
+      .popup-box {
+        max-height: 300px;
+        overflow: auto;
+        text-align: center;
+      }
+      .popup-box button {
+        padding: 3px 10px;
+      }
+      .mr8 {
+        margin-right: 8px;
+      }
+
+      .btn-box {
+        /*position: fixed;*/
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-top: 1px solid #F3F5F8;
+        box-sizing: border-box;
+      }
+      .popup-box .popup-title {
+        position: relative;
+        padding-bottom: 20px;
+        font-size:14px;
+        color: #A4A4A4;
+      }
+      .popup-box .popup-title:before,
+      .popup-box .popup-title:after {
+        position: absolute;
+        width: 34px;
+        height: 1px;
+        background: #E7E7E7;
+      }
+
+      .btn-submit,
+      .btn-cancel {
+        display: inline-block;
+        box-sizing: border-box!important;
+        width: 50%;
+        height: 47px;
+        line-height: 47px;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .btn-submit {
+        background: #D6BFA9;
+        color: #FFFFFF;
+      }
+      .btn-cancel {
+        color: #999999;
+        background: white;
+      }
+
+      .checkbox-img {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: url('img/icon-checkbox.png') no-repeat 0 0;
+        background-size: 100%;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+      .m-checkbox:checked + .checkbox-img {
+        background: url('img/icon-checkbox-checked.png') no-repeat 0 0;
+        background-size: 100%;
+      }
+      .m-checkbox + .checkbox-img + label {
+         color: #999999;
+      }
+      .m-checkbox:checked + .checkbox-img + label {
+        color: #333333;
+      }
+      .m-checkbox {
+        display: none;
+      }
+      .checkbox-container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+      }
+      .checkbox-container > div {
+        width: 50%;
+        padding-right: 5px;
+        box-sizing: border-box;
+        margin-bottom: 8px;
+      }
+
+      .select-box {
+        width: 95%;
+        height: 38px;
+        line-height: 38px;
+        padding: 0 10px;
+        border: 1px solid #CCCCCC;
+        font-size: 14px;
+        color: #999999;
+        box-sizing: border-box!important;
+        text-align: left;
+        position: relative;
+      }
+      .select-box span {
+        margin-right: 8px;
+      }
+      .select-box i {
+        display: inline-block;
+        width: 13px;
+        height: 8px;
+        background: url('img/icon-arrow-down.png') no-repeat 0 0;
+        background-size: 100%;
+        position: absolute;
+        right: 5px;
+        top: 15px;
+      }
+      
+      .enroll-popup .layui-m-layercont,
+      .select-popup .layui-m-layercont {
+        padding: 0!important;
+        border-radius: 0!important;
+        background: white!important;
+        text-align: left!important;
+      }
+      .select-popup.layui-m-layerchild,
+      .enroll-popup.layui-m-layerchild {
+        width: 100%!important;
+        bottom: 0!important;
+      }
+      .radio-box {
+        margin: 0 20px;
+      }
+      .radio-box > div {
+        padding: 15px 0;
+        border-bottom: 1px solid #F3F5F8;
+      }
+      .radio-box > div:last-child {
+        border-bottom: 0;
+      }
+
+      .select-popup .btn-box {
+        display: flex;
+      }
+      .select-popup .btn-box div {
+
+      }
+
+      .js-carno {
+        text-transform: uppercase;
+      }
+
+      .error-wrapper {
+        margin-top: 50px;
+        text-align: center;
+        color: #B7B7B7;
+        font-size:16px;
+      }
+      .error-wrapper div {
+        margin-top: 6px;
+      }
+      .required:before {
+        content: '*';
+        color: red;
+      }
+    </style>
+</head>
+<body>
+    <div class="wrapper js-wrapper hide" id="success-container">
+      <div class="oper-box js-oper">
+        <!-- <div class="js-img-item js-oper-item" data-for="js-img-suspend"><img src="./img/img-default-bg.png" width="100%"/></div>
+        <div class="js-rich-text-item js-oper-item" data-for="js-rich-text-suspend"><img src="./img/text-rich-bg.png" width="100%" /></div> -->
+      </div>
+
+      <div class="enroll-box js-enroll">
+        <!-- <img src="./img/enroll-bg.png" class="js-enroll-item" data-for="js-enroll-suspend" width="100%" /> -->
+      </div>
+    </div>
+
+    <div class="error-wrapper hide" id="error-container">
+      <img src="../../assets/images/bg-empty.png" width="230" />
+      <div>暂无数据~</div>
+    </div>
+
+    <script src="../../assets/js/lib/zepto/zepto.min.js"></script>
+    <script src="../../assets/js/lib/jweixin-1.2.0.js"></script>
+    <!-- <script src="../../assets/js/lib/wxshare.js?_=2"></script> -->
+	<script src="../../assets/js/lib/new-wxshare.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../assets/js/lib/layer/layer.js"></script>
+    <!-- <script type='text/javascript' src='../../assets/js/CarmeJsBridgeNoEvent.js?_=20170629' charset='utf-8'></script> -->
+    <!-- <script type="text/javascript" src="../../assets/js/CMWebBridge.js"></script> -->
+    <script src="../../assets/js/common.js?_=20190530"></script>
+    <script>
+      var env = common.getQuery().env,
+        carId = common.getQuery().carId,
+        activityId = common.getQuery().activityId,
+        activityFromApp = common.getQuery().activityFromApp,
+        productBGColor = imgBGColor = '#ffffff',
+        uuid = common.getUuid(),
+        curImgData = {},
+        documentInfo = {},
+        pageShare = {},
+        medias = [],
+        imgIndex,
+        editor,
+        richText = [],
+        richTextIndex,
+        button = {},
+        operIndex,
+        oldOperIndex,
+        oldImgIndex,
+        oldRichTextIndex,
+        hasApply,
+        activityState,
+        userInfo = {};
+
+      var commonModule = {
+        init: function() {
+          this.initUserToken()
+          this.initEvent()
+        },
+
+        initUserToken: function() {
+          var userToken = ''
+          var self = this
+          if (activityFromApp == '1') {
+            CMWebBridge.getUserToken()
+            .then(function(data) {
+              try {
+                userToken = JSON.parse(data).token;
+                if (userToken) {
+                  common.setStorage('userToken', userToken)
+                }
+                self.initData()
+              } catch(err) {}
+            }).catch(function(err) {
+              self.initData()
+            })
+          } else {
+            self.initData()
+          }
+        },
+
+        initData: function() {
+          if (activityId) {
+            var self = this
+            common.ajax({
+              // url: '../../assets/mock/activity/getActivityData.json',
+              url: common.erpDomain + '/bldMeOperation/activityRegistration/detail',
+              param: {
+                activityId: activityId,
+                uuid: uuid
+              },
+              success: function(res) {
+                var result = res.result
+                if (res.code == '1' && result) {
+                  $('#success-container').removeClass('hide')
+                  for (var key in result) {
+                    window[key] = result[key]
+                  }
+                  self.recoverEditData()
+                  self.loadUserInfo()
+                  self.setShare()
+                  self.initButton()
+                } else {
+                  $('#success-container').remove()
+                  $('#error-container').removeClass('hide')
+                }
+              },
+              error: function() {
+                $('#success-container').remove()
+                $('#error-container').removeClass('hide')
+              }
+            })
+          } else {
+            $('#success-container').remove()
+            $('#error-container').removeClass('hide')
+          }
+        },
+
+        initButton: function() {
+          if (button && button.image) {
+            $('.js-enroll-item').on('load', function() {
+              $('.js-oper').css({'padding-bottom': ($('.js-enroll-item').height()) + 'px'})
+            })
+          }
+        },
+
+        loadUserInfo: function() {
+          var self = this
+          if (button.userLimit == '2') {
+            common.ajax({
+              url: common.domain + '/rest/user/index.json',
+              hasSign: true,
+              success: function(res) {
+                var result = res.result
+                if (res.code == '0' && result) {
+                  userInfo = result.user_info
+                } else {
+                  
+                }
+              },
+              error: function() {
+                
+              }
+            })
+          }
+        },
+
+        setUserInfo: function(data) {
+          if (hasApply == '0') {
+            $('.js-name').val(data.real_name)
+            $('.js-phone').val(data.mobile)
+            $('.js-carno').val(data.car_no)
+          }
+        },
+
+        recoverEditData: function() {
+          var operList = []
+          for (var i = 0; i < medias.length; i++) {
+            // medias[i].index = i
+            operList[medias[i].index] = medias[i]
+            operList[medias[i].index].keyName = 'medias'
+            operList[medias[i].index].curIndex = i
+            operList[medias[i].index].key = 'medias'+i+(+new Date())
+          }
+          for (var j = 0; j < richText.length; j++) {
+            // richText[j].index = i + j
+            operList[richText[j].index] = richText[j]
+            operList[richText[j].index].keyName = 'richText'
+            operList[richText[j].index].curIndex = j
+            operList[richText[j].index].key = 'richText'+j+(+new Date())
+          }
+          for (var z = 0; z < operList.length; z++) {
+            if (operList[z].keyName == 'medias') {
+              var imgTpl = '<div class="js-img-item js-oper-item" data-for="js-img-suspend"><img src="./img/img-default-bg.png" width="100%" /><div>'
+              if (operList[z].link) {
+                imgTpl = '<a href="'+operList[z].link+'">'+imgTpl+'</a>'
+              }
+              $('.js-oper').append(imgTpl)
+              // 渲染页面样式
+              if (operList[z].image) {
+                $('.js-oper .js-oper-item').eq(z).find('img').attr('src', operList[z].image)
+              }
+            } else if (operList[z].keyName == 'richText') {
+              var imgTpl = '<div class="js-rich-text-item js-oper-item" data-for="js-rich-text-suspend"><img src="./img/text-rich-bg.png" width="100%" /></div>'
+              $('.js-oper').append(imgTpl)
+              if (operList[z].content) {
+                $('.js-oper .js-oper-item').eq(z).html(operList[z].content)
+              }
+            }
+            // 设置margin
+            var margin = operList[z].margin ? operList[z].margin.split(',') : ''
+            var showMargin = []
+            for (var i = 0; i < margin.length; i++) {
+              $('.js-img-suspend .control-span').eq(i).find('.js-margin').val(margin[i])
+              showMargin.push(margin[i] + 'px')
+            }
+            if (showMargin) {
+              $('.js-oper .js-oper-item').eq(z).css({'margin': showMargin.join(' ')})
+            }
+            // 设置背景色
+            $('.js-oper .js-oper-item').eq(z).attr(operList[z].key, '1').css({'background-color': operList[z].backgroundColor})
+          }
+
+          // 渲染标题页面
+          if (documentInfo.image) {
+            $('body').css({'background-image': 'url('+documentInfo.image+')', 'background-size': '100%'})
+          }
+          common.setTitle(documentInfo.title)
+          // $('.js-title span').text(documentInfo.title)
+          if (documentInfo) {
+            $('body').css({'background-color': documentInfo.backgroundColor})
+            // 0：repeat重复平铺；1：repeat-x横向平铺；2：repeat-y纵向平铺；3：no-repeat,top不重复置顶；4：no-repeat,bottom不重复置底
+            switch(documentInfo.position) {
+              case '0':
+                $('body').css({'background-repeat': 'repeat'})
+                break;
+              case '1':
+                $('body').css({'background-repeat': 'repeat-x'})
+                break;
+              case '2':
+                $('body').css({'background-repeat': 'repeat-y'})
+                break;
+              case '3':
+                $('body').css({'background-repeat': 'no-repeat', 'background-position': 'top'})
+                break;
+              case '4':
+                $('body').css({'background-repeat': 'no-repeat', 'background-position': 'bottom'})
+                break;
+              default:
+                break;
+            }
+          }
+
+          if (button.image) {
+            var imgTpl = '<img src="'+button.image+'" class="js-enroll-item" data-for="js-enroll-suspend" width="100%" />'
+            $('.js-enroll').append(imgTpl)
+          }
+        },
+
+        initEvent: function() {
+          var self = this
+          var hasFlag = true
+          $('.js-enroll').on('click', function() {
+            if (button && button.userLimit == '2') {
+              common.isLogin(common.getUserToken(),
+                function() {
+                  hasFlag = true
+                }, function() {
+                  hasFlag = false
+                  // 如果未登录去登录
+                  var str = 'h5_redirect='+encodeURIComponent(window.location.href)
+                  if (env) {
+                    str += '&env='+env
+                  }
+                  if (activityFromApp == '1') {
+                    window.appBridgeNoEvent({
+                      flag: 'login'
+                    })
+                  } else {
+                    window.location.replace('https://static.car-me.cn/h5/#/login?'+str)
+                  }
+                  return false
+                })
+            }
+
+            if (!hasFlag) {
+              return false
+            }
+
+            if (activityState == '1') {
+              layer.open({
+                content: '报名尚未开始',
+                skin: 'msg',
+                time: 2
+              })
+              return false;
+            }
+            if (activityState == '3') {
+              layer.open({
+                content: '报名已结束',
+                skin: 'msg',
+                time: 2
+              })
+              return false;
+            }
+            if (hasApply == '1') { // 已报名
+              layer.open({
+                content: '您已报过名，请勿重复报名；如果需要修改报名信息可点击修改报名信息。'
+                ,btn: ['修改报名信息', '取消']
+                ,yes: function(index) {
+                  layer.close(index)
+                  self.openEnrollPopup()
+                }
+              })
+              return false
+            }
+            self.openEnrollPopup()
+          })
+        },
+
+        openEnrollPopup: function() {
+          var self = this
+          var fields = button.fieldList
+          globalList = fields
+          var liTpl = ''
+          for (var i = 0; i < fields.length; i++) {
+            var values = fields[i].values
+            var value = fields[i].value || ''
+            var valuesList = []
+            if (values.indexOf(',') != -1) {
+              valuesList = values ? values.split(',') : []
+            } else if (values.indexOf('，' != -1)) {
+              valuesList = values ? values.split('，') : []
+            }
+            var liClass = ''
+            if (fields[i].type == '2' || fields[i].type == '3') {
+              liClass = 'align-start'
+            } else if (fields[i].type == 'checkbox') {
+            }
+
+            var requiredClass = ''
+            if (fields[i].required == '1') {
+              requiredClass = 'required'
+            }
+
+            liTpl += 
+              '<li class="'+liClass+'">'
+                +'<label class="item-label '+requiredClass+'">'+fields[i].name+'：</label>'
+
+            if (fields[i].type == '1') { // 输入框
+              if (fields[i].name == '姓名') {
+                liTpl += '<div><input type="text" value="'+value+'" placeholder="请输入" name="'+fields[i].id+'" data-reqiured="'+(fields[i].required ? 1 : 0)+'" maxlength="30" class="js-name"/></div>'
+              } else if (fields[i].name == '车牌号') {
+                liTpl += '<div><input type="text" value="'+value+'" placeholder="请输入" name="'+fields[i].id+'" data-reqiured="'+(fields[i].required ? 1 : 0)+'" maxlength="8" class="js-carno"/></div>'
+              } else if (fields[i].name == '手机号') {
+                liTpl += '<div><input type="tel" value="'+value+'" placeholder="请输入" name="'+fields[i].id+'" data-reqiured="'+(fields[i].required ? 1 : 0)+'" maxlength="11" class="js-phone"/></div>'
+              } else {
+                liTpl += '<div><input type="text" value="'+value+'" placeholder="请输入" name="'+fields[i].id+'" data-reqiured="'+(fields[i].required ? 1 : 0)+'" maxlength="50"/></div>'
+              }
+            } else if (fields[i].type == '3') { // 单选
+              var valueList = value ? value.split(',') : []
+              var selectTpl = '<select name="'+fields[i].id+'">'
+              for (var j = 0; j < valuesList.length; j++) {
+                var str = ''
+                for (var z = 0; z < valueList.length; z++) {
+                  if (valueList[z] == valuesList[j]) {
+                    str = 'selected'
+                    break;
+                  }
+                }
+                selectTpl += '<option value="'+valuesList[j]+'" '+str+'>'+valuesList[j]+'</option>'
+              }
+              selectTpl += '</select>'
+              liTpl += 
+              '<div>'
+              +selectTpl
+              +'</div>'
+            } else if (fields[i].type == '2') { // 复选框
+              var str = value ? value : '请选择'
+              var strValue = value ? value : ''
+              var selectTpl = '<div class="select-box js-select" data-index="'+i+'" data-name-in="'+fields[i].name+'"><span class="js-choose"><span class="c-gray-lighter">'+str+'</span></span><i></i><input type="hidden" name="'+fields[i].id+'" data-reqiured="'+(fields[i].required ? 1 : 0)+'" value="'+strValue+'"/></div>'
+              selectTpl += '</select>'
+              liTpl += 
+              '<div>'
+              +selectTpl
+              +'</div>'
+            }
+            liTpl += '</li>'
+          }
+
+          var tpl = 
+            '<form class="js-form">'
+              +'<div class="popup-box js-popup">'
+                +'<div class="popup-title">填写信息</div>'
+                +'<ul>'
+                + liTpl
+                +'</ul>'
+              +'</div>'
+              +'<div class="btn-box">'
+                +'<button class="btn-cancel js-cancel">取消</button><span class="btn-submit js-submit" type="submit">提交</span>'
+              +'</div>'
+            +'</form>'
+
+          layerIndex = layer.open({
+            type: 1,
+            content: tpl,
+            skin: 'footer',
+            className: 'enroll-popup',
+            success: function() {
+              self.setUserInfo(userInfo)
+              self.handleSubmit()
+              self.handleCancel()
+              self.openSelect()
+              self.bindInputEvents()
+            }
+          })
+        },
+
+        openSelect: function() {
+          var self = this
+          $('.js-select').on('click', function() {
+            var tpl = ''
+            var index = $(this).data('index')
+            var name = $(this).data('name-in')
+            var value = $(this).find('input').val()
+            var data = globalList ? globalList[index] : {}
+            var values = data.values
+            var valuesList = []
+            if (values.indexOf(',') != -1) {
+              valuesList = values ? values.split(',') : []
+            } else if (values.indexOf('，' != -1)) {
+              valuesList = values ? values.split('，') : []
+            }
+            for (var i = 0; i < valuesList.length; i++) {
+              var checkedStr = ''
+              if (value) {
+                var _valuesList = value.split(',')
+                for (var j = 0; j < _valuesList.length; j++) {
+                  if (_valuesList[j] && _valuesList[j] == valuesList[i]) {
+                    checkedStr = 'checked=checked'
+                  }
+                }
+              }
+              tpl += '<div class="js-radio"><input type="checkbox" name='+name+' class="m-checkbox" value="'+valuesList[i]+'" id="radio'+i+'" '+checkedStr+'><label  class="checkbox-img"></label><label class="show-label">'+valuesList[i]+'</label></div>'
+            }
+            tpl = '<div class="radio-box" data-name="'+name+'">'+tpl+'</div><div class="btn-box"><div class="btn-cancel js-choose-cancel">取消</div><div class="btn-submit js-choose-select">确定</div></div>'
+
+            layerIndex2 = layer.open({
+              content: tpl,
+              className: 'select-popup',
+              skin: 'footer',
+              success: function() {
+                self.chooseSelect()
+                self.sureChooseSelect()
+                self.cancelChooseSelect()
+              }
+            })
+          })
+        },
+
+        bindInputEvents: function() {
+          $('.js-phone').on('input', function() {
+            var max = $(this).attr('maxlength')
+            var val = $(this).val()
+            if (/\D/.test(val)) {
+              $(this).val(val.replace(/\D/g, ''))
+              val = $(this).val()
+            }
+            if (val) {
+              $(this).val(val.substring(0, max))
+            }
+          })
+
+          $('.js-carno').on('input', function() {
+            var max = $(this).attr('maxlength')
+            var val = $(this).val()
+            if (val) {
+              $(this).val(val.substring(0, max))
+              val = $(this).val()
+            }
+          })
+        },
+
+        chooseSelect: function() {
+          $('.js-radio').on('click',function() {
+            var name = $(this).parent('.radio-box').data('name')
+            var checked = $(this).find('input').prop('checked')
+            $(this).find('input').prop('checked', !checked)
+          })
+        },
+
+        sureChooseSelect: function() {
+          $('.js-choose-select').on('click',function() {
+            var textList = []
+            var name = $(this).parent().siblings('.radio-box').data('name')
+            $(this).parent().siblings('.radio-box').find('.js-radio').each(function() {
+              var checked = $(this).find('input').prop('checked')
+              if (checked) {
+                textList.push($(this).find('.show-label').text())
+              }
+            })
+            if (textList.length) {
+              var texts = textList.join(',')
+              $('[data-name-in='+name+']').find('.js-choose').html(texts)
+              $('[data-name-in='+name+']').find('input').val(texts)
+            } else {
+              $('[data-name-in='+name+']').find('.js-choose').html('<span class="c-gray-lighter">请选择</span>')
+              $('[data-name-in='+name+']').find('input').val('')
+            }
+            layer.close(layerIndex2)
+          })
+        },
+
+        cancelChooseSelect: function() {
+          $('.js-choose-cancel').on('click', function() {
+            layer.close(layerIndex2)
+          })
+        },
+
+        validateData: function() {
+          var isError = false
+          $('.js-popup input').each(function(index, item) {
+            var val = $(item).val()
+            var required = $(item).attr('data-reqiured')
+            if (required == '1' && !val) {
+              isError = true
+            }
+          })
+          if (isError) {
+            layer.open({
+              content: '请填写数据信息'
+              ,skin: 'msg'
+              ,time: 2 //2秒后自动关闭
+            })
+            return false
+          }
+
+          // 检验手机号
+          var $phone = $('.js-phone')
+          var phoneValue = $phone.val()
+          if (phoneValue) {
+            if (!/^1\d{10}/.test(phoneValue)) {
+              layer.open({
+                content: '手机号码格式不对，请重新输入'
+                ,skin: 'msg'
+                ,time: 2 //2秒后自动关闭
+              })
+              return false
+            }
+          }
+
+          // 校验车牌号
+          var $carno = $('.js-carno')
+          var carnoValue = $carno.val()
+          if (carnoValue) {
+            var carnoRegular = new RegExp('^(([\u4e00-\u9fa5][a-zA-Z]|[\u4e00-\u9fa5]{2}\d{2}|[\u4e00-\u9fa5]{2}[a-zA-Z])[-]?|([wW][Jj][\u4e00-\u9fa5]{1}[-]?)|([a-zA-Z]{2}))([A-Za-z0-9]{5}|[DdFf][A-HJ-NP-Za-hj-np-z0-9][0-9]{4}|[0-9]{5}[DdFf])$')
+            if (!carnoRegular.test(carnoValue)) {
+              layer.open({
+                content: '车牌号格式不对，请重新输入'
+                ,skin: 'msg'
+                ,time: 2 //2秒后自动关闭
+              })
+              return false
+            }
+          }
+
+          return true
+        },
+
+        handleSubmit: function() {
+          var self = this
+          var isSubmiting = false
+          $('.js-submit').on('click', function() {
+            if (isSubmiting) return
+            isSubmiting = true
+
+            var form = $('.js-form').serializeArray()
+            var formData = self.array2Object(form)
+            
+            if (!self.validateData()) {
+              isSubmiting = false
+              return false
+            }
+            
+            common.ajax({
+              method: 'post',
+              url: common.erpDomain + '/bldMeOperation/activityRegistration/apply',
+              dataType: 'json',
+              param: {
+                activityId: activityId,
+                options: formData
+              },
+              success: function(res) {
+                var result = res.result
+                if (res.code == '1' && result.flag == '1') {
+                  layer.open({
+                    content: result.message,
+                    skin: 'msg',
+                    time: 2
+                  })
+                  layer.close(layerIndex)
+                  setTimeout(function() {
+                    window.location.reload()
+                  }, 1000)
+                } else {
+                  layer.open({
+                    content: result.message || '网络异常',
+                    skin: 'msg',
+                    time: 2
+                  })
+                }
+                isSubmiting = false
+              },
+              error: function() {
+                layer.open({
+                  content: '网络异常.',
+                  skin: 'msg',
+                  time: 2
+                })
+                isSubmiting = false
+              }
+            })
+          })
+        },
+
+        array2Object: function(list) {
+          var rs = []
+          if (list && list.length) {
+            for (var i = 0; i < list.length; i++) {
+              rs.push({
+                id: list[i].name,
+                value: list[i].value
+              })
+            }
+          }
+          return rs
+        },
+
+        handleCancel: function() {
+          $('.js-cancel').on('click', function() {
+            layer.close(layerIndex)
+            return false
+          })
+        },
+
+        // 微信分享，修改图片，标题和内容
+        setShare: function() {
+          if (pageShare) {
+            window.carmeWxShare({
+              title: pageShare.title,
+              source: 'bldme_applet',
+              imgUrl: pageShare.image,
+              shareLink: location.href,
+              desc: pageShare.desc
+            });
+          }
+        }
+      }
+
+      commonModule.init()
+
+
+    </script>
+</body>
+
+</html>

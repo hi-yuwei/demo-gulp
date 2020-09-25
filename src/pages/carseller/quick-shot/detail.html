@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <title>车辆详情</title>
+
+        <link rel="stylesheet" href="../../../assets/js/lib/layer/need/layer.css" />
+        <link rel="stylesheet" href="../../../assets/css/base.css" />
+        <link rel="stylesheet" href="../../../assets/css/swiper/swiper.min.css" />
+        <link rel="stylesheet" href="css/detail.css" />
+    </head>
+    <body>
+        <div>
+            <!-- 轮播图 -->
+            <div class="swiper-container header-swiper">
+                <div class="swiper-wrapper">
+                    <!-- <div class="swiper-slide">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/608125838346855.png" >
+					</div> -->
+                </div>
+                <!-- 分页器 -->
+                <div class="swiper-pagination header-swiper-pagination"></div>
+            </div>
+
+            <!-- 状态 -->
+            <div class="bid-info">
+                <!-- <div class="car-bid-status bg1">
+					<div>正在竞拍</div>
+					<div>
+						<div>距结束</div>
+						<div>02:12:31</div>
+					</div>
+				</div>
+				<div class="car-bid-status bg1">
+					<div>竞拍中</div>
+					<div>
+						<div>距结束</div>
+						<div>02:12:31</div>
+					</div>
+				</div>
+				<div class="car-bid-status bg2">
+					<div>起拍价：￥0</div>
+					<div>
+						<div>02:12:31</div>
+						<div>开始</div>
+					</div>
+				</div> -->
+                <!-- <div class="car-bid-status bg3">
+					<div>已拍卖</div>
+				</div>
+				<div class="car-bid-status bg3">
+					<div>已下架</div>
+				</div>
+				<div class="car-bid-status bg3">
+					<div>已流拍</div>
+				</div> -->
+            </div>
+
+            <!-- 车型 车况 -->
+            <div class="car-info">
+                <!-- <div class="title">杭州】保时捷718 2016款 豪华版 Boxster 2.0T 保时捷718 2016款</div>
+				<div class="condition">车况：2016年10月 / 6.12万公里 / 杭州 / 国V</div> -->
+            </div>
+
+            <!-- 拍卖 服务说明 $('.auction-statement .auction-wrapper ul')-->
+            <div class="auction-statement">
+                <div class="auction-wrapper wrapper1">
+                    <div class="title">拍卖</div>
+                    <ul class="">
+                        <!-- <li><span>起</span>¥555000</li>
+						<li><span>加</span>¥555000</li>
+						<li><span>保</span>¥500</li>
+						<li><span>延</span>5min</li> -->
+                    </ul>
+                    <img src="../img/icon-arrow-right.png" style="width: 10px" />
+                </div>
+                <!-- <div class="auction-wrapper wrapper2">
+					<div class="title">服务</div>
+					<ul class="">
+						<li><span>起</span>起起起起</li>
+						<li><span>加</span>起起起起</li>
+						<li><span>保</span>起起起起</li>
+						<li><span>延</span>起起起起</li>
+					</ul>
+					<img src="../img/icon-arrow-right.png" style="width: 10px;">
+				</div> -->
+            </div>
+
+            <!-- 当前最高价 -->
+            <div class="maximum_price_box">
+                <div class="flex-between maximum_price_title">
+                    <p class="title">当前最高价</p>
+                    <p class="refresh-btn">
+                        <img src="../img/money/refresh-icon.png" />
+                        刷新出价
+                    </p>
+                </div>
+                <div class="flex-between maximum_price_user">
+                    <!-- <div class="flex-center">
+						<img src="../img/brandImage/11.png" class="user-ava">
+						<div>
+							<p class="user-name">昵称张先生</p>
+							<p class="time">2020-02-20 16:32</p>
+						</div>
+					</div>
+					<div class="price">￥550000</div> -->
+                </div>
+            </div>
+
+            <!-- 维保记录 -->
+            <div class="report js-report">
+                <div class="report-buy js-report-buy">1元查看维保记录 维保记录由查博士提供</div>
+                <div class="report-details js-report-details">查询成功 查看详细报告</div>
+            </div>
+
+            <!-- 拍卖说明 -->
+            <div class="auction-explain">
+                <div class="title">拍卖说明</div>
+                <div class="explain"><img src="../img/money/explain-icon.png" /></div>
+            </div>
+
+            <!-- 所属4S店 -->
+            <div class="basic-info">
+                <div class="title">基本信息</div>
+                <div class="basic-ul"></div>
+                <!-- <ul class="flex-between info-wrapper">
+					<li>
+						<p>上牌时间</p>
+						<p>2018年10月</p>
+					</li>
+					<li>
+						<p>表显里程</p>
+						<p>2018年10月</p>
+					</li>
+				</ul>
+				<ul class="flex-between info-wrapper">
+					<li>
+						<p>车辆所在地</p>
+						<p>2018年10月</p>
+					</li>
+					<li>
+						<p>车牌注册地</p>
+						<p>2018年10月</p>
+					</li>
+					<li>
+						<p>排放标准</p>
+						<p>2018年10月</p>
+					</li>
+				</ul> -->
+                <div class="more-btn more-car-info">更多车辆信息></div>
+            </div>
+
+            <!-- 车辆检测 -->
+            <div class="car-detection">
+                <div class="title">车辆检测</div>
+                <div class="flex-center detectio-user">
+                    <!-- <div><img src="../img/brandImage/0.png"></div>
+					<div>
+						<p class="name">张师傅</p>
+						<p class="desc">4S店专业检测师</p>
+					</div> -->
+                </div>
+                <!-- <ul class="flex-between detection-wrapper">
+					<li>
+						<img src="../img/money/detail-icon1.png">
+						<p>无重大事故</p>
+					</li>
+					<li>
+						<img src="../img/money/detail-icon2.png">
+						<p>无水泡</p>
+					</li>
+					<li>
+						<img src="../img/money/detail-icon3.png">
+						<p>无火烧</p>
+					</li>
+					<li>
+						<img src="../img/money/detail-icon4.png">
+						<p>真实车况</p>
+					</li>
+				</ul> -->
+                <div class="detectio-desc">
+                    <!-- 该车整车印象良好。苏E户籍，2016年10月上牌。骨架-完好。外观-多处钣金喷漆，少数划伤凹陷。内饰-正常磨损。装置-正常使用。车主口述强险交至2020年9月随车 -->
+                </div>
+                <div class="more-btn" data-id="">完整检测报告></div>
+            </div>
+
+            <div class="footer-btn">
+                <div class="offerPrice"><button>出个价</button></div>
+                <div class="payPrice hide">
+                    <button>缴纳保证金</button>
+                    <div class="tip">您未冻结的保证金不足1000元，无法出价</div>
+                </div>
+            </div>
+
+            <div class="mask-modal-box hide">
+                <div class="mask-modal-bg"></div>
+                <div class="mask-modal-content">
+                    <!-- <div class="offer-price">
+						<p class="title">领先价</p>
+						<p class="price">￥57000</p>
+						<div class="flex-center">
+							<div class="reduce-btn decrease">-</div>
+							<div class="price-base">￥100</div>
+							<div class="reduce-btn increase">+</div>
+						</div>
+					</div>
+					<button class="btn">确认出价</button> -->
+                </div>
+            </div>
+
+            <!-- 大图 -->
+            <div class="showBigImg">
+                <div class="showBigImgWrap swiper-container">
+                    <div class="allImgBox swiper-wrapper">
+                        <!-- <div class="imgIte swiper-slide">
+							<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/140_店长1(test1)_1576736069334.jpg">
+						</div>
+						<div class="imgIte swiper-slide">
+							<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/140_店长1(test1)_1576736069334.jpg">
+						</div> -->
+                    </div>
+                    <!-- 分页器 -->
+                    <!-- <div class="swiper-pagination"></div> -->
+                </div>
+            </div>
+            <!-- 大图 -->
+        </div>
+
+        <script src="../../../assets/js/lib/layer/layer.js"></script>
+        <script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
+        <script src="../../../assets/js/lib/swiper/swiper.min.js"></script>
+        <script src="../../../assets/js/common.js"></script>
+        <script src="js/detail.js"></script>
+    </body>
+</html>

@@ -1,0 +1,337 @@
+body {
+	background-color: #FFFFFF;
+	padding: 0 16px;
+	font-size: 14px;
+}
+
+.point-info {
+	margin-bottom: 48px;
+}
+
+.point-info .info-item {
+	border-bottom: 1px solid #F0F0F0;
+	padding: 16px 0;
+}
+
+.point-info .info-item span {
+	color: #666666;
+	width: 80px;
+	display: inline-block;
+}
+
+.evaluate-info .title {
+	color: #0274FF;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.evaluate-info .info-wrapper .info-item .name {
+	color: #999999;
+	margin-bottom: 12px;
+	margin-top: 20px;
+}
+
+.evaluate-info .info-wrapper .info-item .content {
+	color: #666666;
+}
+
+.detection-info .detection-info-item {
+	margin: 24px 0;
+}
+
+.detection-info .detection-info-item .item-type .title {
+	color: #0274FF;
+	font-size: 18px;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+.detection-info .detection-info-item .item-type .num {
+	color: #666666;
+	font-size: 13px;
+}
+
+.detection-info .detection-info-item .item-type .num span {
+	color: #EA6572;
+}
+
+.detection-info .detection-info-item .item-type .num img {
+	width: 13px;
+	height: 8px;
+	margin-left: 5px;
+}
+
+.detection-info .detection-info-item .appearance-box {
+	position: relative;
+	height: 536px;
+}
+.defect-wrapper{
+	margin-bottom: 20px;
+}
+.defect-wrapper .defect-item .position-name {
+	margin-bottom: 12px;
+}
+
+.defect-wrapper .defect-item .position-name .num {
+	/* border-radius: 50%; */
+	/* border: 1px solid #FF384C; */
+	width: 15px;
+	height: 14px;
+	display: inline-block;
+	text-align: center;
+	line-height: 14px;
+	/* font-size: 12px; */
+	margin-right: 3px;
+}
+
+.defect-wrapper .defect-item .position-name span {
+	color: #FF384C;
+}
+
+.defect-wrapper .defect-item .item-list {
+	background-color: #F8F8F8;
+	width: 96%;
+	padding: 12px;
+	color: #666666;
+	margin-left: 18px;
+	margin-bottom: 10px;
+}
+
+.defect-wrapper .defect-item .item-list .fault-name {
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+.defect-wrapper .defect-item .item-list .fault-type {
+	margin-bottom: 12px;
+}
+
+.defect-wrapper .defect-item .item-list .fault-imgs {
+	white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+	overflow-x: scroll;
+	margin-bottom: 12px;
+}
+
+.defect-wrapper .defect-item .item-list .fault-imgs .img-item {
+	width: 108px;
+	height: 81px;
+	margin-right: 10px;
+	display: inline-block;
+}
+.defect-wrapper .defect-item .item-list .fault-imgs .img-item:last-child{
+	margin-right: 0;
+}
+.oval-icon {
+	width: 21px;
+	height: 21px;
+	vertical-align: -11px;
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+.list-wrapper span,
+.list-wrapper p {
+	color: #FF384C;
+	font-size: 12px;
+}
+
+.head-stock {
+	position: absolute;
+	top: 13%;
+	left: 46%;
+}
+
+.engine-hatch {
+	position: absolute;
+	top: 25%;
+	left: 46%;
+}
+
+.left-front-wheel {
+	position: absolute;
+	left: 10.5%;
+	top: 38%;
+	text-align: center;
+}
+
+.right-front-wheel {
+	position: absolute;
+	right: 9%;
+	top: 38%;
+	text-align: center;
+}
+
+.left-door {
+	position: absolute;
+	left: 18%;
+	top: 56%;
+	text-align: center;
+}
+
+.right-door {
+	position: absolute;
+	right: 17%;
+	top: 56%;
+	text-align: center;
+}
+
+.roof-cover {
+	position: absolute;
+	left: 46%;
+	top: 57%;
+	text-align: center;
+}
+
+.left-rear-wheel {
+	position: absolute;
+	left: 10.5%;
+	bottom: 15%;
+	text-align: center;
+}
+
+.right-rear-wheel {
+	position: absolute;
+	right: 9%;
+	bottom: 15%;
+	text-align: center;
+}
+
+.car-trunk {
+	position: absolute;
+	left: 46%;
+	bottom: 14%;
+	text-align: center;
+}
+
+.vehicle-tail {
+	position: absolute;
+	left: 46%;
+	bottom: 6%;
+	text-align: center;
+}
+
+.flex-between {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.car-console {
+	position: absolute;
+	top: 21%;
+	left: 46%;
+	text-align: center;
+}
+.left-front-door{
+	position: absolute;
+	top: 30%;
+	left: 3%;
+}
+.right-front-door{
+	position: absolute;
+	top: 30%;
+	right: 3%;
+}
+.left-front-seat{
+	position: absolute;
+	top: 43%;
+	left: 23%;
+}
+.right-front-seat{
+	position: absolute;
+	top: 43%;
+	right: 20%;
+}
+.car-stalls{
+	position: absolute;
+	top: 42%;
+	left: 46%;
+	text-align: center;
+}
+.left-rear-door{
+	position: absolute;
+	top: 50%;
+	left: 3%;
+}
+.right-rear-door{
+	position: absolute;
+	top: 50%;
+	right: 3%;
+}
+.left-rear-seat{
+	position: absolute;
+	bottom: 38%;
+	left: 23%;
+}
+.right-rear-seat{
+	position: absolute;
+	bottom: 38%;
+	right: 21%;
+}
+.the-third-row{
+	position: absolute;
+	bottom: 8%;
+	right: 35%;
+}
+.one-districts-before{
+	position: absolute;
+	top: 56%;
+	left: 18%;
+}
+.one-districts{
+	position: absolute;
+	top: 62%;
+	left: 48%;
+}
+.one-districts-after{
+	position: absolute;
+	top: 58%;
+	right: 9%;
+}
+.rotate{
+	transform: rotateX(180deg);
+}
+
+.showBigImg {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #000000;
+	z-index: 999;
+}
+
+.showBigImg .showBigImgWrap {
+	position: relative;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	width: 100%;
+	/* height: 280px; */
+	overflow: hidden;
+}
+
+.showBigImg .showBigImgWrap .allImgBox {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.showBigImg .showBigImgWrap .allImgBox .imgIte img {
+	width: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}

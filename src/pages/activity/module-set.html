@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+    <title>自定义H5活动设置页</title>
+  <link rel="stylesheet" href="../../assets/css/base.css?_=2">
+    <link rel="stylesheet" href="../../assets/css/lib/spectrum.css?_=1">
+    <style type="text/css">
+      body {
+        background: white;
+      }
+      .c-gray-light {
+        color: #999999;
+      }
+      .fs12 {
+        font-size: 12px;
+      }
+      .mt8 {
+        margin-top: 8px;
+      }
+      .mt10 {
+        margin-top: 10px;
+      }
+      .mt15 {
+        margin-top: 15px;
+      }
+      .w60 {
+        width: 60px;
+      }
+      .w80 {
+        width: 80px;
+      }
+      .w176 {
+        width: 176px;
+      }
+      .w200 {
+        width: 200px;
+      }
+      .top-bg {
+        text-align: center;
+      }
+      .phone-wrapper {
+        position: relative;
+      }
+      .phone-box {
+        position: relative;
+        width: 375px;
+        height: 667px;
+        margin: 30px 0 0 30px;
+        border: 1px solid #CCCCCC;
+      }
+      .phone-box .phone-header {
+        position: absolute;
+        font-weight: bold;
+        text-align: center;
+      }
+      .phone-box .header-title {
+        padding: 10px;
+        font-size: 17px;
+      }
+      .phone-top {
+        position: absolute;
+        top: 0;
+        bottom: 48.67px;
+        width: 100%;
+        overflow: hidden;
+      }
+      .icon-share {
+        position: absolute;
+        right: 10px;
+        top: 28px;
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: url('./img/icon-share.png') no-repeat;
+        background-size: cover;
+      }
+
+      .enroll-box {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+      }
+      .selected {
+        border: 2px solid red;
+      }
+      
+      .btn-box {
+        width: 375px;
+        margin: 50px 0 20px 30px;
+        text-align: center;
+      }
+      .btn-box img {
+        max-height: 80px;
+      }
+      .btn-box .btn-title {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .btn-box .btn-cont {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+      .btn-box .btn-cont span {
+        display: inline-block;
+        border: 1px solid #77A3E7;
+        border-radius: 2px;
+        color: #3A75CE;
+        font-size: 16px;
+        width: 117px;
+        height: 36px;
+        line-height: 36px;
+      }
+      .img-box img,
+      .rich-text-box img,
+      .oper-box img {
+        /*margin-bottom: 2px;*/
+      }
+      .oper-box {
+        margin-top: 60px;
+        overflow: auto;
+        height: 556px;
+      }
+        
+      /* 悬浮模块 */
+      .suspend-box {
+        
+      }
+      .suspend-box .comm-box {
+        padding: 30px 20px;
+        background: white;
+        position: absolute;
+        top: 50px;
+        left: 425px;
+        width: 559px;
+        border: 1px solid #CCCCCC;
+      }
+      .suspend-box .comm-box .row {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      .suspend-box .comm-box .row .control-label {
+        display: inline-block;
+        width: 105px;
+        text-align: right;
+        font-size: 14px;
+        color: #333333;
+      }
+      .suspend-box .comm-box .row .control-input {
+        border: 1px solid #CCCCCC;
+        padding: 5px 5px;
+        outline: none;
+        width: 280px;
+        border-radius: 2px;
+        font-size: 12px;
+      }
+      .suspend-box .comm-box .row textarea {
+        border: 1px solid #CCCCCC;
+        padding: 5px 5px;
+        outline: none;
+        width: 280px;
+        border-radius: 2px;
+        resize: none;
+        height: 80px;
+        font-size: 12px;
+      }
+      .suspend-box .comm-box .control-span {
+        margin-right: 10px;
+      }
+      .suspend-box .comm-box .control-span input {
+        width: 50px;
+        padding: 3px 5px;
+        border: 1px solid #CCCCCC;
+        color: #333333;
+        outline: none;
+      }
+      .suspend-box .comm-box:before {
+        position: absolute;
+        content: ' ';
+        display: inline-block;
+        width: 12px;
+        height: 21px;
+        background: url('./img/icon-arrow-left.png') no-repeat;
+        background-size: cover;
+        top: 12px;
+        left: -12px;
+      }
+      .required:before {
+        content: '*';
+        color: red;
+      }
+      .suspend-box .comm-box .row > div {
+        flex: 1;
+      }
+
+      .bg-img {
+        display: flex;
+        position: relative;
+      }
+      .suspend-box .comm-box .row .bg-img input[type='file'] {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 168px;
+        height: 26px;
+        opacity: 0;
+      }
+      .suspend-box .comm-box .row .bg-img input[type='text'] {
+        width: 105px;
+      }
+      .suspend-box .comm-box .row .bg-img span {
+        background: #DDDDDD;
+        font-size: 12px;
+        color: #333333;
+        padding: 6px 10px;
+      }
+      .suspend-box .comm-box .row .bg-img select {
+        margin-left: 25px;
+        font-size: 14px;
+        border: 1px solid #CCCCCC;
+        outline: none;
+      }
+      .btn-recover {
+        background: #07C1B1;
+        color: white;
+        border-radius: 2px;
+        border: none;
+        font-size: 12px;
+        line-height: 22px;
+        padding: 0 5px;
+        outline: none;
+      }
+      .sp-replacer {
+        border: 1px solid #CCCCCC;
+      }
+      .sp-preview {
+        width: 30px;
+        height: 16px;
+      }
+
+      .row-btn {
+        text-align: center;
+        margin-top: 35px;
+      }
+      .row-btn button {
+        margin: auto 30px;
+        width: 99px;
+        line-height: 33px;
+        height: 33px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+      }
+      .btn-save {
+        background: #0166FF;
+        color: white;
+      }
+      .btn-del {
+        background: #E7E7E7;
+        color: #646464;
+      }
+
+      .radio-group {
+        display: flex;
+        font-size: 12px;
+        color: #666666;
+      }
+      .radio-group > div {
+        margin-right: 35px;
+      }
+      .radio-group input {
+        width: 15px!important;
+        vertical-align: middle;
+      }
+
+      .suspend-box .table-box {
+        border: 1px solid #EFEFEF;
+        font-size: 12px;
+      }
+      .suspend-box .table-box thead th {
+        padding: 6px 8px;
+        background: #F3F3F3;
+        font-size: 12px;
+        color: #666666;
+      }
+      .suspend-box .table-box td {
+        padding: 8px 4px 0;
+        text-align: center;
+      }
+      .suspend-box .table-box ~ div {
+        margin-top: 20px;
+        margin-left: 4px;
+        color: #0066FF;
+      }
+      .suspend-box .table-box input[type=text],
+      .suspend-box .table-box select {
+        border: 1px solid #CCCCCC;
+        height: 22px;
+        border-radius: 2px;
+        padding: 0 3px;
+        /*width: 80px;*/
+      }
+      .suspend-box .table-box select {
+        width: 68px;
+      }
+      .suspend-box .table-box .del-tr {
+        color: #EA6572;
+      }
+      .add-field {
+        margin: 20px auto;
+        width: 89px;
+      }
+      .add-field > span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 89px;
+        height: 26px;
+        line-height: 26px;
+        border-radius: 2px;
+        border: 1px solid #0166FF;
+        color: #0166FF;
+        text-align: center;
+        font-size: 11px;
+      }
+      .add-field .icon-symbol {
+        font-weight: normal;
+        font-size: 22px;
+        margin-right: 3px;
+      }
+      .add-field > span span {
+        padding-top: 2px;
+      }
+
+      .add-field-btn{
+        margin:30px 5% 0px;
+        width:39%;
+        box-sizing: border-box;
+        height:50px;
+        background: #3ec9b7;
+        border-radius: 3px;
+        color: #fff;
+        border: 1px solid #009985;
+      }
+
+      .Wdate {
+        width: 110px;
+        padding: 5px 5px;
+        height: 25px!important;
+        border: 1px solid #CCCCCC!important;
+        color: #333333;
+        font-size: 14px;
+      }
+  
+      .save-btn-box {
+        width: 375px;
+        text-align: center;
+      }
+      .save-btn-box button {
+        width: 100%;
+        line-height: 33px;
+        height: 33px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        background: #0166FF;
+        color: white;
+        margin: 30px 0 20px 30px;
+      }
+
+      .error-wrapper {
+        margin-top: 50px;
+        text-align: center;
+        color: #B7B7B7;
+        font-size:16px;
+      }
+      .error-wrapper div {
+        margin-top: 6px;
+      }
+      .hide {
+        display: none;
+      }
+    </style>
+</head>
+<body>
+    <div class="wrapper js-wrapper hide" id="success-container">
+      <div class="phone-wrapper">
+        <div class="phone-box js-phone">
+          <div class="phone-top">
+            <div class="phone-header js-header">
+              <div class="top-bg">
+                <img src="./img/top-bg.png" width="95%" />
+              </div>
+              <div class="header-title js-title" data-for="js-title-suspend">
+                <span>H5页面标题</span>（点击编辑）
+              </div>
+              <span class="icon-share js-share" data-for="js-share-suspend"></span>
+            </div>
+  
+            <!-- <div class="img-box js-img">
+              <div class="js-img-item" data-for="js-img-suspend"><img src="./img/img-default-bg.png" width="100%"/></div>
+            </div>
+
+            <div class="rich-text-box js-rich-text">
+              <div class="js-rich-text-item" data-for="js-rich-text-suspend"><img src="./img/text-rich-bg.png" width="100%" /></div>
+            </div> -->
+            <div class="oper-box js-oper">
+              <!-- <div class="js-img-item js-oper-item" data-for="js-img-suspend"><img src="./img/img-default-bg.png" width="100%"/></div>
+              <div class="js-rich-text-item js-oper-item" data-for="js-rich-text-suspend"><img src="./img/text-rich-bg.png" width="100%" /></div> -->
+            </div>
+          </div>
+
+          <div class="enroll-box js-enroll">
+            <!-- <img src="./img/enroll-bg.png" class="js-enroll-item" data-for="js-enroll-suspend" width="100%" /> -->
+          </div>
+        </div>
+      </div>
+      <div class="suspend-box js-suspend">
+        <div class="comm-box title-suspend js-title-suspend hide" data-obj-key="documentInfo">
+          <form class="js-title-form">
+            <div class="row">
+              <label class="control-label required">标题：</label>
+              <div>
+                <input type="text" class="control-input js-validate" name="title" maxlength="20" data-msg="请输入标题" />
+              </div>
+            </div>
+            <div class="row">
+              <label class="control-label">背景图：</label>
+              <div class="bg-img">
+                <div>
+                  <input type="text" class="control-input" name="image"/>
+                  <span>浏览…</span>
+                  <input type="file" class="js-upload" />
+                </div>
+                <select name="position" class="js-position">
+                  <option value="0">重复平铺</option>
+                  <option value="1">横向平铺</option>
+                  <option value="2">纵向平铺</option>
+                  <option value="3">不重复置顶</option>
+                  <option value="4">不重复置底</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <label class="control-label">背景颜色：</label>
+              <div>
+                <input type="text" name="backgroundColor" class="js-img-bg" value="#ffffff" />
+                <button class="btn-recover js-default-img">恢复默认</button>                                        
+              </div>
+            </div>
+            <div class="row-btn">
+              <button class="btn-save js-title-save">保存</button>
+              <!-- <button class="btn-del js-del-suspend">删除</button> -->
+            </div>
+          </form>
+        </div>
+
+        <div class="comm-box share-suspend js-share-suspend hide" data-obj-key="pageShare">
+          <form>
+            <div class="row">
+              <label class="control-label required">示例：</label>
+              <div>
+                <img src="./img/wechat-default-share-bg.png" width="300" />
+              </div>
+            </div>
+            <div class="row">
+              <label class="control-label required">标题：</label>
+              <div>
+                <input type="text" placeholder="标题20个字以内" class="control-input js-validate" name="title" maxlength="20" data-msg="请输入标题" />
+              </div>
+            </div>
+            <div class="row">
+              <label class="control-label required">分享小图：</label>
+              <div>
+                <div class="bg-img">
+                  <div>
+                    <input type="text" name="image" class="control-input js-validate" data-msg="请上传图片" />
+                    <span>浏览…</span>
+                    <input type="file" class="js-upload" />
+                  </div>
+                </div>
+                <div class="c-gray-light fs12 mt8">图片支持 JPG 和 PNG，建议尺寸 200x200</div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="control-label required">分享介绍：</label>
+              <div>
+                <textarea placeholder="介绍100字以内" name="desc" maxlength="100" data-msg="请输入分享介绍" class="js-validate"></textarea>                        
+              </div>
+            </div>
+            <div class="row-btn">
+              <button class="btn-save js-share-save">保存</button>
+              <!-- <button class="btn-del js-del-suspend">删除</button> -->
+            </div>
+          </form>
+        </div>
+
+        <div class="comm-box img-suspend js-img-suspend hide" data-obj-key="medias">
+          <form>
+            <div class="row">
+              <label class="control-label required">图片：</label>
+              <div>
+                <div class="bg-img">
+                  <div>
+                    <input type="text" class="control-input js-validate" name="image" data-msg="请上传图片" />
+                    <span>浏览…</span>
+                    <input type="file" class="js-upload" />
+                  </div>
+                </div>
+                <div class="c-gray-light fs12 mt8">图片支持 JPG 和 PNG，建议尺寸 宽度750像素，高度不限</div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="control-label">边距：</label>
+              <div>
+                <span class="control-span">
+                  上
+                  <input type="tel" class="js-margin" maxlength="5" />
+                  px
+                </span>
+                <span class="control-span">
+                    右
+                    <input type="tel" class="js-margin" maxlength="5" />
+                    px
+                </span>
+                <span class="control-span">
+                    下
+                    <input type="tel" class="js-margin" maxlength="5" />
+                    px
+                </span>
+                <span class="control-span">
+                    左
+                    <input type="tel" class="js-margin" maxlength="5" />
+                    px
+                </span>
+              </div>
+              <input type="hidden" name="margin" class="js-margin-txt" />
+            </div>
+            <div class="row">
+              <label class="control-label">背景颜色：</label>
+              <div>
+                <input type="text" name="backgroundColor" class="js-img-bg" value="#ffffff" />
+                <button class="btn-recover js-default-img">恢复默认</button>                                       
+              </div>
+            </div>
+            <div class="row">
+              <label class="control-label">链接设置：</label>
+              <div>
+                <div class="radio-group js-radio">
+                  <div>
+                    <input type="radio" name="linkType" id="radio-unlink" checked value="0" />
+                    <label for="radio-unlink">无链接</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="linkType" id="radio-link" value="1" />
+                    <label for="radio-link">链接H5页面</label>
+                  </div>                 
+                </div>
+                <div class="row mt15 fs14 hide js-radio-page">
+                  <label>页面地址：</label>
+                  <div>
+                    <input type="text" name="link" class="control-input" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-btn">
+              <button class="btn-save js-img-save">保存</button>
+              <button class="btn-del js-img-del">删除</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="comm-box rich-text-suspend js-rich-text-suspend hide" data-obj-key="richText">
+          <form>
+            <div class="row">
+              <label class="control-label">背景颜色：</label>
+              <div>
+                <input type="text" name="backgroundColor" class="js-img-bg" value="#ffffff" />
+                <button class="btn-recover js-default-img">恢复默认</button>                                        
+              </div>
+            </div>
+            <div class="row">
+              <label class="control-label">边距：</label>
+              <div>
+                <span class="control-span">
+                  上
+                  <input type="tel" class="js-margin" maxlength="5" />
+                  px
+                </span>
+                <span class="control-span">
+                    右
+                    <input type="tel" class="js-margin" maxlength="5" />
+                    px
+                </span>
+                <span class="control-span">
+                    下
+                    <input type="tel" class="js-margin" maxlength="5" />
+                    px
+                </span>
+                <span class="control-span">
+                    左
+                    <input type="tel" class="js-margin" maxlength="5" />
+                    px
+                </span>
+              </div>
+              <input type="hidden" name="margin" class="js-margin-txt" />
+            </div>
+            <div class="row">
+              <div id="editor">
+                
+              </div>
+            </div>
+            <div class="row-btn">
+              <button class="btn-save js-rich-text-save">保存</button>
+              <button class="btn-del js-rich-text-del">删除</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="comm-box enroll-suspend js-enroll-suspend hide" data-obj-key="button">
+          <form>
+            <div class="row">
+              <label class="control-label required">报名按钮图片：</label>
+              <div>
+                <div class="bg-img">
+                  <div>
+                    <input type="text" class="control-input js-validate" name="image" data-msg="请上传图片" />
+                    <span>浏览…</span>
+                    <input type="file" class="js-upload" />
+                  </div>
+                </div>
+                <div class="c-gray-light fs12 mt8">图片支持 JPG 和 PNG，建议尺寸 750x98</div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="control-label required">报名起止时间：</label>
+              <div>
+                <input type="text" class="Wdate js-validate" id="d4321" name="startTime" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'d4322\');}', minDate: new Date()})" placeholder="开始日期" data-msg="请选择开始日期" autocomplete="off"/>
+                至
+                <input type="text" class="Wdate js-validate" id="d4322" name="endTime" onclick="WdatePicker({minDate:'#F{$dp.$D(\'d4321\');}'})" placeholder="结束日期" data-msg="请选择结束日期" autocomplete="off"/>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <label class="control-label required">用户限制：</label>
+              <div>
+                <div class="radio-group js-limit-radio">
+                  <div>
+                    <input type="radio" name="userLimit" id="radio-unlimit" checked value="1" />
+                    <label for="radio-unlimit">无限制</label>
+                  </div>
+                  <div>
+                    <input type="radio" name="userLimit" id="radio-limit" value="2" />
+                    <label for="radio-limit">限登录用户</label>
+                  </div>                 
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <label class="control-label">报名选项：</label>
+              <div class="table-box">
+                <table width="100%">
+                  <thead>
+                    <tr>
+                      <th>选项名称</th>
+                      <th>文本类型</th>
+                      <th>选项可选值</th>
+                      <th>必填</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+                <div class="add-field">
+                    <span><b class="icon-symbol">+</b><span>添加选项</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="row-btn">
+              <button class="btn-save js-enroll-save">保存</button>
+              <button class="btn-del js-enroll-del">删除</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="btn-box">
+        <div class="btn-title">可添加组件</div>
+        <div class="btn-cont">
+          <span class="js-add-img">图片</span>
+          <span class="js-add-rich-text">富文本</span>
+          <span class="js-add-enroll">报名功能</span>
+        </div>
+      </div>
+
+      <div class="save-btn-box js-btn-publish">
+        <button>保存并发布</button>
+      </div>
+    </div>
+
+    <div class="error-wrapper hide" id="error-container">
+      <img src="../../assets/images/bg-empty.png" width="230" />
+      <div>暂无数据~</div>
+    </div>
+
+    <script src="../../assets/js/lib/jquery/jquery-1.9.1.js"></script>
+    <script src="../../assets/js/lib/jquery/spectrum.js"></script>
+    <script src="../../assets/js/lib/layer_pc/layer.js"></script>
+    <script src="../../assets/js/lib/wangEditor/wangEditor.js?_=3"></script>
+    <script src="../../assets/js/lib/My97DatePicker/WdatePicker.js"></script>
+    <script src="../../assets/js/common.js?_=20190530"></script>
+    <script>
+      var env = common.getQuery().env,
+        carId = common.getQuery().carId,
+        activityId = common.getQuery().activityId,
+        productBGColor = imgBGColor = '#ffffff',
+        curImgData = {},
+        documentInfo = {},
+        pageShare = {},
+        medias = [],
+        imgIndex,
+        editor,
+        richText = [],
+        richTextIndex,
+        button,
+        operIndex,
+        oldOperIndex,
+        oldImgIndex,
+        oldRichTextIndex;
+
+      var commonModule = {
+        init: function() {
+          this.bindleTitle()
+          this.bindleShare()
+          this.bindleImg()
+          this.bindleRichText()
+          this.bindleEnroll()
+          this.addModule()
+          this.initModule()
+          this.bindleBtnEvents()
+          this.delSuspend()
+          this.uploadImg()
+          this.bindleSaveEvents()
+          this.setMargin()
+          this.setLink()
+          this.setRequired()
+          this.initEditor()
+          this.goPublish()
+          this.initData()
+          this.setSelect()
+        },
+
+        initData: function() {
+          if (activityId) {
+            var self = this
+            common.ajax({
+              // url: '../../assets/mock/car/getInsurance.json',
+              url: common.erpDomain + '/bldMeOperation/activityRegistration/detail',
+              param: {
+                activityId: activityId
+              },
+              success: function(res) {
+                var result = res.result
+                if (res.code == '1' && result) {
+                  $('#success-container').removeClass('hide')
+                  for (var key in result) {
+                    window[key] = result[key]
+                  }
+                  self.recoverEditData()
+                } else {
+                  $('#success-container').remove()
+                  $('#error-container').removeClass('hide')
+                }
+              },
+              error: function() {
+                $('#success-container').remove()
+                $('#error-container').removeClass('hide')
+              }
+            })
+          } else {
+            $('#success-container').removeClass('hide')
+          }
+        },
+
+        setSelect: function() {
+          $('body').on('change', '.js-select-item', function() {
+            var val = $(this).val()
+            var index = $(this).parents('tr').index()
+            var $next = $(this).parent().next()
+            if (val == '1') {
+              $(this).parent().next().find('.js-field-item').attr('placeholder', '').prop('disabled', true).val('')
+            } else {
+              var selectVal = (button && button.fieldList && button.fieldList[index]) ? button.fieldList[index].values : ''
+              $next.find('.js-field-item').attr('placeholder', '可选值，多个值用英文逗号分隔').prop('disabled', false).val(selectVal)
+            }
+          })
+        },
+
+        recoverEditData: function() {
+          var operList = []
+          for (var i = 0; i < medias.length; i++) {
+            // medias[i].index = i
+            operList[medias[i].index] = medias[i]
+            operList[medias[i].index].keyName = 'medias'
+            operList[medias[i].index].curIndex = i
+            operList[medias[i].index].key = 'medias'+i+(+new Date())
+          }
+          for (var j = 0; j < richText.length; j++) {
+            // richText[j].index = i + j
+            operList[richText[j].index] = richText[j]
+            operList[richText[j].index].keyName = 'richText'
+            operList[richText[j].index].curIndex = j
+            operList[richText[j].index].key = 'richText'+j+(+new Date())
+          }
+          for (var z = 0; z < operList.length; z++) {
+            if (operList[z].keyName == 'medias') {
+              var imgTpl = '<div class="js-img-item js-oper-item" data-for="js-img-suspend"><img src="./img/img-default-bg.png" width="100%" /><div>'
+              $('.js-oper').append(imgTpl)
+              // 渲染页面样式
+              if (operList[z].image) {
+                $('.js-oper .js-oper-item').eq(z).find('img').attr('src', operList[z].image)
+              }
+            } else if (operList[z].keyName == 'richText') {
+              var imgTpl = '<div class="js-rich-text-item js-oper-item" data-for="js-rich-text-suspend"><img src="./img/text-rich-bg.png" width="100%" /></div>'
+              $('.js-oper').append(imgTpl)
+              if (operList[z].content) {
+                $('.js-oper .js-oper-item').eq(z).html(operList[z].content)
+              }
+            }
+            // 设置margin
+            var margin = operList[z].margin ? operList[z].margin.split(',') : ''
+            var showMargin = []
+            for (var i = 0; i < margin.length; i++) {
+              $('.js-img-suspend .control-span').eq(i).find('.js-margin').val(margin[i])
+              showMargin.push(margin[i] + 'px')
+            }
+            if (showMargin) {
+              $('.js-oper .js-oper-item').eq(z).css({'margin': showMargin.join(' ')})
+            }
+            // 设置背景色
+            $('.js-oper .js-oper-item').eq(z).attr(operList[z].key, '1').css({'background-color': operList[z].backgroundColor})
+          }
+
+          // 渲染标题页面
+          if (documentInfo.image) {
+            $('.js-phone').css({'background-image': 'url('+documentInfo.image+')', 'background-size': '100%'})
+          }
+          $('.js-title span').text(documentInfo.title)
+          if (documentInfo) {
+            $('.js-phone').css({'background-color': documentInfo.backgroundColor})
+            // 0：repeat重复平铺；1：repeat-x横向平铺；2：repeat-y纵向平铺；3：no-repeat,top不重复置顶；4：no-repeat,bottom不重复置底
+            switch(documentInfo.position) {
+              case '0':
+                $('.js-phone').css({'background-repeat': 'repeat'})
+                break;
+              case '1':
+                $('.js-phone').css({'background-repeat': 'repeat-x'})
+                break;
+              case '2':
+                $('.js-phone').css({'background-repeat': 'repeat-y'})
+                break;
+              case '3':
+                $('.js-phone').css({'background-repeat': 'no-repeat', 'background-position': 'top'})
+                break;
+              case '4':
+                $('.js-phone').css({'background-repeat': 'no-repeat', 'background-position': 'bottom'})
+                break;
+              default:
+                break;
+            }
+          }
+
+          if (button.image) {
+            var imgTpl = '<img src="'+button.image+'" class="js-enroll-item" data-for="js-enroll-suspend" width="100%" />'
+            $('.js-enroll').append(imgTpl)
+          }
+        },
+
+        initModule: function() {
+          // $('select.beautyselect').select2();
+          // $(".beauty-radios input:radio").beautyRadio();
+          // $(".select-tpl input:checkbox").beautyCheckbox(); 
+
+          //选择颜色、恢复默认
+          $('.js-img-bg').spectrum({
+              color: imgBGColor,
+              chooseText: '确定',
+              cancelText: '取消',
+              showInput: true,
+              preferredFormat: 'hex'
+          });
+        },
+
+        // 初始化富文本编辑器
+        initEditor: function() {
+          var E = window.wangEditor
+          editor = new E('#editor')
+          editor.customConfig.uploadImgServer = common.erpDomain + '/upload/fileUpload'
+          editor.customConfig.uploadImgParams = {
+            
+          }
+          editor.customConfig.uploadFileName = 'file'
+          editor.customConfig.menus = [
+              'head',
+              'bold',
+              'italic',
+              'underline',
+              'image'
+          ]
+          editor.customConfig.uploadImgHeaders = {
+            'adminToken': common.getAdminToken()
+          }
+          editor.customConfig.showLinkImg = false
+          editor.customConfig.uploadImgHooks = {
+            customInsert: function(insertImg, res, editor) {
+              var result = res.result
+              if (res.code == '1' && result.showUrl) {
+                insertImg(result.showUrl)
+              }
+            }
+          }
+          editor.create()
+        },
+
+        bindleBtnEvents: function() {
+          $('.js-default-img').on('click', function() {
+            $(this).siblings('.js-img-bg').spectrum('set', imgBGColor);
+            return false
+          });
+
+          //报名按钮各类事件绑定
+          var layerIdx;
+          $(".add-field").on('click', function(){
+              layerIdx = layer.open({
+                title:false,
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['420px', '240px'], //宽高
+                content: '<button data-name="name" class="add-field-btn">名字</button> \
+                    <button data-name="cellphone" class="add-field-btn">手机号</button> \
+                    <button data-name="carno" class="add-field-btn">车牌号</button> \
+                    <button data-name="custome" class="add-field-btn">自定义</button>'
+              });
+          });
+
+          $(".table-box").on('click','.del-tr',function(){
+              $(this).parent().remove();
+              var index = $(this).parents('tr').index()
+              if (button && button.fieldList) {
+                button.fieldList.splice(index, 1)
+              }
+          });
+
+          $("body").on('click','.add-field-btn',function(){
+              var fname = $(this).data('name');
+              var fld0,fld1,fld2,fld3;
+              var vjson = {name:"姓名",cellphone:"手机号",carno:"车牌号"}
+              var fjson = {'custome': '0', 'name': '1', 'cellphone': '2', 'carno': '3'}
+              // 为了存储fieldType，区分选项类型0：自定义，1：姓名，2：手机号，3：车牌号
+              if (fname && fjson[fname]) {
+                fld0 = '<input type="hidden" name="fieldType" value='+fjson[fname]+' class="js-field-item" />'
+              }
+
+              if (fname == 'custome') {
+                  fld1 = '<input type="text" name="name" class="w60 js-field-item js-validate" data-msg="请输入选项名称" maxlength="5" autocomplete="off" />';
+                  fld2 = '<select name="type" class="js-field-item js-select-item"><option value="1">输入框</option><option value="2">复选框</option><option value="3">单选框</option></select>';
+                  fld3 = '<input type="text" name="values" disabled class="w176 js-field-item js-validate" data-msg="请输入选项可选值" />';
+              } else {
+                  fld1 = '<input type="text" name="name" value="'+vjson[fname]+'" class="w60 js-field-item" disabled="disabled" maxlength="5" autocomplete="off">';
+                  fld2 = '<select name="type" disabled="disabled" class="js-field-item js-select-item"><option value="1">输入框</option></select>';
+                  fld3 = '<input type="text" name="values" class="w176 js-field-item js-validate" disabled="disabled">';
+              }
+              var trstr = '<tr><td>'+fld0+fld1+'</td><td>'+fld2+'</td><td>'+fld3+'</td><td><input type="checkbox" class="js-field-item" name="required" value="0"></td><td class="del-tr">删除</td></tr>';
+              if (fname != 'custome' && $(".table-box tbody input[value='"+vjson[fname]+"']").length>0) {
+                  layer.msg('姓名、手机号、车牌号为预设选项，每个只能选择一次，选项名称和文本类型不能更改选择自定义可设置自定义选项');
+              } else {
+                  $(".table-box tbody").append(trstr);
+              }
+              if ($('.js-enroll-suspend .table-box tbody tr').length >= 8) {
+                $('.add-field').addClass('hide')
+              } else {
+                $('.add-field').removeClass('hide')
+              }
+
+              layer.close(layerIdx);
+          });
+        },
+
+        bindleTitle: function() {
+          var self = this
+          $('.js-title').on('click', function() {
+            if (operIndex == 9997) {
+              return
+            }
+            operIndex = 9997
+            self.dealChoose($('.js-header'), $('.'+$(this).data('for')))
+           
+          })
+        },
+
+        bindleShare: function() {
+          var self = this
+          $('.js-share').on('click', function() {
+            if (operIndex == 9998) {
+              return
+            }
+            operIndex = 9998
+            self.dealChoose($('.js-header'), $('.'+$(this).data('for')))
+          })
+        },
+
+        bindleImg: function() {
+          var self = this
+          $('body').on('click', '.js-img-item', function() {
+            if ($(this).index() == operIndex) {
+              return
+            }
+            imgIndex = $(this).index() - $(this).prevAll('.js-rich-text-item').length
+            operIndex = $(this).index()
+            console.log(medias)
+            self.dealChoose($(this), $('.'+$(this).data('for')), 1)
+          })
+        },
+
+        bindleRichText: function() {
+          var self = this
+          $('body').on('click', '.js-rich-text-item', function() {
+            if ($(this).index() == operIndex) {
+              return
+            }
+            richTextIndex = $(this).index() - $(this).prevAll('.js-img-item').length
+            operIndex = $(this).index()
+            console.log(richText)
+            self.dealChoose($(this), $('.'+$(this).data('for')), 2)
+          })
+        },
+
+        bindleEnroll: function() {
+          var self = this
+          $('body').on('click', '.js-enroll-item', function() {
+            if (operIndex == 9999) {
+              return
+            }
+            operIndex = 9999
+            self.dealChoose($(this), $('.'+$(this).data('for')))
+          })
+        },
+
+        // 判断数据是否改变
+        isDataChange: function(imgIndex, richTextIndex) {
+          var form = $('.suspend-selected').find('form').serializeArray()
+          var formData = this.array2Object(form)
+          var objKey = $('.suspend-selected').attr('data-obj-key')
+          var obj = window[objKey] || {}
+          if (window[objKey] instanceof Array) {
+            if (objKey == 'medias') {
+              obj = window[objKey][imgIndex] || null
+            } else if (objKey == 'richText') {
+              obj = window[objKey][richTextIndex] || null
+            }
+          }
+          var isChange = false
+          if (obj && !common.isEmptyObject(obj)) {
+            for (var key in obj) {
+              // 碰到这些默认值，返回当做没有改变
+              if (key == 'backgroundColor' && formData[key] == imgBGColor) {
+
+              } else if (key == 'linkType' && formData[key] == '0') {
+
+              } else if (key == 'position' && formData[key] == '0') {
+
+              } else if (key == 'userLimit' && formData[key] == '1') {
+
+              } else if (key == 'margin' && formData[key] == '0,0,0,0') {
+
+              } else if ((key.indexOf('img') !== -1) || (key.indexOf('rich') !== -1)) {
+
+              } else {
+                if (formData[key] && obj[key] != formData[key]) {
+                  isChange = true
+                }
+              }
+            }
+          } 
+          else if (obj === null) {
+
+
+          } 
+          else {
+            // 没有保存数据，如果修改了值就认为是改变了，除去下面少数属性的默认值
+            for (var key in formData) {
+              if (key == 'backgroundColor' && formData[key] == imgBGColor) {
+
+              } else if (key == 'linkType' && formData[key] == '0') {
+
+              } else if (key == 'position' && formData[key] == '0') {
+
+              } else if (key == 'userLimit' && formData[key] == '1') {
+
+              } else if (key == 'margin' && formData[key] == '0,0,0,0') {
+
+              } else {
+                 if (formData[key]) {
+                  isChange = true
+                }
+              }
+            }
+          }
+          return isChange
+        },
+
+        dealChoose: function($el, $suspend, type) {
+          var isChange = this.isDataChange(oldImgIndex, oldRichTextIndex)
+          var $oldSuspend = $('.suspend-selected')
+          var oldObjKey = $oldSuspend.attr('data-obj-key')
+          var objKey = $suspend.attr('data-obj-key')
+          var self = this
+          // 判断当前是否有选中的浮框页
+          if (isChange && $('.suspend-selected').length && operIndex != oldOperIndex) {
+            layerImgIndex = layer.confirm('确定不保存数据切换模块吗？', {
+              btn: ['确定','取消']
+            }, function() {
+              if ($el.hasClass('selected')) {
+                // $el.removeClass('selected')
+              } else {
+                $('.selected').removeClass('selected')
+                $el.addClass('selected')
+              }
+
+              $('.js-suspend .comm-box').addClass('hide').removeClass('suspend-selected')
+              $suspend.removeClass('hide').addClass('suspend-selected')
+
+              layer.close(layerImgIndex)
+
+              // // 删除上一次的数据
+              // // 切换如果点击确定就是保存上一次的数据，显示当前的数据
+              // if (oldObjKey == 'medias') {
+              //   // self.saveImgData(oldImgIndex, oldOperIndex)
+              //   self.delImgData($oldSuspend)
+                
+              // } else if (oldObjKey == 'richText') {
+              //   // self.saveRichTextData(oldRichTextIndex, oldOperIndex)
+              //   self.delRichTextData($oldSuspend)
+              //   self.delRichTextData($suspend)
+              // } else if (oldObjKey == 'documentInfo') {
+              //   // self.saveTitleData()
+              //   // $oldSuspend.find('.btn-save').trigger('click')
+              // }
+
+              if (objKey == 'medias') {
+                self.delImgData($suspend)
+              } else if (objKey == 'richText') {
+                self.delRichTextData($suspend)
+              } else if (objKey == 'documentInfo') {
+                self.delTitleData($suspend)
+              } else if (objKey == 'pageShare') {
+                self.delShareData($suspend)
+              } else if (objKey == 'button') {
+                self.delButtonData($suspend)
+              }
+
+              // 恢复当前当前悬浮框数据
+              self.recoverData(objKey)
+
+              oldOperIndex = operIndex
+              if (type == '1') {
+                oldImgIndex = imgIndex
+              } else if (type == '2') {
+                oldRichTextIndex = richTextIndex
+              } else {
+                oldImgIndex = oldRichTextIndex = operIndex
+              }
+            }, function() {
+              operIndex = oldOperIndex
+              if (type == '1') {
+                imgIndex = oldImgIndex
+              } else if (type == '2') {
+                richTextIndex = oldRichTextIndex
+              } else {
+                imgIndex = richTextIndex = operIndex
+              }
+            })
+          } else {
+            if ($el.hasClass('selected')) {
+              // $el.removeClass('selected')
+            } else {
+              $('.selected').removeClass('selected')
+              $el.addClass('selected')
+            }
+            $('.js-suspend .comm-box').addClass('hide').removeClass('suspend-selected')
+            $suspend.removeClass('hide').addClass('suspend-selected')
+
+            // // 保存上一次的数据
+            // // 切换如果点击确定就是保存上一次的数据，显示当前的数据
+            // if (objKey == 'medias') {
+            //   // self.saveImgData(oldImgIndex, oldOperIndex)
+            //   self.delImgData($suspend)
+            // } else if (objKey == 'richText') {
+            //   // self.saveRichTextData(oldRichTextIndex, oldOperIndex)
+            //   self.delRichTextData($suspend)
+            // } else {
+            //   // $oldSuspend.find('.btn-save').trigger('click')
+            // }
+            
+            if (objKey == 'medias') {
+              self.delImgData($suspend)
+            } else if (objKey == 'richText') {
+              self.delRichTextData($suspend)
+            } else if (objKey == 'documentInfo') {
+              self.delTitleData($suspend)
+            } else if (objKey == 'pageShare') {
+              self.delShareData($suspend)
+            } else if (objKey == 'button') {
+              self.delButtonData($suspend)
+            }
+            
+            // 恢复当前当前悬浮框数据
+            self.recoverData(objKey)
+
+            oldOperIndex = operIndex
+            if (type == '1') {
+              oldImgIndex = imgIndex
+            } else if (type == '2') {
+              oldRichTextIndex = richTextIndex
+            } else {
+              oldImgIndex = oldRichTextIndex = operIndex
+            }
+          }
+        },
+
+        // 恢复数据
+        recoverData: function(keyName, isEdit) {
+          switch(keyName) {
+            case 'medias':
+              var mediaItem = medias[imgIndex]
+              if (mediaItem) {
+                for (var key in mediaItem) {
+                  $('.js-img-suspend').find('input[name='+key+'][type=text]').val(mediaItem[key])
+                  if (key == 'margin') {
+                    var margin = mediaItem[key]
+                    margin = margin ? margin.split(','): []
+                    var showMargin = []
+                    for (var i = 0; i < margin.length; i++) {
+                      $('.js-img-suspend .control-span').eq(i).find('.js-margin').val(margin[i])
+                      showMargin.push(margin[i] + 'px')
+                      $('.js-img-suspend').find('.js-margin-txt').val(margin.join(',')).attr('data-show-margin', showMargin.join(' '))
+                    }
+                  }
+                  if (mediaItem.backgroundColor) {
+                    $('.js-img-suspend').find('.js-img-bg').spectrum('set', mediaItem.backgroundColor);
+                  }
+                  if (mediaItem.link) {
+                    $('.js-radio input[type=radio]').eq(1).trigger('click')
+                  }
+                }
+              }
+              
+              break;
+
+            case 'richText':
+              var richTextItem = richText[richTextIndex]
+              if (richTextItem) {
+                for (var key in richTextItem) {
+                  if (key == 'margin') {
+                    var margin = richTextItem[key]
+                    margin = margin ? margin.split(','): []
+                    var showMargin = []
+                    for (var i = 0; i < margin.length; i++) {
+                      $('.js-rich-text-suspend .control-span').eq(i).find('.js-margin').val(margin[i])
+                      showMargin.push(margin[i] + 'px')
+                      $('.js-rich-text-suspend').find('.js-margin-txt').val(margin.join(',')).attr('data-show-margin', showMargin.join(' '))
+                    }
+                  }
+                  // TODO 修改颜色
+                  if (richTextItem.backgroundColor) {
+                    $('.js-rich-text-suspend').find('.js-img-bg').spectrum('set', richTextItem.backgroundColor);
+                  }
+                  if (richTextItem.content) {
+                    editor.txt.html(richTextItem.content)
+                  }
+                }
+              }
+              break;
+
+          case 'documentInfo':
+            for (var key in documentInfo) {
+              $('.js-title-suspend').find('input[name='+key+'][type=text],select[name='+key+']').val(documentInfo[key])
+            }
+            if (documentInfo.backgroundColor) {
+              $('.js-title-suspend').find('.js-img-bg').spectrum('set', documentInfo.backgroundColor);
+            }
+            break;
+
+          case 'pageShare':
+            for (var key in pageShare) {
+              $('.js-share-suspend').find('input[name='+key+'][type=text],textarea[name='+key+']').val(pageShare[key])
+            }
+            break;
+
+          case 'button':
+            console.log(button)
+            for (var key in button) {
+              $('.js-enroll-suspend').find('input[name='+key+'][type=text],textarea[name='+key+']').val(button[key])
+            }
+            
+            if (button.userLimit == '2') {
+              $('.js-limit-radio input[type=radio]').eq(1).trigger('click')
+            }
+            var fieldList = button.fieldList
+            if (fieldList) {
+              for (var i = 0; i < fieldList.length; i++) {
+                var fld0, fld1, fld2, fld3;
+                // 为了存储fieldType，区分选项类型0：自定义，1：姓名，2：手机号，3：车牌号
+                fld0 = '<input type="hidden" name="fieldType" value='+fieldList[i].fieldType+' class="js-field-item" /><input type="hidden" name="id" value='+fieldList[i].id+' class="js-field-item" />'
+                if (fieldList[i].fieldType == '0') {
+                    fld1 = '<input type="text" name="name" class="w60 js-field-item" value="'+fieldList[i].name+'" maxlength="5" autocomplete="off" data-msg="请输入选项名称"/>';
+                    fld2 = '<select name="type" class="js-field-item js-select-item"><option value="1">输入框</option><option value="2">复选框</option><option value="3">单选框</option></select>';
+                    fld3 = '<input type="text" name="values" placeholder="可选值，多个值用英文逗号分隔" class="w176 js-field-item" value="'+fieldList[i].values+'" data-msg="请输入选项可选值"/>';
+                } else {
+                    fld1 = '<input type="text" name="name" value="'+fieldList[i].name+'" class="w60 js-field-item" disabled="disabled" maxlength="5" autocomplete="off">';
+                    fld2 = '<select name="type" disabled="disabled" class="js-field-item js-select-item"><option value="1">输入框</option></select>';
+                    fld3 = '<input type="text" name="values" class="w176 js-field-item" disabled="disabled" value="'+fieldList[i].values+'">';
+                }
+                var trstr = '<tr><td>'+fld0+fld1+'</td><td>'+fld2+'</td><td>'+fld3+'</td><td><input type="checkbox" class="js-field-item" name="required" value="'+fieldList[i].required+'"></td><td class="del-tr">删除</td></tr>';
+                $('.js-enroll-suspend tbody').append(trstr);
+                if ($('.js-enroll-suspend .table-box tbody tr').length >= 8) {
+                  $('.js-enroll-suspend .add-field').addClass('hide')
+                } else {
+                  $('.js-enroll-suspend .add-field').removeClass('hide')
+                }
+                if (fieldList[i].required == '1') {
+                  $('.js-enroll-suspend tbody tr').eq(i).find('input[name=required]').prop('checked', true)
+                }
+                $('.js-enroll-suspend tbody tr').eq(i).find('select[name=type]').val(fieldList[i].type)
+              }
+            }
+            break;
+
+          default:
+            break;
+          }
+        },
+
+        dealChooseModuel: function(type) {
+          var isChange = this.isDataChange()
+          var self = this
+          var $el
+          var $oldSuspend = $('.suspend-selected')
+          var oldObjKey = $oldSuspend.attr('data-obj-key')
+
+          // 判断当前是否有选中的浮框页
+          if (type == 1) {
+            $el = $('.js-oper .js-oper-item:last-child')
+            operIndex = $el.index() + 1
+          } else if (type == 2) {
+            $el = $('.js-oper .js-oper-item:last-child')
+            operIndex = $el.index() + 1
+          } else if (type == 3) {
+            operIndex = 9999
+          }
+          if (isChange && $('.suspend-selected').length && operIndex != oldOperIndex) {
+            layerImgIndex = layer.confirm('确定不保存数据切换模块吗？', {
+              btn: ['确定','取消']
+            }, function() {
+              self.sureAddMudle(type)
+              layer.close(layerImgIndex)
+
+              var $suspend = $('.suspend-selected')
+              var objKey = $suspend.attr('data-obj-key')
+
+              if (objKey == 'medias') {
+                self.delImgData($suspend)
+              } else if (objKey == 'richText') {
+                self.delRichTextData($suspend)
+              } else if (objKey == 'documentInfo') {
+                self.delTitleData($suspend)
+              } else if (objKey == 'pageShare') {
+                self.delShareData($suspend)
+              } else if (objKey == 'button') {
+                self.delButtonData($suspend)
+                self.recoverData(objKey)
+              }
+
+              oldOperIndex = operIndex
+              if (type == '1') {
+                oldImgIndex = imgIndex
+              } else if (type == '2') {
+                oldRichTextIndex = richTextIndex
+              } else {
+                oldImgIndex = oldRichTextIndex = operIndex
+              }
+            }, function() {
+              // 点取消的时候，将当前选中的回退到上一次，因为不管点取消还是确定当前选中都会改变，点取消要做一个回退
+              operIndex = oldOperIndex
+              if (type == '1') {
+                imgIndex = oldImgIndex
+              } else if (type == '2') {
+                richTextIndex = oldRichTextIndex
+              } else {
+                imgIndex = richTextIndex = operIndex
+              }
+            })
+          } else {
+            self.sureAddMudle(type)
+
+            var $suspend = $('.suspend-selected')
+            var objKey = $suspend.attr('data-obj-key')
+            
+            if (objKey == 'medias') {
+              self.delImgData($suspend)
+            } else if (objKey == 'richText') {
+              self.delRichTextData($suspend)
+            } else if (objKey == 'documentInfo') {
+              self.delTitleData($suspend)
+            } else if (objKey == 'pageShare') {
+              self.delShareData($suspend)
+            } else if (objKey == 'button') {
+              self.delButtonData($suspend)
+              self.recoverData(objKey)
+            }
+
+            oldOperIndex = operIndex
+            if (type == '1') {
+              oldImgIndex = imgIndex
+            } else if (type == '2') {
+              oldRichTextIndex = richTextIndex
+            } else {
+              oldImgIndex = oldRichTextIndex = operIndex
+            }
+          }
+        },
+
+        sureAddMudle: function(type) {
+          var $el, $suspend;
+          if (type == 1) {
+            var imgTpl = '<div class="js-img-item js-oper-item" data-for="js-img-suspend"><img src="./img/img-default-bg.png" width="100%" /><div>'
+            $('.js-oper').append(imgTpl)
+            $el = $('.js-oper .js-oper-item:last-child')
+            imgIndex = $el.index() - $el.prevAll('.js-rich-text-item').length
+          } else if (type == 2) {
+            var imgTpl = '<div class="js-rich-text-item js-oper-item" data-for="js-rich-text-suspend"><img src="./img/text-rich-bg.png" width="100%" /></div>'
+            $('.js-oper').append(imgTpl)
+            $el = $('.js-oper .js-oper-item:last-child')
+            richTextIndex = $el.index() - $el.prevAll('.js-img-item').length
+          } else if (type == 3) {
+            if (!$('.js-enroll-item').length) {
+              button = {
+                image: 'https://static.car-me.cn/erph5/pages/activity/img/enroll-bg.png'
+              }
+              var imgTpl = '<img src="'+button.image+'" class="js-enroll-item" data-for="js-enroll-suspend" width="100%" />'
+              $('.js-enroll').append(imgTpl)
+            }
+            $el = $('.js-enroll-item')
+          }
+          if ($el) {
+            $suspend = $('.'+$el.attr('data-for'))
+            if ($el.hasClass('selected')) {
+              // $el.removeClass('selected')
+            } else {
+              $('.selected').removeClass('selected')
+              $el.addClass('selected')
+            }
+            $('.js-suspend .comm-box').addClass('hide').removeClass('suspend-selected')
+            $suspend.removeClass('hide').addClass('suspend-selected')
+          }
+        },
+
+        // 添加模块
+        addModule: function() {
+          var self = this
+          $('.js-add-img').on('click', function() {
+            self.dealChooseModuel(1)
+          })
+
+          $('.js-add-rich-text').on('click', function() {
+            self.dealChooseModuel(2)
+          })
+
+          $('.js-add-enroll').on('click', function() {
+            self.dealChooseModuel(3)
+          })
+        },
+
+        // 删除当前模块
+        delSuspend: function() {
+          var layerImgIndex;
+          var self = this
+          $('.js-img-del').on('click', function() {
+            var $that = $(this)
+            layerImgIndex = layer.confirm('确定删除吗？', {
+              btn: ['确定','取消']
+            }, function() {
+              self.delImgData($that.parents('.comm-box'))
+              
+              medias.splice(imgIndex, 1)
+              $('.'+$('.selected').attr('data-for')).addClass('hide').removeClass('suspend-selected')
+              $('.selected').remove()
+
+              // 所有index置空
+              imgIndex = undefined
+              richTextIndex = undefined
+              operIndex = undefined
+              oldOperIndex = undefined
+
+              layer.close(layerImgIndex)
+            }, function() {
+
+            })
+            return false
+          })
+
+          $('.js-rich-text-del').on('click', function() {
+            var $that = $(this)
+            layerImgIndex = layer.confirm('确定删除吗？', {
+              btn: ['确定','取消']
+            }, function() {
+              self.delRichTextData($that.parents('.comm-box'))
+              medias.splice(imgIndex, 1)
+              richText.splice(richTextIndex, 1)
+              $('.'+$('.selected').attr('data-for')).addClass('hide')
+              $('.selected').remove()
+
+              // 所有index置空
+              imgIndex = undefined
+              richTextIndex = undefined
+              operIndex = undefined
+              oldOperIndex = undefined
+
+              layer.close(layerImgIndex)
+            }, function() {
+
+            })
+            return false
+          })
+
+          $('.js-enroll-del').on('click', function() {
+            var $that = $(this)
+            layerImgIndex = layer.confirm('确定删除吗？', {
+              btn: ['确定','取消']
+            }, function() {
+              self.delButtonData($that.parents('.comm-box'))
+              button = null
+              $('.'+$('.selected').attr('data-for')).addClass('hide')
+              $('.selected').remove()
+
+              // 所有index置空
+              imgIndex = undefined
+              richTextIndex = undefined
+              operIndex = undefined
+              oldOperIndex = undefined
+
+              layer.close(layerImgIndex)
+            }, function() {
+
+            })
+            return false
+          })
+        },
+
+        delTitleData: function($suspend) {
+          $suspend.find('input[type=text],input[type=tel],input[type=hidden]')
+            .val('')
+            .removeAttr('checked')
+            .removeAttr('selected')
+
+          $suspend.find('.js-img-bg').spectrum('set', imgBGColor);
+          $suspend.find('.js-upload').siblings('.control-input').attr('data-image', '') // 删除图片
+          $suspend.find('.js-position').val('0') // 删除图片
+        },
+
+        delShareData: function($suspend) {
+          $suspend.find('input[type=text],textarea')
+            .val('')
+
+          $suspend.find('.js-upload').siblings('.control-input').attr('data-image', '') // 删除图片
+        },
+
+        // 删除图片form表单数据
+        delImgData: function($suspend) {
+          $suspend.find('input[type=text],input[type=tel],input[type=hidden]')
+            .val('')
+            .removeAttr('checked')
+            .removeAttr('selected');
+
+          $('.js-radio input[type=radio]').eq(0).trigger('click')
+          $suspend.find('.js-img-bg').spectrum('set', imgBGColor);
+          $suspend.find('.js-margin-txt').val('').attr('data-show-margin', '') // 删除margin
+          $suspend.find('.js-upload').siblings('.control-input').attr('data-image', '') // 删除图片
+        },
+
+        // 删除富文本form表单数据
+        delRichTextData: function($suspend) {
+          $suspend.find('input[type=text],input[type=tel]')
+            .val('')
+            .removeAttr('checked')
+            .removeAttr('selected');
+
+          $('.js-radio input[type=radio]').eq(0).trigger('click')
+          $suspend.find('.js-img-bg').spectrum('set', imgBGColor);
+          $suspend.find('.js-margin-txt').val('').attr('data-show-margin', '') // 删除margin
+          editor.txt.html('')
+        },
+
+        delButtonData: function($suspend) {
+          $suspend.find('input[type=text]')
+            .val('')
+            .removeAttr('checked')
+            .removeAttr('selected');
+
+          $('.js-limit-radio input[type=radio]').eq(0).trigger('click')
+          $suspend.find('.table-box tbody').html('')
+        },
+
+        bindleSaveEvents: function() {
+          var self = this
+
+          // 保存标题信息
+          $('.js-title-save').on('click', function() {
+            if (!self.saveTitleData(true)){
+              return false
+            }
+            layer.msg('保存成功')
+            return false
+          })
+
+          // 保存微信分享信息
+          $('.js-share-save').on('click', function() {
+            if (!self.saveShareData(true)) {
+              return false
+            }
+            layer.msg('保存成功')
+            return false
+          })
+
+          // 保存图片信息
+          $('.js-img-save').on('click', function() {
+            if (!self.saveImgData(imgIndex, operIndex, true)) {
+              return false
+            }
+            layer.msg('保存成功')
+            return false
+          })
+
+          $('.js-rich-text-save').on('click', function() {
+            self.saveRichTextData(richTextIndex, operIndex)
+            layer.msg('保存成功')
+            return false
+          })
+
+          $('.js-enroll-save').on('click', function() {
+            if (!self.saveEnrollData(true)) {
+              return false
+            }
+            setTimeout(function() {
+              layer.msg('保存成功')
+            }, 100)
+            return false
+          })
+
+        },
+
+        // 保存文档标题数据，needValidate是否需要校验
+        saveTitleData: function(needValidate) {
+          var form = $('.js-title-form').serializeArray()
+          documentInfo = this.array2Object(form)
+
+          if (needValidate) {
+            if (!documentInfo.title) {
+              layer.msg('请输入标题')
+              return false
+            }
+          }
+          // 渲染页面样式
+          var showUrl = $('.js-title-suspend .js-upload').siblings('.control-input').attr('data-image')
+          if (showUrl) {
+            $('.js-phone').css({'background-image': 'url('+showUrl+')', 'background-size': '100%'})
+          }
+          $('.js-title span').text(documentInfo.title)
+          console.log(documentInfo)
+          if (documentInfo) {
+            $('.js-phone').css({'background-color': documentInfo.backgroundColor})
+            // 0：repeat重复平铺；1：repeat-x横向平铺；2：repeat-y纵向平铺；3：no-repeat,top不重复置顶；4：no-repeat,bottom不重复置底
+            switch(documentInfo.position) {
+              case '0':
+                $('.js-phone').css({'background-repeat': 'repeat'})
+                break;
+              case '1':
+                $('.js-phone').css({'background-repeat': 'repeat-x'})
+                break;
+              case '2':
+                $('.js-phone').css({'background-repeat': 'repeat-y'})
+                break;
+              case '3':
+                $('.js-phone').css({'background-repeat': 'no-repeat', 'background-position': 'top'})
+                break;
+              case '4':
+                $('.js-phone').css({'background-repeat': 'no-repeat', 'background-position': 'bottom'})
+                break;
+              default:
+                break;
+            }
+          }
+          return true
+        },
+
+        // 保存微信数据，needValidate是否需要校验
+        saveShareData: function(needValidate) {
+          if (needValidate) {
+            var isEmpty = false
+            $('.js-share-suspend .js-validate').each(function(index, item) {
+              var val = $(item).val()
+              if (!val) {
+                isEmpty = true
+                layer.msg($(this).data('msg'))
+                return false
+              }
+            })
+            if (isEmpty) {
+              return false
+            }
+          }
+
+          var form = $('.js-share-suspend form').serializeArray()
+          pageShare = this.array2Object(form)
+          console.log(pageShare)
+          return true
+        },
+
+        // 保存图片数据，needValidate是否需要校验
+        saveImgData: function(imgIndex, operIndex, needValidate) {
+          var form = $('.js-img-suspend form').serializeArray()
+          medias[imgIndex] = this.array2Object(form) || {}
+          console.log(medias[imgIndex])
+          var key = 'img'+(+new Date())
+          // TODO 待修改
+          if (!medias[imgIndex].key) {
+            medias[imgIndex].key = key
+            $('.js-oper .js-oper-item').eq(operIndex).attr(key, '1')
+          }
+          if (needValidate) {
+            var isEmpty = false
+            $('.js-img-suspend .js-validate').each(function(index, item) {
+              var val = $(item).val()
+              if (!val) {
+                isEmpty = true
+                layer.msg($(this).data('msg'))
+                return false
+              }
+            })
+            if (isEmpty) {
+              return false
+            }
+          }
+          // 默认设置margin
+          $(this).parents('.comm-box').find('.js-margin').trigger('blur')
+
+          // 渲染页面样式
+          var showUrl = $('.js-img-suspend .js-upload').siblings('.control-input').attr('data-image')
+          if (showUrl) {
+            $('.js-oper .js-oper-item').eq(operIndex).find('img').attr('src', showUrl)
+          }
+          var margin = $('.js-img-suspend .js-margin-txt').attr('data-show-margin')
+          if (margin) {
+            $('.js-oper .js-oper-item').eq(operIndex).css({'margin': margin})
+          }
+
+          $('.js-oper .js-oper-item').eq(operIndex).css({'background-color': medias[imgIndex].backgroundColor})
+          return true
+        },
+
+        // 保存富文本数据
+        saveRichTextData: function(richTextIndex, operIndex) {
+          var form = $('.js-rich-text-suspend form').serializeArray()
+          richText[richTextIndex] = this.array2Object(form) || {}
+          richText[richTextIndex].content = editor.txt.html()
+          var key = 'rich'+(+new Date())
+          if (!richText[richTextIndex].key) {
+            richText[richTextIndex].key = key
+            $('.js-oper .js-oper-item').eq(operIndex).attr(key, '1')
+          }
+
+          // 默认设置margin
+          $(this).parents('.comm-box').find('.js-margin').trigger('blur')
+
+          var margin = $('.js-rich-text-suspend .js-margin-txt').attr('data-show-margin')
+          if (margin) {
+            $('.js-oper .js-oper-item').eq(operIndex).css({'margin': margin})
+          }
+          if (richText[richTextIndex].content/* && richText.content != '<p><br></p>'*/) {
+            $('.js-oper .js-oper-item').eq(operIndex).html(richText[richTextIndex].content)
+          }
+          // TODO 富文本数据不能恢复
+          $('.js-oper .js-oper-item').eq(operIndex).css({'background-color': richText[richTextIndex].backgroundColor})
+        },
+
+        saveEnrollData: function(needValidate) {
+          var form = $('.js-enroll-suspend form').serializeArray()
+          button = this.array2Object(form) || {}
+          button.text = '报名'
+          delete button.fieldType
+
+          if (needValidate) {
+            var isEmpty = false
+            $('.js-enroll-suspend .js-validate').each(function(index, item) {
+              var val = $(item).val()
+              if (!$(item).prop('disabled') && !val) {
+                isEmpty = true
+                layer.msg($(this).data('msg'))
+                return false
+              }
+            })
+            if (isEmpty) {
+              return false
+            }
+          }
+          var fieldList = []
+          $('.js-enroll-suspend .table-box tbody tr').each(function(index, item) {
+            var obj = {}
+            $(this).find('.js-field-item').each(function(sindex, sitem){
+              var name = $(sitem).attr('name')
+              var value = $(sitem).val()
+              obj[name] = value
+            })
+            fieldList.push(obj)
+          })
+          if (!fieldList.length) {
+            layer.msg('请至少添加一个报名选项')
+            return false
+          }
+          button.fieldList = fieldList
+          if (button.image) {
+            $('.js-enroll-item').attr('src', button.image)
+          }
+          return true
+        },
+
+        array2Object: function(list) {
+          var o = {}
+          if (list && list.length) {
+            for (var i = 0; i < list.length; i++) {
+              o[list[i].name] = list[i].value
+            }
+          }
+          return o
+        },
+
+        setMargin: function() {
+          $('.js-margin').on('input', function() {
+            var val = $(this).val()
+            $(this).val(common.formatFloat(val))
+          }).on('blur', function() {
+            var margin = []
+            var showMargin = []
+            $(this).parents('.row').find('.control-span').each(function(index, item) {
+              var val = $(item).find('input').val() || '0'
+              margin.push(val)
+              showMargin.push(val + 'px')
+            })
+            $(this).parents('.row').find('.js-margin-txt').val(margin.join(',')).attr('data-show-margin', showMargin.join(' '))
+          })
+        },
+
+        setRequired: function() {
+          $('body').on('click', 'input[name=required]', function() {
+            if ($(this).prop('checked')) {
+              $(this).val('1')
+            } else {
+              $(this).val('0')
+            }
+          })
+        },
+
+        setLink: function() {
+          $('.js-radio input[type=radio]').on('click', function() {
+            var index = $(this).parent().index()
+            if (index == 0) {
+              $(this).parents('.radio-group').siblings('.js-radio-page').addClass('hide')
+                .find('.control-input').attr('name', '')
+            } else {
+              $(this).parents('.radio-group').siblings('.js-radio-page').removeClass('hide')
+                .find('.control-input').attr('name', 'link')
+            }
+          })
+        },
+
+        uploadImg: function() {
+          var self = this
+          $('.js-upload').on('change', function(e) {
+            var $that = $(this)
+            var formData = new FormData();
+            var file = $(this)[0].files[0]
+            formData.append('file', file)
+            formData.append('category', 'customActivity')
+            self.upload({
+              url: common.erpDomain + '/upload/fileUpload',
+              param: formData,
+              success: function(res) {
+                let result = res.result
+                $that.siblings('.control-input').val(result.showUrl).attr('data-image', result.showUrl)
+              },
+              error: function(msg) {
+                layer.msg(msg || '网络异常')
+              }
+            })
+          })
+        },
+
+        upload: function(obj) {
+          $.ajax({
+            url: obj.url,
+            type: 'POST',
+            dataType: 'json',
+            data: obj.param,
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+            headers: {
+              'adminToken': common.getAdminToken()
+            },
+            success: function(res) {
+              if (res.code == '1') {
+                obj.success && obj.success(res)
+              } else {
+                obj.error && obj.error(res.message)
+              }
+            },
+            error: function(error) {
+              obj.error && obj.error()
+            }
+          })
+        },
+
+        addIndex: function(list) {
+          if (list && list.length) {
+            for (var i = 0; i < list.length; i++) {
+              if (list[i]) {
+                var key = list[i].key
+                var index = $('div['+key+'=1]').index()
+                list[i].index = Number($('div['+key+'=1]').index())
+              }
+            }
+          }
+          return list
+        },
+
+        goPublish: function() {
+          var isPublishing = false
+          var self = this
+          $('.js-btn-publish').on('click', function() {
+            if (!isPublishing) isPublishing = true
+
+            medias = self.addIndex(medias)
+            richText = self.addIndex(richText)
+
+            var param = {
+              documentInfo: documentInfo,
+              pageShare: pageShare,
+              medias: medias,
+              richText: richText,
+              button: button
+            }
+            if (activityId) {
+              param.activityId = activityId
+            }
+			
+			// 用户限制，1:不限制；2:限登录用户
+			param.userLimit = 1;
+			
+            console.log(param)
+
+            common.ajax({
+              // url: '../../assets/mock/car/getInsurance.json',
+              url: common.erpDomain + '/bldMeOperation/activityRegistration/add',
+              param: param,
+              success: function(res) {
+                var result = res.result
+                isPublishing = false
+                if (res.code == '1' && result) {
+                  layer.msg('发布成功')
+
+                  // TODO 待补充
+                } else if (res.code == '2') {
+                  var str = 'redirect='+encodeURIComponent(window.location.href)
+                  if (env) {
+                    str += '&env='+env
+                  }
+                  // TODO 
+                  window.location.replace('../user/login.html?'+str)
+                } else {
+                  layer.msg(res.message || '网络异常')
+                }
+              },
+              error: function() {
+                isPublishing = false
+                layer.msg('网络异常.')
+              }
+            })
+          })
+        }
+      }
+
+      commonModule.init()
+
+
+    </script>
+</body>
+
+</html>

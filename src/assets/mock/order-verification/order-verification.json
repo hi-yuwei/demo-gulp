@@ -1,0 +1,36 @@
+{
+	"code": "0",
+	"message": "success",
+	"result": {
+        "flag" : "1",
+        "notice" : "成功",
+		"order": {
+			"order_id": "1027",
+			"order_no": "CTET1910170003",
+			"pay_type": "3",
+            "user_name": "孙雷钢",
+            "user_phone": "17764505456"
+		},
+		"redeem": {
+			"expiration_date": "永久有效",
+			"verification_no": "C0329500",
+			"state": "2",
+			"usage_notice": "测试发聚少离多发送到发\n1、发的疯狂圣诞节焚枯食淡jf\n2、定金发送款两地分居受到f\n3、O(∩_∩)O哈哈~、\n5、见风使舵附近\n测试发聚少离多发送到发\n1、发的疯狂圣诞节焚枯食淡jf\n2、定金发送款两地分居受到f\n3、O(∩_∩)O哈哈~、\n5、见风使舵附近\n测试发聚少离多发送到发\n1、发的疯狂圣诞节焚枯食淡jf\n2、定金发送款两地分居受到f\n3、O(∩_∩)O哈哈~、\n5、见风使舵附近\n测试发聚少离多发送到发\n1、发的疯狂圣诞节焚枯食淡jf\n2、定金发送款两地分居受到f\n3、O(∩_∩)O哈哈~、\n5、见风使舵附近\n测试发聚少离多发送到发\n1、发的疯狂圣诞节焚枯食淡jf\n2、定金发送款两地分居受到f\n3、O(∩_∩)O哈哈~、\n5、见风使舵附近"
+		},
+		"product": {
+            "store_name": "test门店",
+			"product_id": "69",
+			"img": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/product/pic/797297455157914.jpg,https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/product/pic/797300330467754.jpg",
+			"name": "核销码商品-外部-积分",
+			"price": "2",
+			"market_price": "111.00",
+			"quantity": "1"
+		},
+		"price": {
+			"product_price": "2",
+			"pay_price": "2",
+			"order_price": "2"
+		}
+	}
+}
+

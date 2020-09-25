@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>比心二手车拍卖</title>
+		<link rel="stylesheet" href="../../../assets/css/base.css?_=2">
+		<style type="text/css">
+			.activity-header {
+				width: 100%;
+				height: 240px;
+				background: url(https://erp-explain.car-me.com/weixin_static/bixin/top-bg.png) center center no-repeat;
+				background-size: 100% 100%;
+			}
+
+			.activity-content {
+				text-align: center;
+				margin-top: -35px;
+				background: url(../img/money/center-bg.png) center center no-repeat;
+				background-size: 100% 100%;
+				padding-bottom: 22.5px;
+				min-height: 100vh;
+			}
+
+			.wrapper-item {
+				margin-bottom: 27px;
+				position: relative;
+			}
+			.wrapper-item .bg-img {
+				width: 85%;
+				height: 205px;
+				border-radius: 24px;
+			}
+			
+			.wrapper-item .header-bg {
+				width: 270.5px;
+				height: 47px;
+				position: absolute;
+				top: -8px;
+				left: 50%;
+				transform: translateX(-50%);
+				color: #D4DFFF;
+				font-size: 15px;
+				background: url(../img/money/start-time.png) center center no-repeat;
+				background-size: 100% 100%;
+			}
+			.title {
+				padding: 0 5px;
+			}
+						
+			.left-icon {
+				width: 17px;
+				height: 7px;
+			}
+						
+			.left-icon img {
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
+						
+			.small-txt {
+				font-size: 12px;
+			}
+			.wrapper-item .gray-bg {
+				background: url(../img/money/end-time.png) center center no-repeat;
+				background-size: 100% 100%;
+			}
+			
+			.wrapper-item .time-bg {
+				position: absolute;
+				bottom: 13px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 179px;
+				height: 35px;
+				line-height: 35px;
+				background: rgba(43, 87, 220, 0.8);
+				border-radius: 6px;
+				font-size: 12px;
+				color: #FFFFFF;
+			}
+			.flex-center{
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="">
+			<!--  @click="openService" -->
+			<div class="activity-header"></div>
+			<div class="activity-content">
+				<ul>
+					<!-- <li class="wrapper-item" v-for="(item,index) in carList" :key="index" @click="openActivity(item)">
+						<div class="header-bg flex-center" :class="{'gray-bg':item.auction_state == 0}">
+							<div>
+								<div class="flex-center">
+									<div class="left-icon">
+										<img src="../img/money/left-icon.png">
+									</div>
+									<div class="title"> {{ item.activity_name.length > 8 ? item.activity_name.slice(0,8) + '...' : item.activity_name}}</div>
+									<div class="left-icon">
+										<img src="../img/money/right-icon.png">
+									</div>
+								</div>
+								<div class="small-txt" v-if="item.auction_state == 0">已结束</div>
+								<div class="small-txt" v-if="item.auction_state == 1">进行中</div>
+								<div class="small-txt" v-if="item.auction_state == 2">未开始</div>
+							</div>
+						</div>
+						<image class="bg-img" :src="item.activity_image" mode=""></image>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+
+
+		<script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
+		<script src="../../../assets/js/common.js?_=5"></script>
+		<script type="text/javascript">
+			var env = common.getQuery().env;
+			var envStr = '';
+			if (env) {
+				envStr = 'env=' + env
+			}
+			
+			var initModule = {
+				init: function() {
+					this.loadData();
+					this.handleActivity();
+				},
+				loadData: function() {
+					let self = this;
+					let param = { }
+					common.ajax({
+						url: common.erpDomain + '/carDealer/carAuction/carAuctionList',
+						param: param,
+						// url: 'suctionList.json',
+						// method: 'GET',
+						success: function(res) {
+							if(res.code === '1' && res.result){
+								self.addListHtml(res.result)
+							}else{
+								if (res.code == '100004') {
+								  location.href = '../user/new_login.html?' + envStr + '&redirect=' + encodeURIComponent(window.location.href)
+								}	
+							}
+						}
+					})
+				},
+				addListHtml: function(list){
+					var html = "";
+					var stateTxt,auctionStateBg;
+					list.map( item => {
+						if(item.auctionState === 0){
+							stateTxt = '已结束';
+							auctionStateBg = 'gray-bg';
+						}else if(item.auctionState === 1){
+							stateTxt = '进行中';
+							auctionStateBg = '';
+						}else if(item.auctionState === 2){
+							stateTxt = '未开始';
+							auctionStateBg = '';
+						}
+						
+						item.activityName = item.activityName.length > 8 ? item.activityName.slice(0,8) + '...' : item.activityName;
+						
+						html += '<li class="wrapper-item" data-id="' + item.activityId + '">' +
+						'<div class="header-bg flex-center ' + auctionStateBg + '">' +
+							'<div>' +
+								'<div class="flex-center">' +
+									'<div class="left-icon">' +
+										'<img src="../img/money/left-icon.png">' +
+									'</div>' +
+									'<div class="title">' + item.activityName + '</div>' +
+									'<div class="left-icon">' +
+										'<img src="../img/money/right-icon.png">' +
+									'</div>' +
+								'</div>' +
+								'<div class="small-txt">' + stateTxt + '</div>' +
+							'</div>' +
+						'</div>' +
+						'<img class="bg-img" src="' + item.activityImage + '">' +
+					'</li>'
+					})
+					$('.activity-content ul').html(html)
+				},
+				handleActivity: function(){
+					$('.activity-content ul').on('click', 'li', function(){
+						let auctionId = $(this).data('id');
+						location.href='activity-list.html?auctionId='+auctionId+'&'+envStr
+					})
+					$('.activity-header').click(function(){
+						location.href='auction-introduce.html?'+envStr
+					})
+				}
+			}
+			initModule.init();
+		</script>
+	</body>
+</html>

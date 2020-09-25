@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="../../assets/css/base.css?_=1">
+		<style type="text/css">
+			body{
+				background: #FFFFFF;
+			}
+			.container{
+				padding: 0 16px;
+			}
+			.container .item{
+				padding: 24px 0;
+				border-bottom: 1px solid #F6F6F6;
+				display: flex;
+				align-items: center;
+				font-size: 14px;
+			}
+			.container .item .item-l{
+				width: 86px;
+				color: #666666;
+			}
+			.container .item .item-r{
+				flex: 1;
+			}
+			.container .finance{
+				color: #1967B5;
+				font-size: 15px;
+				font-weight: 500;
+			}
+			.finance img{
+				width:20px;
+				height: 20px;
+				margin-right: 8px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- <div class="item">
+				<div class="item-l">金融公司：</div>
+				<div class="item-r">北京奔驰有限公司</div>
+			</div>
+			<div class="item finance">
+				<div><img src="../../assets/images/car/icon-car.png" ></div>
+				<div>金融方案</div>
+			</div>
+			<div class="item">
+				<div class="item-l">首付比例：</div>
+				<div class="item-r">30%</div>
+			</div>
+			<div class="item">
+				<div class="item-l">按揭期数：</div>
+				<div class="item-r">12月</div>
+			</div>
+			<div class="item">
+				<div class="item-l">费率：</div>
+				<div class="item-r">3%</div>
+			</div> -->
+		</div>
+		<script src="../../assets/js/lib/zepto/zepto.min.js"></script>
+		<script src="../../assets/js/common.js?_=5"></script>
+		<script type="text/javascript">
+			var detailData = JSON.parse(common.getStorage('finance-detail'));
+			var html = '<div class="item">'+
+							'<div class="item-l">金融公司：</div>'+
+							'<div class="item-r">' + detailData.detail.storeName + '</div>'+
+						'</div>'+
+						'<div class="item finance">'+
+							'<div><img src="../../assets/images/car/icon-car.png" ></div>'+
+							'<div>金融方案</div>'+
+						'</div>'+
+						'<div class="item">'+
+							'<div class="item-l">首付比例：</div>'+
+							'<div class="item-r">' + detailData.detail.payRatio + '(%)</div>'+
+						'</div>'+
+						'<div class="item">'+
+							'<div class="item-l">按揭期数：</div>'+
+							'<div class="item-r">' + detailData.detail.time + '（月）</div>'+
+						'</div>'+
+						'<div class="item">'+
+							'<div class="item-l">费率：</div>'+
+							'<div class="item-r">' + detailData.detail.rate + '(%)</div>'+
+						'</div>';
+				$('.container').html(html);
+		</script>
+	</body>
+</html>

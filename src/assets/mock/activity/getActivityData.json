@@ -1,0 +1,108 @@
+{
+	"message": "success",
+	"code": "1",
+	"result": {
+		"activityId": 8,
+		"hasApply": "0",
+		"activityState": "2",
+		"documentInfo": {
+			"title": "砍价活动1",
+			"image": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/customActivity/卡米能量包.png",
+			"position": "4",
+			"backgroundColor": "#c79494"
+		},
+		"pageShare": {
+			"title": "标题11",
+			"image": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/customActivity/老司机游戏结束2.0888_03.png",
+			"desc": "111111111111112"
+		},
+		"medias": [{
+			"index": 0,
+			"image": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/customActivity/老司机游戏首页01.png",
+			"backgroundColor": "#4a729f",
+			"link": "htttps://www.baidu.com",
+			"margin": "11,13,14,15"
+		},
+		{
+			"index": 1,
+			"image": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/customActivity/老司机游戏结束2.0_02.png",
+			"backgroundColor": "#561e1e",
+			"margin": "22,13,14,16"
+		},
+		{
+			"index": 4,
+			"image": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/customActivity/老司机游戏首页01.png",
+			"backgroundColor": "#f0d7d7",
+			"margin": "1,2,3,4"
+		}],
+		"richText": [{
+			"index": 2,
+			"backgroundColor": "#a9ca79",
+			"margin": "25,23,24,25",
+			"content": "<p>111111111112<img src=\"https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/卡米能量包.png\" style=\"max-width: 100%;\"></p>"
+		},
+		{
+			"index": 3,
+			"backgroundColor": "#ffffff",
+			"margin": "11,42,43,44",
+			"content": "<p>规则</p><p>1.xxxxxxxxxxxxxxxxx</p><p>2.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p><p>3.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>"
+		}],
+		"button": {
+			"image": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/customActivity/enroll-bg.png",
+			"text": "报名",
+			"startTime": "2019-05-15",
+			"endTime": "2019-05-22",
+			"userLimit": 0,
+			"fieldList": [{
+				"id": 58,
+				"fieldType": 1,
+				"name": "姓名",
+				"type": "1",
+				"values": "",
+				"required": 1
+			},
+			{
+				"id": 59,
+				"fieldType": 2,
+				"name": "手机号",
+				"type": "1",
+				"values": "",
+				"required": 1
+			},
+			{
+				"id": 60,
+				"fieldType": 3,
+				"name": "车牌号",
+				"type": "1",
+				"values": "",
+				"required": 1
+			},
+			{
+				"id": 61,
+				"fieldType": 0,
+				"name": "数字",
+				"type": "2",
+				"values": "1,2,3,4",
+				"required": 1
+			},
+			{
+				"id": 62,
+				"fieldType": 0,
+				"name": "性别",
+				"type": "3",
+				"values": "男,女",
+				"required": 1
+			},
+			{
+				"id": 63,
+				"fieldType": 0,
+				"name": "学习课程",
+				"type": "2",
+				"values": "语文，英语，数学，化学，政治",
+				"required": 0
+			}]
+		}
+	},
+	"currentDate": "2019-05-17",
+	"success": true
+}

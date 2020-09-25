@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+  <title>二手车报价助手</title>
+  <link rel="stylesheet" href="../../assets/css/base.css?_=2">
+  <link rel="stylesheet" type="text/css" href="../../assets/css/mescroll.min.css">
+  <style type="text/css">
+    .c-red {
+      color: #EA6572;
+    }
+
+    .tab-box {
+      background: white;
+    }
+
+    .tab-box ul {
+      display: flex;
+    }
+
+    .tab-box ul li {
+      width: 33.33%;
+      line-height: 44px;
+      text-align: center;
+      font-size: 15px;
+      color: #939A9F;
+    }
+
+    .tab-box ul li.selected {
+      position: relative;
+      color: #1967B5;
+      font-weight: bold;
+    }
+
+    .tab-box ul li.selected:after {
+      content: " ";
+      width: 29px;
+      height: 2px;
+      background: #1967B5;
+      display: inline-block;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      margin-left: -14.5px;
+    }
+
+    .list-box ul li {
+      background: white;
+      padding: 12px 16px 16px;
+      margin: 16px;
+      border-radius: 6px;
+    }
+
+    .list-box ul li:last-child {
+      margin-bottom: 0;
+    }
+
+    .list-box ul li .item-top {
+      padding-bottom: 8px;
+      line-height: 24px;
+    }
+
+    .list-box ul li .item-address {
+      display: flex;
+      justify-content: space-between;
+      color: #333333;
+      font-size: 14px;
+    }
+
+    .list-box ul li .item-cont {
+      position: relative;
+      padding-top: 8px;
+      border-top: 1px solid #EFEFEF;
+      color: #666666;
+      line-height: 24px;
+      font-size: 13px;
+    }
+
+    .list-box ul li .item-cont:after {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      margin-top: -4px;
+      content: ' ';
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: url('img/icon-arrow-right.png') no-repeat;
+      background-size: 100%;
+    }
+
+    .list-box ul li .item-bottom {
+      margin-top: 10px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #F4F4F4;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #333333;
+    }
+
+    .mescroll {
+      position: fixed;
+      top: 96px;
+      bottom: 0;
+      height: auto;
+      /*如设置bottom:50px,则需height:auto才能生效*/
+    }
+
+    .error-wrapper {
+      margin-top: 50px;
+      text-align: center;
+      color: #B7B7B7;
+      font-size: 16px;
+    }
+
+    .error-wrapper div {
+      margin-top: 6px;
+    }
+
+    .sift-box {
+      width: 100%;
+      height: 52px;
+      background-color: #F8F8F8;
+      font-size: 0px;
+    }
+
+    .sift-box div {
+      position: relative;
+      display: inline-block;
+      width: 50%;
+      height: 52px;
+      line-height: 52px;
+      font-size: 13px;
+      text-align: center;
+      color: #999999;
+    }
+
+    .sift-box div:nth-of-type(1):after {
+      content: '';
+      width: 1px;
+      height: 20px;
+      background: #CCCCCC;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 16px;
+    }
+
+    .sift-box .select {
+      color: #1967B5;
+    }
+
+    .sift-box .select img {
+      transform: rotateX(180deg)
+    }
+
+    .bottom {
+      width: 0;
+      height: 0;
+      border-top: 8px solid #999999;
+      border-right: 8px solid transparent;
+      border-left: 8px solid transparent;
+      margin-left: 8px;
+    }
+
+    .address-box {
+      display: none;
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.7);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 96px;
+    }
+
+    .address-box ul {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #F8F8F8;
+      padding: 6px 6px 20px 6px;
+    }
+
+    .address-box ul li {
+      flex-grow: 1;
+      margin: 6px 6px 6px 6px;
+      padding: 0px 25px 0px 25px;
+      text-align: center;
+      height: 32px;
+      line-height: 32px;
+      background-color: #E7E7E7;
+      color: #999999;
+      font-size: 14px;
+      border-radius: 2px;
+    }
+
+    .brand-box {
+      display: none;
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.7);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 96px;
+      overflow: scroll;
+    }
+
+    .brand-box .brand-content {
+      background-color: #F8F8F8;
+    }
+
+    .brand-box .brand-content .allBrand {
+      width: 100%;
+      height: 64px;
+    }
+
+    .brand-box .brand-content .allBrand span {
+      display: inline-block;
+      margin-left: 12px;
+      margin-top: 16px;
+      background-color: #E7E7E7;
+      color: #999999;
+      font-size: 14px;
+      width: 78px;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      border-radius: 2px;
+    }
+
+    .brand-box .brand-content .brand-list {
+      overflow: scroll;
+      background-color: #ffffff;
+    }
+
+    .brand-box .brand-content .brand-list .brand-header {
+      width: 100%;
+    }
+
+    .brand-box .brand-content .brand-list .brand-header .brand-header-tag {
+      padding-left: 12px;
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      color: #2B343E;
+      font-size: 14px;
+    }
+
+    .brand-box .brand-content .brand-list .brand-header ul {
+      font-size: 0px;
+    }
+
+    .brand-box .brand-content .brand-list .brand-header li {
+      display: inline-block;
+      width: 20%;
+      height: 80px;
+      text-align: center;
+    }
+
+    .brand-box .brand-content .brand-list .brand-header li img {
+      width: 23px;
+    }
+
+    .brand-box .brand-content .brand-list .brand-header li span {
+      display: block;
+      margin-top: 4px;
+      width: 100%;
+      height: 17px;
+      line-height: 17px;
+      font-size: 12px;
+      color: #4A4A4A;
+    }
+
+    .brand-box .brand-content .brand-list .brand-item {}
+
+    .brand-box .brand-content .brand-list .brand-item div {
+      width: 100%;
+      height: 35px;
+      line-height: 35px;
+      background-color: #F8F8F8;
+      padding-left: 12px;
+      font-size: 14px;
+      color: #2B343E;
+    }
+
+    .brand-box .brand-content .brand-list .brand-item li {
+      position: relative;
+      width: 100%;
+      height: 42px;
+      line-height: 42px;
+    }
+
+    .brand-box .brand-content .brand-list .brand-item li:after {
+      content: '';
+      width: 100%;
+      height: 1px;
+      background: #F8F8F8;
+      display: inline-block;
+      position: absolute;
+      left: 0px;
+      bottom: 0px;
+    }
+
+    .brand-box .brand-content .brand-list .brand-item li img {
+      margin-left: 26px;
+      width: 23px;
+    }
+
+    .brand-box .brand-content .brand-list .brand-item li span {
+      margin-left: 17px;
+      font-size: 12px;
+      color: #4A4A4A;
+    }
+
+
+    .hiddent {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="tab-box js-tab">
+      <ul>
+        <li class="selected" data-id="3">待报价</li>
+        <li data-id="2">已报价</li>
+        <li data-id="1">已交易</li>
+      </ul>
+      <div class="sift-box">
+        <div data-id="1">
+          <span>全部地区</span>
+          <img class="bottom"></img>
+        </div>
+        <div data-id="2">
+          <span>全部品牌</span>
+          <img class="bottom"></img>
+        </div>
+      </div>
+    </div>
+
+    <div id="mescroll" class="list-box mescroll js-list">
+      <ul>
+        <!-- <li>
+            <div class="item-address">浙江  杭州</div>
+            <div class="item-cont">
+              <p>奔驰 GLE 2018 GLE 320 4MATIC 轿跑SUV</p>
+              <p>浙A*****</p>
+              <p>2015年/11.5万公里</p>
+              <p>报价结束时间：01-02 11:11</p>
+            </div>
+            <div class="item-bottom">
+              <span>报价：53.3万</span>
+              <span>01-01 11:11</span>
+            </div>
+          </li> -->
+      </ul>
+
+      <div class="error-wrapper hide" id="error-container">
+        <img src="../../assets/images/bg-empty.png" width="230" />
+        <div>暂无数据~</div>
+      </div>
+    </div>
+    <div class="address-box">
+      <ul>
+        <!-- <li>全部地区0</li>
+        <li>全部地区1</li>
+        <li>全部地区2</li>
+        <li>全部地区3</li>
+        <li>全部地区4</li>
+        <li>全部地区5</li>
+        <li>全部地区6</li>
+        <li>全部地区7</li> -->
+      </ul>
+    </div>
+    <div class="brand-box">
+      <div class="brand-content">
+        <div class="allBrand">
+          <span>全部品牌</span>
+        </div>
+        <div class="brand-list">
+          <div class="brand-header">
+            <div class="brand-header-tag">热门品牌</div>
+            <ul>
+              <!-- <li>
+                <img src="./img/user/login-bg.png" alt="">
+                <span>奥迪</span>
+              </li>
+              <li>
+                <img src="./img/user/login-bg.png" alt="">
+                <span>奥迪</span>
+              </li> -->
+            </ul>
+          </div>
+          <div class="brand-item">
+            <!-- <ul>
+              <div class="brand-tag">A</div>
+              <li>
+                <img src="./img/user/login-bg.png" alt="">
+                <span>阿斯顿马丁</span>
+              </li>
+              <li>
+                <img src="./img/user/login-bg.png" alt="">
+                <span>阿斯顿马丁</span>
+              </li>
+              <li>
+                <img src="./img/user/login-bg.png" alt="">
+                <span>阿斯顿马丁</span>
+              </li>
+            </ul> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../assets/js/lib/zepto/zepto.min.js"></script>
+  <script src="../../assets/js/lib/mescroll/mescroll.min.js"></script>
+  <script src="../../assets/js/common.js?_=5"></script>
+  <script>
+    var mescroll,
+      type = $('.js-tab li.selected').data('id'),
+      supplierId = common.getQuery().supplierId,
+      env = common.getQuery().env,
+      addressCode = '',
+      brandCode = '';
+
+    var homeModule = {
+      init: function () {
+        this.loadMescroll()
+        this.handleTab()
+        this.handleGoDetail()
+        this.loadAddressAndCarBrandData()
+      },
+
+      handleTab: function () {
+        $('.js-tab li').on('click', function () {
+          type = $(this).data('id') + ''
+          $(this).addClass('selected').siblings('li').removeClass('selected')
+          $('#mescroll ul').html('')
+          mescroll.resetUpScroll()
+          window.scrollTo(0, 0)
+
+          $('.sift-box div').removeClass('select')
+          $('.address-box').css('display', 'none')
+          $('.brand-box').css('display', 'none')
+
+        })
+        $('.sift-box div').on('click', function () {
+          if ($(this).data('id') == '1') {
+            if ($(this).hasClass('select')) {
+              $(this).removeClass('select')
+              $('.address-box').css('display', 'none')
+              $('.brand-box').css('display', 'none')
+            } else {
+              $(this).addClass('select').siblings('div').removeClass('select')
+              $('.address-box').css('display', 'inline-block')
+              $('.brand-box').css('display', 'none')
+            }
+          } else if ($(this).data('id') == '2') {
+            if ($(this).hasClass('select')) {
+              $(this).removeClass('select')
+              $('.address-box').css('display', 'none')
+              $('.brand-box').css('display', 'none')
+            } else {
+              $(this).addClass('select').siblings('div').removeClass('select')
+              $('.address-box').css('display', 'none')
+              $('.brand-box').css('display', 'inline-block')
+            }
+          }
+        })
+      },
+
+      handleGoDetail: function () {
+        $('.js-list ul').on('click', 'li', function () {
+          var str = '',
+            car_id = $(this).data('car-id'),
+            supplier_id = $(this).data('supplier-id');
+          if (car_id) str += 'carId=' + car_id
+          if (supplier_id) str += '&supplierId=' + supplier_id
+          if (env) str += '&env=' + env
+          location.href = 'detail.html?' + str
+        })
+      },
+
+      loadMescroll: function () {
+        var self = this
+        mescroll = new MeScroll('mescroll', {
+          down: {
+            callback: self.refresh
+          },
+          up: {
+            callback: self.loadData,
+            page: {
+              num: 0,
+              size: 10
+            },
+            htmlNodata: '<p class="upwarp-nodata">没有更多数据了</p>'
+          }
+        })
+      },
+
+      refresh: function () {
+        $('.js-list ul').html('')
+        mescroll.resetUpScroll()
+      },
+
+      loadData: function (page) {
+        var self = this
+        var param = {
+          pageNo: page.num,
+          pageSize: page.size,
+          type: type,
+          supplierId: supplierId,
+          cityCode: addressCode,
+          brandId: brandCode
+        }
+        common.ajax({
+          // url: '../../assets/mock/carseller/getList.json',
+          url: common.erpDomain + '/carDealer/carDealerList',
+          param: param,
+          success: function (res) {
+            var result = res.result
+            if (res.code == '1' && result.items) {
+              $('#error-container').addClass('hide')
+              $('#mescroll ul').removeClass('hide')
+              homeModule.addTpl(result.items)
+              var hasNext = (page.size == result.items.length)
+              mescroll.endSuccess(page.size, hasNext)
+            } else {
+              mescroll.endErr();
+              $('#mescroll ul').addClass('hide')
+              $('#error-container').removeClass('hide')
+              if (res.code == '100004') {
+                var str = ''
+                if (env) {
+                  str += 'env=' + env
+                }
+                location.href = './user/new_login.html?' + str
+              }
+            }
+          },
+          error: function () {
+            mescroll.endErr();
+            $('#mescroll').addClass('hide')
+            $('#error-container').removeClass('hide')
+          }
+        })
+      },
+
+      addTpl: function (list) {
+        var tpl = ''
+        var liTpl = ''
+        for (var i = 0; i < list.length; i++) {
+          var bottomTpl = ''
+          var endTpl = ''
+          // type：3:待报价，2:已报价，1:已交易，0放弃报价
+          if (list[i].type == '2' && list[i].bidden) {
+            bottomTpl =
+              '<div class="item-bottom">'
+              + '<span>报价：<span class="fs16 c-red fwb">' + list[i].bidden.price + '</span></span>'
+              + '<span>' + list[i].bidden.time + '</span>'
+              + '</div>'
+            endTpl = '<p>报价结束时间：' + list[i].biddenExpiredTime + '</p>'
+          } else if (list[i].type == '1' && list[i].deal) {
+            bottomTpl =
+              '<div class="item-bottom">'
+              + '<span>成交价：<span class="fs16 c-red fwb">' + list[i].deal.price + '</span></span>'
+              + '<span>' + list[i].deal.time + '</span>'
+              + '</div>'
+          } else if (list[i].type == '3') {
+            endTpl = '<p>报价结束时间：' + list[i].biddenExpiredTime + '</p>'
+          }
+
+          var dealTpl = ''
+          if (list[i].isDeal == '0') {
+            dealTpl = '<span>未成交</span>'
+          }
+
+          liTpl += '<li data-car-id=' + list[i].carId + ' data-supplier-id=' + list[i].supplierId + '>'
+            + '<div class="item-top">'
+            + '<div class="item-address"><span>所在地址：' + list[i].address + '</span>' + dealTpl + '</div>'
+            + '<div class="fs16 fwb">' + (list[i].brandName || '') + ' ' + (list[i].seriesName || '') + ' ' + (list[i].modelYear || '') + ' ' + (list[i].vehicleTypeName || '') + '</div>'
+            + '</div>'
+            + '<div class="item-cont">'
+            + '<p>车牌号码：' + list[i].carNo + '</p>'
+            + '<p>行驶里程：' + list[i].productionDate + '年/' + list[i].mileage + '万公里</p>'
+            + endTpl
+            + '</div>'
+            + bottomTpl
+            + '</li>'
+        }
+        $('#mescroll ul').append(liTpl)
+      },
+
+      loadAddressAndCarBrandData: function () {
+        common.ajax({
+          url: common.erpDomain + '/carDealer/allStoreRegion',
+          param: {},
+          success: function (res) {
+            var result = res.result
+            if (res.code == '1' && result.items && result.items.length) {
+              var liStr = ''
+              result.items.forEach(element => {
+                liStr = liStr + '<li data-id=' + element.code + '>' + element.name + '</li>'
+              });
+              $('.address-box ul').html(liStr)
+              $('.wrapper .address-box ul li').on('click', function () {
+                if ($(this).data('select') == '1') {
+                  $(this).css('color', '#999999').siblings('li').css('color', '#999999')
+                  $(this).data('select', '0').siblings('li').data('select', '0')
+                  $('.sift-box div:nth-of-type(1) span').html('全部地区')
+                  $('.address-box').css('display', 'none')
+                  $('.sift-box div:nth-of-type(1)').removeClass('select')
+                  window.addressCode = ''
+                } else {
+                  $(this).css('color', '#1967B5').siblings('li').css('color', '#999999')
+                  $(this).data('select', '1').siblings('li').data('select', '0')
+                  $('.sift-box div:nth-of-type(1) span').html($(this).html())
+                  $('.address-box').css('display', 'none')
+                  $('.sift-box div:nth-of-type(1)').removeClass('select')
+                  window.addressCode = $(this).data('id')
+                }
+                $('#mescroll ul').html('')
+                mescroll.resetUpScroll()
+                window.scrollTo(0, 0)
+              })
+            }
+          },
+          error: function () { }
+        })
+
+        common.ajax({
+          url: common.erpDomain + '/carInfo/hotBrand',
+          param: {},
+          success: function (res) {
+            var result = res.result
+            if (res.code == '1' && result.brands && result.brands.length) {
+              var liStr = ''
+              result.brands.forEach(element => {
+                liStr = liStr + '<li data-id=' + element.id + ' data-name=' + element.name + '>\
+                                    <img src="./img/brandImage/'+ element.id + '.png" alt="">\
+                                    <span>'+ element.name + '</span>\
+                                </li>'
+              });
+              $('.brand-box .brand-content .brand-list .brand-header ul').html(liStr)
+
+              $('.wrapper .brand-box .brand-content .brand-list .brand-header ul li').on('click', function () {
+                $('.sift-box div:nth-of-type(2) span').html($(this).data('name'))
+                $('.brand-box').css('display', 'none')
+                $('.sift-box div:nth-of-type(2)').removeClass('select')
+                window.brandCode = $(this).data('id')
+
+                $('#mescroll ul').html('')
+                mescroll.resetUpScroll()
+                window.scrollTo(0, 0)
+              })
+
+            }
+          },
+          error: function () { }
+        })
+
+        common.ajax({
+          url: common.erpDomain + '/carInfo/brand',
+          param: {},
+          success: function (res) {
+            var result = res.result
+            if (res.code == '1' && result.brands && result.brands.length) {
+              var tagArr = new Array();
+              result.brands.forEach(element => {
+                var tag = element.firstLetter
+                if (tagArr.hasOwnProperty(tag)) {
+                  tagArr[tag].push(element)
+                } else {
+                  var itemArr = new Array()
+                  itemArr.push(element)
+                  tagArr[tag] = itemArr
+                }
+              });
+              var ulStr = ''
+              for (var key in tagArr) {
+                var liStr = ''
+                var itemArr = tagArr[key]
+                itemArr.forEach(element => {
+                  liStr = liStr + '<li data-id=' + element.brandId + ' data-name=' + element.name + '>\
+                                      <img src="./img/brandImage/'+ element.brandId + '.png" alt="">\
+                                      <span>'+ element.name + '</span>\
+                                    </li>'
+                });
+                ulStr = ulStr + '<ul><div class="brand-tag">' + key + '</div>' + liStr + '</ul>'
+              }
+
+              $('.brand-box .brand-content .brand-list .brand-item').html(ulStr)
+
+              $('.wrapper .brand-box .brand-content .brand-list .brand-item ul li').on('click', function () {
+                $('.sift-box div:nth-of-type(2) span').html($(this).data('name'))
+                $('.brand-box').css('display', 'none')
+                $('.sift-box div:nth-of-type(2)').removeClass('select')
+                window.brandCode = $(this).data('id')
+
+                $('#mescroll ul').html('')
+                mescroll.resetUpScroll()
+                window.scrollTo(0, 0)
+              })
+            }
+          },
+          error: function () { }
+        })
+
+        $('.allBrand').on('click', function () {
+          $('.sift-box div:nth-of-type(2) span').html('全部品牌')
+          $('.brand-box').css('display', 'none')
+          $('.sift-box div:nth-of-type(2)').removeClass('select')
+          window.brandCode = ''
+          $('#mescroll ul').html('')
+          mescroll.resetUpScroll()
+          window.scrollTo(0, 0)
+        })
+      }
+    }
+
+    homeModule.init()
+
+
+  </script>
+</body>
+
+</html>

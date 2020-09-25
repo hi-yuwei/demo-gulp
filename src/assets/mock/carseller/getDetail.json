@@ -1,0 +1,73 @@
+{
+    "message": "success",
+    "code": "1",
+    "result": {
+        "carId": 38,
+        "supplierId": 23,
+        "type": 1,
+        "carNo": "浙AZ0F17",
+        "brandId": 8,
+        "brandName": "福特",
+        "seriesId": 102,
+        "seriesName": "Mustang 野马",
+        "modelYear": "2019",
+        "vehicleTypeId": 30806,
+        "vehicleTypeName": "5.0L V8 GT",
+        "productionDate": "2019-03",
+        "mileage": "11.00",
+        "carOnTime": "2019-03",
+        "ownerNumber": 1,
+        "inspectionTime": "2019-04",
+        "evaluateContent": "4343434",
+        "bidden": {
+            "price": "1.00",
+            "time": "04-25 19:20"
+        },
+        "carPicList": [{
+            "name": "车头",
+            "picUrl": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/3912673714124307.jpg",
+            "desc": "43434"
+        },
+        {
+            "name": "左侧45度",
+            "picUrl": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/3912676528800581.gif",
+            "desc": "43434"
+        },
+        {
+            "name": "车尾",
+            "picUrl": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/3912678784318950.jpg",
+            "desc": "43434"
+        },
+        {
+            "name": "右侧45度",
+            "picUrl": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/3912681233301262.jpg",
+            "desc": "43434"
+        },
+        {
+            "name": "内饰",
+            "picUrl": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/3912683988431355.jpg",
+            "desc": "43434"
+        },
+        {
+            "name": "仪表盘",
+            "picUrl": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/3912686073691705.jpg",
+            "desc": "34444"
+        },
+        {
+            "name": "发动机舱",
+            "picUrl": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/3912688755011744.jpg",
+            "desc": "111"
+        },
+        {
+            "name": "铭牌",
+            "picUrl": "https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/3912691372914894.jpg",
+            "desc": "111"
+        }],
+        "deal": {
+            "price": "1.00",
+            "time": "04-25 19:20"
+        }
+    },
+    "currentDate": "2019-04-28",
+    "success": true
+}

@@ -1,0 +1,69 @@
+{
+    "code": "0",
+    "message": "success",
+    "result": {
+    		"documentInfo": {
+    			"title": "H5页面标题",
+    			"image":"https://static.car-me.cn/app/assets/images/activities/mp-head.png",
+    			"backgroundColor": "#eee",
+    			"position": "repeat,repeat-x,repeat-y,no-repeat top, no-repeat bottom"
+    		},
+    		"pageShare": {
+    			"title": "活动标题",
+    			"image": "https://static.car-me.cn/app/assets/images/share.png",
+    			"desc": "活动描述"
+    		},
+        "medias": [
+          {
+            "type": "image",
+            "image":"https://static.car-me.cn/app/assets/images/activities/mp-head.png",
+            "backgroundColor": "#eee",
+            "link": "http://www.baidu.com",
+            "name": "name1",
+            "margin": "10,10,10,10"
+          },
+          {
+            "type": "image",
+            "image":"https://static.car-me.cn/app/assets/images/vip/health/2.png",
+            "backgroundColor": "#eee",
+            "link": "",
+            "name": "name2",
+            "margin": "10,10,10,10"
+          }         
+        ],
+        "richText": [
+            {
+                "backgroundColor":"#eee",
+                "margin": "10,10,10,10",
+                "content": ""
+            }
+        ],
+        "button":{
+            "image":"https://static.car-me.cn/app/assets/images/activities/mp-btn.png",
+            "text":"报名",
+            "startTime": "2018-01-03",
+            "endTime": "2019-01-02",
+            "userLimit": "0",
+            "fieldList":[
+                {
+                    "name":"姓名",
+                    "type":"1",
+                    "values":"",
+                    "required":"true"
+                },
+                {
+                    "name":"威压",
+                    "type":"2",
+                    "values":"男,女",
+                    "required":"true"
+                },
+                {
+                    "name":"城市",
+                    "type":"3",
+                    "values":"杭州,北京,南京",
+                    "required":"false"
+                }
+            ]
+        }
+    }
+}

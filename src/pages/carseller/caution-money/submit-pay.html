@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+        <title>支付</title>
+        <script src="https://cdn.bootcss.com/vConsole/3.2.2/vconsole.min.js"></script>
+        <link rel="stylesheet" href="../../../assets/css/base.css?_=2" />
+        <style type="text/css">
+            body {
+                background-color: #ffffff;
+            }
+
+            .recharge-price {
+                text-align: center;
+                padding: 32px 0;
+            }
+
+            .recharge-price .price {
+                color: #d0021b;
+                font-size: 40px;
+                font-weight: 600;
+            }
+
+            .recharge-price .price span:nth-child(1) {
+                font-weight: 500;
+            }
+
+            .recharge-price .price span {
+                font-size: 24px;
+            }
+
+            .recharge-mode .mode-wrapper {
+                padding: 24px 16px;
+                border-bottom: 1px solid #f8f8f8;
+            }
+
+            .recharge-mode .mode-wrapper img {
+                width: 22px;
+                height: 22px;
+            }
+
+            .recharge-mode .mode-wrapper p {
+                margin-left: 12px;
+            }
+
+            .recharge-mode .mode-wrapper:last-child {
+                border-bottom: none;
+            }
+
+            .flex-center {
+                display: flex;
+                align-items: center;
+            }
+
+            .flex-between {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .line-grey {
+                background-color: #f9f9f9;
+                height: 10px;
+            }
+
+            .btn button {
+                width: 80%;
+                height: 49px;
+                background: linear-gradient(135deg, #e9d4bf 0%, #b49a83 100%);
+                border-radius: 2px;
+                border: none;
+                color: #ffffff;
+                margin: 40px auto;
+                display: block;
+                outline: none;
+            }
+
+            .weixin-tip {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                width: 100%;
+                height: 100%;
+            }
+
+            .weixin-tip p {
+                text-align: center;
+                margin-top: 10%;
+                padding: 0 5%;
+            }
+
+            .weixin-tip img {
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="recharge-price">
+                <p>充值金额</p>
+                <p class="price"><span>￥</span></p>
+            </div>
+            <div class="line-grey"></div>
+            <ul class="recharge-mode">
+                <li class="mode-wrapper wrapper1 flex-between" data-type="1">
+                    <div class="flex-center">
+                        <img src="../img/money/zfb-icon.png" />
+                        <p>支付宝支付</p>
+                    </div>
+                    <img class="select-icon" src="../img/money/select-icon.png" />
+                </li>
+                <li class="mode-wrapper wrapper2 flex-between" data-type="2">
+                    <div class="flex-center">
+                        <img src="../img/money/wx-icon.png" />
+                        <p>微信支付</p>
+                    </div>
+                    <img class="select-icon" src="../img/money/act-select-icon.png" />
+                </li>
+            </ul>
+            <div class="btn">
+                <button>确认支付</button>
+            </div>
+        </div>
+        <div class="weixin-tip hide">
+            <p><img src="../img/money/live_weixin.png" alt="微信打开" /></p>
+        </div>
+
+        <script src="../../../assets/js/lib/layer/layer.js"></script>
+        <script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
+        <script src="../../../assets/js/common.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            var money = common.getQuery().money,
+                env = common.getQuery().env,
+                supplierId = common.getQuery().supplierId
+            var moneyeArr = money.split('.')
+            var payType = 2
+
+            // var vConsole = new VConsole();
+
+            var envStr = ''
+            if (env) {
+                envStr = 'env=' + env
+            }
+
+            var initModule = {
+                init: function () {
+                    let that = this
+                    var isWeixin = that.isWeiXin()
+                    if (!isWeixin) {
+                        payType = 1
+                        $('.recharge-mode .wrapper1').find('.select-icon').attr('src', '../img/money/act-select-icon.png')
+                        $('.recharge-mode .wrapper2').find('.select-icon').attr('src', '../img/money/select-icon.png')
+                    }
+                    var html = ''
+                    if (moneyeArr.length > 1) {
+                        html = '<span>￥</span>' + moneyeArr[0] + '<span>.' + moneyeArr[1] + '</span>'
+                    } else {
+                        html = '<span>￥</span>' + moneyeArr[0]
+                    }
+
+                    $('.price').html(html)
+
+                    $('.recharge-mode li').on('click', function () {
+                        payType = $(this).data('type')
+                        $(this).find('.select-icon').attr('src', '../img/money/act-select-icon.png')
+                        $(this).siblings().find('.select-icon').attr('src', '../img/money/select-icon.png')
+                        if (payType === 1) {
+                            if (isWeixin) {
+                                $('.weixin-tip').removeClass('hide')
+                            }
+                        }
+                    })
+                    that.handleCLick()
+                },
+                handleCLick: function () {
+                    let that = this
+                    $('.btn button').on('click', function () {
+                        if (!that.isWeiXin() && payType === 2) {
+                            layer.open({
+                                content: '当前浏览器无法使用微信支付，请在微信中打开',
+                                skin: 'msg',
+                                style: 'top: 0;',
+                                time: 2 //2秒后自动关闭
+                            })
+                            return
+                        }
+
+                        var upload = ''
+                        upload = layer.open({
+                            type: 2,
+                            content: '加载中',
+                            shadeClose: false
+                        })
+                        let source = 'bx-wechat'
+                        if (payType === 1) {
+                            source = 'bx-alipay'
+                        }
+                        let param = {
+                            price: money,
+                            source: source,
+                            payType: payType,
+                            id: supplierId
+                        }
+                        common.ajax({
+                            url: common.erpDomain + '/carDealer/deposit/apply',
+                            param: param,
+                            success: function (res) {
+                                console.log(res)
+                                layer.close(upload)
+                                if (payType === 1 && res.code === '1' && res.result.payCert) {
+                                    let { payCert } = res.result
+                                    location.href = payCert
+                                }
+                                if (payType === 2 && res.code === '1') {
+                                    WeixinJSBridge.invoke(
+                                        'getBrandWCPayRequest',
+                                        {
+                                            appId: res.result.appId, //公众号名称，由商户传入
+                                            timeStamp: res.result.timeStamp, //时间戳，自1970年以来的秒数
+                                            nonceStr: res.result.nonceStr, //随机串
+                                            package: res.result.package,
+                                            signType: res.result.signType, //微信签名方式：
+                                            paySign: res.result.paySign //微信签名
+                                        },
+                                        function (res) {
+                                            console.log('判断前端返回---------')
+                                            console.log(res)
+                                            if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                                                location.replace('caution-money.html?' + envStr)
+                                            }
+                                            console.log('判断前端返回---------')
+                                        }
+                                    )
+                                }
+                                if (res.code !== '1') {
+                                    layer.open({
+                                        content: res.message,
+                                        skin: 'msg',
+                                        style: 'top: 0;',
+                                        time: 2 //2秒后自动关闭
+                                    })
+                                }
+                            }
+                        })
+                    })
+                    $('.weixin-tip').click(function () {
+                        $('.weixin-tip').addClass('hide')
+                    })
+                },
+                isWeiXin: function () {
+                    // 不加window部分Android机会显示不了提示图，即判断不了是否是微信
+                    var ua = window.navigator.userAgent.toLowerCase()
+                    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+            }
+            initModule.init()
+        </script>
+    </body>
+</html>

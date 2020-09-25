@@ -1,0 +1,276 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  font-size: 0.16rem;
+}
+[v-cloak] {
+  display: none;
+}
+
+#app {
+  height: 100%;
+  padding: 1.04rem 0 0.2rem;
+  background-color: #f8f8f8;
+  &.search {
+    padding-top: 0.56rem;
+    padding-top: calc(0.56rem + constant(safe-area-inset-top));
+    padding-top: calc(0.56rem + env(safe-area-inset-top));
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      .icon-right {
+        color: #fff;
+      }
+    }
+  }
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  padding: 0.07rem 0.16rem 0.08rem;
+  padding-top: calc(0.07rem + constant(safe-area-inset-top));
+  padding-top: calc(0.07rem + env(safe-area-inset-top));
+  background-color: #1967b5;
+
+  .icon-nav.icon-left {
+    background: url(../img/left-icon.png) no-repeat center / 100%;
+    width: 0.24rem;
+    height: 0.24rem;
+  }
+
+  .header-search {
+    width: 2.75rem;
+    margin-left: 0.06rem;
+
+    input {
+      width: 100%;
+      height: 0.29rem;
+      line-height: 0.29rem;
+      border: none;
+      border-radius: 1rem;
+      padding-left: 0.12rem;
+      outline: none;
+      caret-color: white;
+      color: #fff;
+      background-color: #377bbe;
+      &::placeholder {
+        color: #fff;
+        font-size: 0.12rem;
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  font-size: 0.15rem;
+  font-weight: 300;
+  color: #939a9f;
+  background-color: #fff;
+  > li {
+    position: relative;
+    padding: 0.12rem 0;
+    width: 25%;
+    text-align: center;
+    &.active {
+      font-weight: 500;
+      color: #1967b5;
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 30%;
+        height: 0.02rem;
+        background-color: #1967b5;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}
+
+.main {
+  padding: 0 0.16rem;
+  .card {
+    padding: 0 0.16rem;
+    background-color: #fff;
+    border-radius: 0.06rem;
+    & + .card {
+      margin-top: 0.12rem;
+    }
+    .title {
+      padding: 0.08rem 0;
+      border-bottom: 0.01rem solid #f6f6f6;
+      .from {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.08rem;
+        .origin {
+          font-size: 0.13rem;
+          color: #666;
+        }
+        .type {
+          padding: 0.06rem 0.12rem;
+          font-size: 0.12rem;
+          border-radius: 0.02rem;
+          color: #f19527;
+          background-color: #fff5e9;
+          &.maintain {
+            /* 保养 */
+            color: #0274ff;
+            background-color: #edf5ff;
+          }
+          &.service {
+            /* 维修 */
+            color: #f19527;
+            background-color: #fff5e9;
+          }
+        }
+      }
+      .car {
+        font-size: 0.16rem;
+        color: #283540;
+        font-weight: 500;
+        p + p {
+          margin-top: 0.06rem;
+        }
+      }
+    }
+    .details {
+      padding: 0.12rem 0;
+
+      font-size: 0.13rem;
+      color: #666;
+
+      border-bottom: 0.01rem solid #f6f6f6;
+    }
+    .content {
+      > div {
+        display: flex;
+        > span:last-child {
+          flex: 1;
+        }
+      }
+      > div + div {
+        margin-top: 0.06rem;
+      }
+    }
+    .operate {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.16rem 0;
+      .contact {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.12rem;
+        color: #1967b5;
+        .icon-phone {
+          margin-right: 0.08rem;
+          width: 0.14rem;
+          height: 0.14rem;
+          background: url('../img/icon-phone.png') no-repeat center / 100%;
+        }
+      }
+      .btns {
+        display: flex;
+        justify-content: space-between;
+        button {
+          padding: 0.08rem;
+
+          font-size: 0.12rem;
+          color: #1967b5;
+
+          outline: none;
+          border: none;
+          background: transparent;
+
+          border-radius: 0.02rem;
+
+          border: 0.01rem solid #6ca0d3;
+          & + button {
+            margin-left: 0.04rem;
+          }
+        }
+        .btn-cancel {
+          border: 0.01rem solid #999;
+          color: #999;
+        }
+
+        /* iphone5 */
+        @media screen and (device-width: 320px) and (-webkit-device-pixel-ratio: 2) {
+          button {
+            padding: 0.08rem 0.02rem;
+            & + button {
+              margin-left: 0.04rem;
+            }
+          }
+        }
+      }
+    }
+    .img {
+      padding-top: 0.12rem;
+      display: flex;
+      flex-wrap: wrap;
+      > div {
+        margin-bottom: 0.04rem;
+        width: 32%;
+        height: 0.76rem;
+
+        &:not(:nth-child(3n)) {
+          margin-right: 2%;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 0.02rem;
+        }
+      }
+    }
+    .danger {
+      // 超时30分钟
+      color: #ea6572;
+    }
+    .warn {
+      // 超时1~30分钟
+      color: #f19527;
+    }
+  }
+}
+
+.no-data {
+  margin-top: 0.5rem;
+  text-align: center;
+  color: #b7b7b7;
+  font-size: 0.16rem;
+  img {
+    width: 2.3rem;
+    margin-bottom: 0.06rem;
+  }
+}
+
+.f-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.f-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

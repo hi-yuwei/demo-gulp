@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+		<title>绑定账号</title>
+		<link rel="stylesheet" href="../../assets/css/base.css?_=2">
+		<style type="text/css">
+			body {
+				background: #FFFFFF;
+			}
+
+			.container {
+				padding: 20px 28px 0;
+				text-align: center;
+			}
+
+			.box {
+				background: #F8F8F8;
+				padding: 0 23px;
+				border-radius: 8px;
+			}
+
+			.item {
+				display: flex;
+				padding: 21px 0 13px 21px;
+				border-bottom: 1px solid #F0F0F0;
+				color: #000000;
+				font-size: 14px;
+			}
+
+			.item .icon {
+				margin-right: 4px;
+			}
+
+			.item:nth-child(2) {
+				border-bottom: none;
+			}
+
+			.item .value {
+				color: #0274FF;
+				margin-left: 20px;
+			}
+
+			.btn {
+				padding: 8px 60px;
+				margin-top: 48px;
+				font-size: 14px;
+				background: #FFFFFF;
+				border: 1px solid #979797;
+				color: #999999;
+				border-radius: 25px;
+				margin-top: 48px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="container">
+			<div id="box" class="box">
+				<!-- <div class="item">
+					<div class="icon"><img src="img/user/bind-icon01.png"></div>
+					<div>
+						当前绑定车商
+						<span class="value">嘉兴博奥二手车</span>
+					</div>
+				</div>
+				<div class="item">
+					<div class="icon"><img src="img/user/bind-icon02.png"></div>
+					<div>
+						绑定手机号码
+						<span class="value">13757588973</span>
+					</div>
+				</div> -->
+			</div>
+			<button class="btn" type="button">解绑</button>
+		</div>
+
+		<script src="../../assets/js/lib/zepto/zepto.min.js"></script>
+		<script src="../../assets/js/lib/layer/layer.js"></script>
+		<script src="../../assets/js/common.js?_=5"></script>
+		<script>
+			var env = common.getQuery().env,
+				userToken = common.getStorage('userToken');
+
+			var homeModule = {
+				init: function() {
+					this.loadData();
+				},
+				loadData: function(){
+					if(userToken){
+						// var param = {
+						//   userToken: userToken,
+						// }
+						common.ajax({
+						  url: common.erpDomain + '/carDealer/accountInfo',
+						  param: {},
+						  success: function (res) {
+							  if(res.code == '1'){
+								  var data = res.result;
+								  homeModule.addTpl(data);
+								  homeModule.handleTab(data);
+							  }else{
+								  if(res.code == '100004'){
+									  var str = ''
+									  if (env) {
+									    str += 'env=' + env
+									  }
+									  location.href = './user/new_login.html?' + str
+								  }
+								  layer.open({
+								    content: res.message,
+								    skin: 'msg',
+								    style: 'top: 0;',
+								    time: 2 //2秒后自动关闭
+								  })
+							  }
+						  },
+						  error: function () {
+							  layer.open({
+							    content: '系统繁忙.',
+							    skin: 'msg',
+							    style: 'top: 0;',
+							    time: 2 //2秒后自动关闭
+							  })
+						  }
+						})
+					}else{
+						var str = ''
+						if (env) {
+						  str += 'env=' + env
+						}
+						location.href = './user/new_login.html?' + str
+					}
+				},
+				addTpl: function(data){
+					var tpl =   '<div class="item">'+
+									'<div class="icon"><img src="img/user/bind-icon01.png"></div>'+
+									'<div>'+
+										'当前绑定车商'+
+										'<span class="value">' + data.name +'</span>'+
+									'</div>'+
+								'</div>'+
+								'<div class="item">'+
+									'<div class="icon"><img src="img/user/bind-icon02.png"></div>'+
+									'<div>'+
+										'绑定手机号码'+
+										'<span class="value">' + data.mobile +'</span>'+
+									'</div>'+
+								'</div>';
+					$('#box').append(tpl)
+				},
+				handleTab: function(data) {
+					$('.btn').on('click', function() {
+						var param = {
+						  id: data.id,
+						}
+						common.ajax({
+						  url: common.erpDomain + '/carDealer/unbind',
+						  param: param,
+						  success: function (res) {
+							  if(res.code=='1'){
+								  layer.open({
+								    content: res.result.message || '系统繁忙.',
+								    skin: 'msg',
+								    style: 'top: 0;',
+								    time: 2 //2秒后自动关闭
+								  })
+							  }
+							  var str = ''
+							  if (env) {
+							    str += 'env=' + env
+							  }
+							  location.href = './user/new_login.html?' + str;
+							  common.delStorage('userToken');
+							  common.delStorage('userId');
+						  },
+						  error: function () {
+							  layer.open({
+							    content: '系统繁忙.',
+							    skin: 'msg',
+							    style: 'top: 0;',
+							    time: 2 //2秒后自动关闭
+							  })
+						  }
+						})
+					})
+				}
+			}
+
+			homeModule.init()
+		</script>
+	</body>
+
+</html>

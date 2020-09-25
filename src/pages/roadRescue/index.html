@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=yes" />
+    
+    <title>救援详情</title>
+    <style lang="scss">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body{
+            width: 100%;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .rescueState0 {
+            width: 100%;
+            height: 88px;
+            display: none;
+        }
+
+        .rescueState0 .waitIcon {
+            width: 20px;
+            height: 20px;
+            margin-left: 23px;
+            vertical-align: middle;
+        }
+
+        .rescueState0 .waitTag {
+            display: inline-block;
+            height: 88px;
+            line-height: 88px;
+            vertical-align: middle;
+            margin-left: 8px;
+            color: #1967B5;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .rescueState1 {
+            width: 100%;
+            height: 88px;
+            display: none;
+        }
+
+        .rescueState1 .leftcontent {
+            width: 75%;
+            height: 88px;
+            float: left;
+        }
+
+        .rescueState1 .leftcontent .rescueAddress {
+            margin-top: 24px;
+            color: #1967B5;
+            font-size: 16px;
+            font-weight: 500;
+            margin-left: 16px;
+        }
+
+        .rescueState1 .leftcontent .remainingDistanceAndTime {
+            margin-top: 12px;
+            color: #666666;
+            font-size: 12px;
+            margin-left: 16px;
+        }
+
+        .rescueState1 .rightcontext {
+            width: 25%;
+            height: 88px;
+            float: right;
+            background-image: url('./img/daohang.png');
+            background-size: 56px 24px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .rescueState2 {
+            width: 100%;
+            display: none;
+        }
+
+        .rescueState2 .state2TagBack {
+            width: 100%;
+            height: 62px;
+        }
+
+        .rescueState2 .state2TagBack .doneIcon {
+            width: 20px;
+            height: 20px;
+            margin-left: 23px;
+            vertical-align: middle;
+        }
+
+        .rescueState2 .state2TagBack .doneTag {
+            display: inline-block;
+            height: 62px;
+            line-height: 62px;
+            vertical-align: middle;
+            margin-left: 8px;
+            color: #1967B5;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .rescueState2 .addimageBack {
+            margin-top: 10px;
+            margin-left: 12px;
+            margin-right: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .rescueState2 .addimageBack .addImageBtnBack {
+            width: 33.3%;
+            height: 86px;
+            background-image: url('./img/addImageIcon.png');
+            background-size: calc(100% - 8px) 78px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .rescueState2 .addimageBack .addImageBtn {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        .rescueState2 .addimageBack .userAddImageBack {
+            width: 33.3%;
+            height: 86px;
+            box-sizing: border-box;
+            padding: 4px;
+            position: relative;
+        }
+
+        .rescueState2 .addimageBack .userAddImage {
+            width: 100%;
+            height: 100%;
+        }
+
+        .rescueState2 .addimageBack .close-icon {
+            width: 20px;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            z-index: 2;
+        }
+
+        .userInfo {}
+
+        .userInfo .userInfoTag {
+            height: 41px;
+            line-height: 41px;
+            padding-left: 16px;
+            color: #999999;
+            font-size: 13px;
+            background-color: #F8F8F8;
+        }
+
+        .item {
+            position: relative;
+            height: 54px;
+            line-height: 54px;
+            overflow: hidden;
+        }
+
+        .item .keytag {
+            display: inline-block;
+            padding-left: 16px;
+            color: #666666;
+            font-size: 14px;
+        }
+
+        .item .value {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .item .phone {
+            color: #1967B5;
+            font-size: 14px;
+            display: inline-block;
+            width: calc(100% - 200px);
+            height: 54px;
+            line-height: 54px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+
+        .item .phoneIcon {
+            width: 54px;
+            height: 54px;
+            float: right;
+            margin-right: 16px;
+            background-image: url('./img/phone.png');
+            background-size: 14px 14px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .item:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            height: 1px;
+            left: 16px;
+            right: 16px;
+            background-color: #F0F0F0;
+        }
+
+        .mapBack {}
+
+        .mapBack .mapheader {
+            display: flex;
+        }
+
+        .mapBack .mapheader .left {
+            width: 25%;
+            margin-top: 16px;
+            padding-left: 16px;
+            color: #666666;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .mapBack .mapheader .center {
+            width: 50%;
+        }
+
+        .mapBack .mapheader .center .rescueAddress {
+            color: #333333;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        .mapBack .mapheader .center .rescueDistance {
+            color: #999999;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .mapBack .mapheader .right {
+            width: 25%;
+            height: 70px;
+            background-image: url('./img/daohang.png');
+            background-size: 56px 24px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .mapBack .map {
+            display: none;
+            margin-left: 16px;
+            width: calc(100% - 32px);
+            box-sizing: border-box;
+            height: 181px;
+        }
+
+        .rescueInfo {}
+
+        .rescueInfo .rescueInfoTag {
+            height: 41px;
+            line-height: 41px;
+            padding-left: 16px;
+            color: #999999;
+            font-size: 13px;
+            background-color: #F8F8F8;
+        }
+
+        .rescue_progress {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .state_back_left {
+            position: relative;
+            width: 60px;
+            min-height: 70px;
+            font-size: 0;
+        }
+
+        .top_line_view {
+            position: absolute;
+            left: 30px;
+            top: 0;
+            width: 1px;
+            height: 37px;
+            background-color: #1967B5;
+        }
+
+        .setOff_icon {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 20px;
+            top: 23px;
+        }
+
+        .bottom_line_view {
+            position: absolute;
+            top: 37px;
+            left: 30px;
+            width: 1px;
+            height: calc(100% - 37px);
+            background-color: #1967B5;
+        }
+
+        .state_back_right {
+            width: calc(100% - 60px);
+        }
+
+        .type_tag {
+            margin-top: 20px;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            height: 22px;
+            line-height: 22px;
+            overflow: hidden;
+        }
+
+        .time_tag {
+            color: #9B9B9B;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .imageBack {
+            display: flex;
+            overflow-x: auto;
+        }
+
+        .selectimage {
+            flex-basis: 136px;
+            flex-shrink: 0;
+            height: 102px;
+            padding: 4px;
+        }
+
+        .score_tag {
+            font-size: 12px;
+            margin-right: 12px;
+            color: #1967B5;
+        }
+
+        .scoreimage {
+            width: 15px;
+            height: 14px;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        .evaluationContent {
+            color: #666666;
+            font-size: 14px;
+            margin: 17px 13px 17px 0;
+        }
+
+        .palceholderView {
+            width: 100%;
+            height: 60px;
+        }
+
+        .changeStateBtn_back {
+            width: 100%;
+            height: 60px;
+            position: fixed;
+            bottom: 0;
+            background-color: #FFFFFF;
+            text-align: center;
+        }
+
+        .changeStateBtn {
+            margin-left: 16px;
+            margin-right: 16px;
+            margin-top: 8px;
+            height: 44px;
+            line-height: 44px;
+            color: #FFFFFF;
+            font-size: 16px;
+            border-radius: 22px;
+            background-color: #1967B5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="rescueState">
+            <!-- 救援状态信息 -->
+            <div class="rescueState0">
+                <img class="waitIcon" src="./img/wait.png" alt="">
+                <span class="waitTag">等待出发救援</span>
+            </div>
+            <div class="rescueState1">
+                <div class="leftcontent">
+                    <div class="rescueAddress">------</div>
+                    <div class="remainingDistanceAndTime">-----</div>
+                </div>
+                <a class="rightcontext"></a>
+            </div>
+            <div class="rescueState2">
+                <div class="state2TagBack">
+                    <img class="doneIcon" src="./img/done.png" alt="">
+                    <span class="doneTag">已到达，正在实施救援</span>
+                </div>
+                <div class="addimageBack">
+                    <!-- <div class="userAddImageBack">
+                        <img class="userAddImage" src="./img/test.png" alt="">
+                        <img class="close-icon" src="./img/close2.png" alt="">
+                    </div> -->
+
+                    <div class="addImageBtnBack">
+                        <input class="addImageBtn" type="file" accept="image/*" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="userInfo">
+            <div class="userInfoTag">客户申请信息</div>
+            <div class="item">
+                <span class="keytag">客户姓名：</span>
+                <span class="value customerName">---</span>
+            </div>
+            <div class="item">
+                <span class="keytag">联系手机号：</span>
+                <span class="phone customerPhone">--- ---- ----</span>
+                <a class="phoneIcon"></a>
+            </div>
+            <div class="item">
+                <span class="keytag">申请时间：</span>
+                <span class="value applyTime">----</span>
+            </div>
+            <div class="item">
+                <span class="keytag">待救援车牌：</span>
+                <span class="value carNo">----</span>
+            </div>
+            <div class="item">
+                <span class="keytag">品牌车型：</span>
+                <span class="value carName">----</span>
+            </div>
+            <div class="item">
+                <span class="keytag">救援项目：</span>
+                <span class="value rescueProject">--/--</span>
+            </div>
+            <div class="item">
+                <span class="keytag">拖车：</span>
+                <span class="value applyTrailer">--</span>
+            </div>
+            <div class="item">
+                <span class="keytag">代步车：</span>
+                <span class="value applyScooter">--</span>
+            </div>
+            <div class="item">
+                <span class="keytag">保险公司：</span>
+                <span class="value insuranceCompany">----</span>
+            </div>
+            <div class="mapBack">
+                <div class="mapheader">
+                    <div class="left">救援地址：</div>
+                    <div class="center">
+                        <div class="rescueAddress">-----</div>
+                        <div class="rescueDistance">----</div>
+                    </div>
+                    <!-- <div class="right"></div> -->
+                    <a class="right"></a>
+
+                </div>
+                <div id="mapContent" class="map"></div>
+            </div>
+        </div>
+        <!-- 救援信息 -->
+        <div class="rescueInfo">
+            <div class="rescueInfoTag">实施救援信息</div>
+            <div class="item">
+                <span class="keytag">分配救援人：</span>
+                <span class="phone nameAndPhone">--- ---- ----</span>
+                <a class="phoneIcon"></a>
+            </div>
+            <div class="item">
+                <span class="keytag">拖车：</span>
+                <span class="value rescueTrailer">----</span>
+            </div>
+            <div class="item">
+                <span class="keytag">代步车：</span>
+                <span class="value rescueScooter">----</span>
+            </div>
+            <!-- 出发救援 -->
+            <div class="rescue_progress setOff">
+                <div class="state_back_left">
+                    <div class="bottom_line_view"></div>
+                    <img class="setOff_icon" src="./img/stateIcon0.png" alt="">
+                </div>
+                <div class="state_back_right">
+                    <div class="type_tag workerNameAndPhone">出发救援，救援人：--（--- ---- ----）</div>
+                    <div class="time_tag setOffTime">----</div>
+                </div>
+            </div>
+            <!-- 救援中 -->
+            <div class="rescue_progress inRescue">
+                <div class="state_back_left">
+                    <div class="top_line_view"></div>
+                    <div class="bottom_line_view"></div>
+                    <img class="setOff_icon" src="./img/stateIcon1.png" alt="">
+                </div>
+                <div class="state_back_right">
+                    <div class="type_tag">到达救援点</div>
+                    <div class="time_tag inRescueTime">----</div>
+                </div>
+            </div>
+            <!-- 救援完成 -->
+            <div class="rescue_progress finishRescue">
+                <div class="state_back_left">
+                    <div class="top_line_view"></div>
+                    <div class="bottom_line_view"></div>
+                    <img class="setOff_icon" src="./img/stateIcon2.png" alt="">
+                </div>
+                <div class="state_back_right">
+                    <div class="type_tag">救援完成</div>
+                    <div class="time_tag finishRescueTime">----</div>
+                    <div class="imageBack">
+                        <!-- <img class="selectimage" src="./img/test.png" alt="">
+                        <img class="selectimage" src="./img/test.png" alt="">
+                        <img class="selectimage" src="./img/test.png" alt="">
+                        <img class="selectimage" src="./img/test.png" alt=""> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 客户评价 -->
+            <div class="rescue_progress event">
+                <div class="state_back_left">
+                    <div class="top_line_view"></div>
+                    <img class="setOff_icon" src="./img/stateIcon3.png" mode="scaleToFill"></img>
+                </div>
+                <div class="state_back_right">
+                    <div class="type_tag">客户评价</div>
+                    <div class="time_tag evaluationTime">----</div>
+                    <div class="scoreBack">
+                        <div class="score0">
+                            <!-- <span class="score_tag">救援时效</span> -->
+                            <!-- <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt=""> -->
+                        </div>
+                        <div class="score1">
+                            <!-- <span class="score_tag">服务态度</span> -->
+                            <!-- <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt=""> -->
+                        </div>
+                        <div class="score2">
+                            <!-- <span class="score_tag">专业技能</span> -->
+                            <!-- <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt="">
+                            <img class="scoreimage" src="./img/score0.png" alt=""> -->
+                        </div>
+                    </div>
+                    <div class="evaluationContent"></div>
+                    <div class="imageBack">
+                        <!-- <img class="selectimage" src="./img/test.png" alt="">
+                        <img class="selectimage" src="./img/test.png" alt="">
+                        <img class="selectimage" src="./img/test.png" alt="">
+                        <img class="selectimage" src="./img/test.png" alt=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="palceholderView"></div>
+
+        <!-- 救援按钮 -->
+        <div class="changeStateBtn_back">
+            <div class="changeStateBtn">救援</div>
+        </div>
+    </div>
+
+    <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=1b2035b226581a32ada9baabf8339aeb"></script>
+    <script type="text/javascript" src="../../assets/js/map.js"></script>
+    <script src="../../assets/js/common.js?_=3"></script>
+    <script src="../../assets/js/CarmeJsBridgeNoEvent.js"></script>
+    <script src="https://jscdn.car-me.com/assets/js/layer.mobile/layer.js"></script>
+
+
+    <script>
+        var urlParams = common.getQuery();
+        var storeId = urlParams.storeId || ''
+        var orderId = urlParams.orderId || ''
+        var env = urlParams.env || ''
+        var adminToken = urlParams.adminToken || ''
+        var longitude = urlParams.longitude || ''
+        var latitude = urlParams.latitude || ''
+        var activityFromApp = urlParams.activityFromApp || ''
+        var resultData = ""
+        var map
+        var imageArr = []
+
+        var rescueProject = {
+            "1": "事故/故障",
+            "2": "轮胎",
+            "3": "搭电",
+            "4": "其它",
+        }
+        var insuranceCompany = {
+            "1": "人保",
+            "2": "平安",
+            "3": "太平洋",
+            "4": "人寿",
+            "5": "大地",
+            "6": "中华联合",
+            "7": "阳光",
+            "8": "其他",
+        }
+
+        var roadRescue = {
+            init: function () {
+                if (longitude && latitude) {
+                    roadRescue.loadOrderData()
+                } else {
+                    this.getLocation({
+                        success: function (data) {
+                            window.longitude = data.position.lng
+                            window.latitude = data.position.lat
+                            roadRescue.loadOrderData()
+                        },
+                        error: function (error) {
+                            roadRescue.loadOrderData()
+                        }
+                    })
+                }
+                this.initEvent()
+            },
+            getLocation: function (obj) {
+                AMap.plugin('AMap.Geolocation', function () {
+                    var geolocation = new AMap.Geolocation({
+                        // 是否使用高精度定位，默认：true
+                        enableHighAccuracy: true,
+                        // 设置定位超时时间，默认：无穷大
+                        timeout: 10000,
+                        // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+                        buttonOffset: new AMap.Pixel(10, 20),
+                        //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                        zoomToAccuracy: true,
+                        //  定位按钮的排放位置,  RB表示右下
+                        buttonPosition: 'RB'
+                    })
+
+                    geolocation.getCurrentPosition()
+                    AMap.event.addListener(geolocation, 'complete', onComplete)
+                    AMap.event.addListener(geolocation, 'error', onError)
+
+                    function onComplete(data) {
+                        // data是具体的定位信息
+                        console.log('----->', data)
+                        obj.success && obj.success(data)
+                    }
+
+                    function onError(data) {
+                        // 定位出错
+                        obj.error && obj.error(data)
+                    }
+                })
+            },
+            loadOrderData: function () {
+                common.ajax({
+                    url: common.erpDomain + '/roadRescue/rescueDetail',
+                    param: {
+                        "storeId": storeId,
+                        "orderId": orderId,
+                        "amapLatitude": longitude,
+                        "amapLongitude": latitude,
+                        'adminToken': adminToken
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("--+++>", this.url, data)
+                        if (data.code == '1' && data.result) {
+                            window.resultData = data.result
+                            roadRescue.setValueForUI()
+                        }
+                    },
+                    error: function () {
+                        layer.open({
+                            content: '数据加载失败',
+                            skin: 'msg',
+                            time: 2
+                        })
+                    }
+                });
+            },
+            setValueForUI: function () {
+                //状态显示
+                if (resultData.type == 3) {
+                    $('.rescueState').css('display', 'inline-block')
+                    if (resultData.state == 0) {
+                        $('.rescueState0').css('display', 'inline-block')
+                        $('.rescueState1').css('display', 'none')
+                        $('.rescueState2').css('display', 'none')
+                    } else if (resultData.state == 1) {
+                        $('.rescueState0').css('display', 'none')
+                        $('.rescueState1').css('display', 'inline-block')
+                        $('.rescueState2').css('display', 'none')
+                        $('.rescueState1 .rescueAddress').html(resultData.rescueAddress)
+                        var str = '剩余' + resultData.remainingDistance + 'km   ' + '预计' + resultData.estimatedTime + '分钟'
+                        $('.rescueState1 .remainingDistanceAndTime').html(str)
+                        //循环上传经纬度
+                        setInterval(() => {
+                            this.getLocation({
+                                success: function (data) {
+                                    window.longitude = data.position.lng
+                                    window.latitude = data.position.lat  
+                                    roadRescue.uploadLocation()
+                                },
+                                error: function (error) {
+                                        
+                                }
+                            })
+                        }, 6000);
+
+                    } else if (resultData.state == 2) {
+                        $('.rescueState0').css('display', 'none')
+                        $('.rescueState1').css('display', 'none')
+                        $('.rescueState2').css('display', 'inline-block')
+                    } else {
+                        $('.rescueState0').css('display', 'none')
+                        $('.rescueState1').css('display', 'none')
+                        $('.rescueState2').css('display', 'none')
+                    }
+                } else {
+                    $('.rescueState').css('display', 'none')
+                }
+                //客户申请信息
+                $('.customerName').html(resultData.customerName)
+                $('.customerPhone').html(resultData.customerPhone)
+                if (activityFromApp == 1) {
+                    $('.userInfo .phoneIcon').on('click',function () {
+                        window.appBridgeNoEvent({
+                            flag: 'tel',
+                            extra: {
+                                'phone': resultData.customerPhone
+                            }
+                        });
+                    })
+                } else {
+                     var userHref = 'tel:' + resultData.customerPhone
+                    $('.userInfo .phoneIcon').attr('href', userHref)
+                }
+                $('.applyTime').html(resultData.applyTime)
+                $('.carNo').html(resultData.carNo)
+                $('.carName').html(resultData.carName)
+                $('.rescueProject').html(rescueProject[resultData.rescueProject])
+                if (resultData.applyTrailer == 0) {
+                    $('.applyTrailer').html('不需要')
+                } else if (resultData.applyTrailer == 1) {
+                    $('.applyTrailer').html('需要')
+                }
+                if (resultData.applyScooter == 0) {
+                    $('.applyScooter').html('不需要')
+                } else if (resultData.applyScooter == 1) {
+                    $('.applyScooter').html('需要')
+                }
+                $('.insuranceCompany').html(insuranceCompany[resultData.insuranceCompany])
+                $('.rescueAddress').html(resultData.rescueAddress)
+                $('.rescueDistance').html('距您' + resultData.rescueDistance + 'km')
+                var rescueLocation = resultData.rescueLocation.split(',')
+                $('.map').css('display', 'inline-block')
+                map = new AMap.Map("mapContent", {
+                    resizeEnable: true,
+                    zoom: 10,
+                    center: [rescueLocation[0], rescueLocation[1]] //初始化地图中心点
+                });
+                var mark = new AMap.Marker({
+                    position: new AMap.LngLat(rescueLocation[0],rescueLocation[1])
+                })
+                map.add(mark)
+
+                var href = 'http://uri.amap.com/navigation?from='+ window.longitude +','+ window.latitude +'&to='+ rescueLocation[0] +','+ rescueLocation[1] +'&mode=car&src=nyx_super;'
+                $('.mapBack .right').attr('href', href)
+                $('.rightcontext').attr('href', href)
+
+                //实施救援信息
+                if (resultData.type == 1 || resultData.type == 3) {
+                    $('.rescueInfo').css('display', 'inline-block')
+                } else {
+                    $('.rescueInfo').css('display', 'none')
+                }
+                $('.nameAndPhone').html(resultData.rescueWorker + '    ' + resultData.rescueWorkerPhone)
+                if (activityFromApp == 1) {
+                    $('.rescueInfo .phoneIcon').on('click',function () {
+                        window.appBridgeNoEvent({
+                            flag: 'tel',
+                            extra: {
+                                'phone': resultData.rescueWorkerPhone
+                            }
+                        });
+                    })
+                } else {
+                    var rescueHref = 'tel:' + resultData.rescueWorkerPhone
+                    $('.rescueInfo .phoneIcon').attr('href', rescueHref)
+                }
+                if (resultData.rescueTrailer == 0) {
+                    $('.rescueTrailer').html('不需要')
+                } else if (resultData.rescueTrailer == 1) {
+                    $('.rescueTrailer').html('需要')
+                }
+                if (resultData.rescueScooter == 0) {
+                    $('.rescueScooter').html('不需要')
+                } else if (resultData.rescueScooter == 1) {
+                    $('.rescueScooter').html('需要')
+                }
+                //出发救援
+                if (resultData.setOff) {
+                    $('.setOff').css('display', 'flex')
+                    var str = '出发救援，救援人：' + resultData.setOff.rescueWorker + ' (' + resultData.setOff
+                        .rescueWorkerPhone + ')'
+                    $('.workerNameAndPhone').html(str)
+                    $('.setOffTime').html(resultData.setOff.time)
+                } else {
+                    $('.setOff').css('display', 'none')
+                }
+                //救援中
+                if (resultData.inRescue) {
+                    $('.inRescue').css('display', 'flex')
+                    $('.inRescueTime').html(resultData.inRescue.time)
+                } else {
+                    $('.inRescue').css('display', 'none')
+                }
+                //救援完成
+                if (resultData.finishRescue) {
+                    $('.finishRescue').css('display', 'flex')
+                    $('.finishRescueTime').html(resultData.finishRescue.time)
+                    if (resultData.finishRescue.images != '') {
+                        var imageArr = resultData.finishRescue.images.split(';')
+                        var htmlStr = ''
+                        imageArr.forEach(element => {
+                            htmlStr = htmlStr + '<img class="selectimage" src="' + element + '" alt="">'
+                        });
+                        $('.finishRescue .state_back_right .imageBack').html(htmlStr)
+                    }
+                } else {
+                    $('.finishRescue').css('display', 'none')
+                }
+                //评价
+                if (resultData.evaluation) {
+                    $('.event').css('display', 'flex')
+                    $('.evaluationTime').html(resultData.evaluation.time)
+                    $('.evaluationContent').html(resultData.evaluation.content)
+                    //救援时效评分
+                    if (resultData.evaluation.rescueAgingScore) {
+                        var str = '<span class="score_tag">救援时效</span>'
+                        for (let index = 0; index < 5; index++) {
+                            if (index < resultData.evaluation.rescueAgingScore) {
+                                str = str + '<img class="scoreimage" src="./img/score0.png" alt="">'
+                            } else {
+                                str = str + '<img class="scoreimage" src="./img/score1.png" alt="">'
+                            }
+                        }
+                        $('.score0').html(str)
+                    }
+                    //服务态度评分
+                    if (resultData.evaluation.serviceAttitudeScore) {
+                        var str = '<span class="score_tag">服务态度</span>'
+                        for (let index = 0; index < 5; index++) {
+                            if (index < resultData.evaluation.serviceAttitudeScore) {
+                                str = str + '<img class="scoreimage" src="./img/score0.png" alt="">'
+                            } else {
+                                str = str + '<img class="scoreimage" src="./img/score1.png" alt="">'
+                            }
+                        }
+                        $('.score1').html(str)
+                    }
+                    //专业技能评分
+                    if (resultData.evaluation.professionalSkillScore) {
+                        var str = '<span class="score_tag">专业技能</span>'
+                        for (let index = 0; index < 5; index++) {
+                            if (index < resultData.evaluation.professionalSkillScore) {
+                                str = str + '<img class="scoreimage" src="./img/score0.png" alt="">'
+                            } else {
+                                str = str + '<img class="scoreimage" src="./img/score1.png" alt="">'
+                            }
+                        }
+                        $('.score2').html(str)
+                    }
+                    if (resultData.evaluation.images != '') {
+                        var imageArr = resultData.evaluation.images.split(';')
+                        var htmlStr = ''
+                        imageArr.forEach(element => {
+                            htmlStr = htmlStr + '<img class="selectimage" src="' + element + '" alt="">'
+                        });
+                        $('.event .state_back_right .imageBack').html(htmlStr)
+                    }
+                } else {
+                    $('.event').css('display', 'none')
+                }
+
+                //救援按钮
+                if (resultData.type == 3 || resultData.type == 2) {
+                    $('.changeStateBtn_back').css('display', 'inline-block')
+                    if (resultData.type == 2) {
+                        $('.changeStateBtn').html('救援处理')
+                    } else {
+                        if (resultData.state == 0) {
+                            //等待出发救援
+                            $('.changeStateBtn').html('出发救援')
+                        } else if (resultData.state == 1) {
+                            //已出发救援
+                            $('.changeStateBtn').html('到达救援位置')
+                        } else if (resultData.state == 2) {
+                            //到达救援位置
+                            $('.changeStateBtn').html('救援完成')
+                        }
+                    }
+                } else {
+                    $('.changeStateBtn_back').css('display', 'none')
+                }
+
+                if (resultData.authorization == 0) {
+                    $('.changeStateBtn_back').css('display', 'none')
+                }
+            },
+            changeType: function () {
+                common.ajax({
+                    url: common.erpDomain + '/roadRescue/roadRescueChange',
+                    param: {
+                        "storeId": storeId,
+                        "orderId": orderId,
+                        "type": resultData.state,
+                        "images": window.imageArr.join(';')
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code == '1' && data.result) {
+                            roadRescue.loadOrderData()
+                        }
+                    },
+                    error: function () {
+                        layer.open({
+                            content: '数据加载失败',
+                            skin: 'msg',
+                            time: 2
+                        })
+                    }
+                });
+            },
+
+            upload: function (obj) {
+                var loading = layer.open({
+                    type: 2,
+                    shadeClose: false,
+                    content: '上传中'
+                })
+                $.ajax({
+                    url: obj.url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: obj.param,
+                    processData: false, // 告诉jQuery不要去处理发送的数据
+                    contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+                    headers: {
+                        'adminToken': common.getAdminToken()
+                    },
+                    success: function (res) {
+                        layer.close(loading);
+                        if (res.code == '1') {
+                            obj.success && obj.success(res)
+                        } else {
+                            layer.open({
+                                content: res.message,
+                                skin: 'msg',
+                                time: 2
+                            })
+                        }
+                    },
+                    error: function (error) {
+                        layer.close(loading);
+                        obj.error && obj.error()
+                    }
+                })
+            },
+
+            initEvent: function () {
+                $('.addImageBtn').on('change', function () {
+                    var inputEle = $(this);
+                        var file = this.files[0];
+                        var formData = new FormData();
+                        formData.append('file', file)
+                        formData.append('category', 'roadRescue')
+
+                        roadRescue.upload({
+                            url: common.erpDomain + '/upload/fileUpload',
+                            param: formData,
+                            success: function (res) {
+                                let result = res.result;
+                                var imageStr = '<div class="userAddImageBack">\
+                                                        <img class="userAddImage" src=' + result.showUrl + ' alt="">\
+                                                        <img class="close-icon" src="./img/close2.png" alt="">\
+                                                    </div>'
+                                $(".rescueState2 .addImageBtnBack").before(imageStr)
+
+                                window.imageArr.push(result.name)
+
+                                $('.addImageBtn').val('')
+                                if (window.imageArr.length > 9) {
+                                    $('.addImageBtnBack').css('display', 'none')
+                                }
+                            },
+                            error: function (msg) {
+                                layer.open({
+                                    content: '网络异常',
+                                    skin: 'msg',
+                                    time: 2
+                                })
+                                $('.addImageBtn').val('')
+                            }
+                        })
+
+                }),
+                $('.rescueState2').on('click', '.close-icon', function () {
+                    var index = $(this).parent().index()
+                    console.log('-123-->',index)               
+                    $(this).parent().remove();
+                    window.imageArr.splice(index, 1);
+                }),
+            
+                $('.changeStateBtn').on('click', function () {
+                    if (resultData.type == 2) {
+                        //救援处理
+                        window.appBridgeNoEvent({
+                           flag: 'rescue_treatment',
+                            extra: {
+                                'orderId': orderId,
+                                'isTrailer':resultData.applyTrailer,
+                                'isScooter':resultData.applyScooter,
+                                'rescueProject':resultData.rescueProject
+                            }
+                        });
+                    } else {
+                        if (resultData.state == 0) {
+                            //等待出发救援
+                            if (latitude == "" || longitude == "") {
+                                layer.open({
+                                    content: '获取不到定位信息,禁止出发救援',
+                                    skin: 'msg',
+                                    time: 2
+                                })
+                                return
+                            }
+                            layer.open({
+                                content: '是否确定出发救援？出发后需实时请求您的手机定位，请勿关闭该APP应用。'
+                                ,btn: ['确定出发', '取消']
+                                ,yes: function(index) {
+                                    layer.close(index)
+                                    roadRescue.changeType()
+                                }
+                            })
+                        } else if (resultData.state == 1) {
+                        //已出发救援
+                        layer.open({
+                                content: '是否确定到达救援位置？'
+                                ,btn: ['确定到达', '取消']
+                                ,yes: function(index) {
+                                    layer.close(index)
+                                    roadRescue.changeType()
+                                }
+                            })
+                        } else if (resultData.state == 2) {
+                            //到达救援位置
+                            layer.open({
+                                content: '是否确定救援完成？'
+                                ,btn: ['确定完成', '取消']
+                                ,yes: function(index) {
+                                    layer.close(index)
+                                    roadRescue.changeType()
+                                }
+                            })
+                        }
+                    }
+                })
+            },
+            uploadLocation: function () {
+                common.ajax({
+                    url: common.erpDomain + '/roadRescue/getEmployeeLocation',
+                    param: {
+                        "orderId": orderId,
+                        "amapLatitude": latitude,
+                        "amapLongitude": longitude,
+                        'adminToken': adminToken
+                    },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log('======>',data)
+                        if (data.code == '1' && data.result) {
+                            var str = '剩余' + data.result.remainingDistance + 'km   ' + '预计' + data.result.estimatedTime + '分钟'
+                            $('.rescueState1 .remainingDistanceAndTime').html(str)
+                        }
+                    },
+                    error: function () {
+                        layer.open({
+                            content: '定位上传失败',
+                            skin: 'msg',
+                            time: 2
+                        })
+                    }
+                });
+            }
+
+
+        }
+        roadRescue.init()
+    </script>
+</body>
+
+</html>

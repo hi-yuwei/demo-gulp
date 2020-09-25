@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+		<title>竞拍历史</title>
+		<link rel="stylesheet" href="../../../assets/css/base.css?_=1">
+		<link rel="stylesheet" type="text/css" href="../../../assets/css/mescroll.min.css">
+		<style type="text/css">
+			body {
+				background-color: #FFFFFF;
+				padding: 0 16px;
+				font-size: 14px;
+			}
+
+			.history-wrapper .wrapper-item {
+				display: flex;
+				padding: 16px 0;
+			}
+
+			.history-wrapper .wrapper-item .item-left {
+				position: relative;
+			}
+
+			.history-wrapper .wrapper-item .item-left .state {
+				position: absolute;
+				background-color: #0374FF;
+				width: 100%;
+				bottom: 0;
+				text-align: center;
+				padding: 6px 0;
+				color: #FFFFFF;
+				font-size: 12px;
+			}
+
+			.history-wrapper .wrapper-item .item-left img {
+				width: 120px;
+				height: 90px;
+			}
+
+			.history-wrapper .wrapper-item .item-right {
+				flex: 1;
+				position: relative;
+				padding-left: 12px;
+			}
+
+			.history-wrapper .wrapper-item .item-right h3 {
+				/* font-size: 14px; */
+			}
+
+			.history-wrapper .wrapper-item .item-right .price-item {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-top: 5px;
+			}
+
+			.history-wrapper .wrapper-item .item-right .price-txt {
+				color: #FA5767;
+			}
+
+			.history-wrapper .wrapper-item .item-right .price {
+				color: #EA6572;
+				margin-top: 2px;
+			}
+
+			.history-wrapper .wrapper-item .item-right .price span {
+				font-size: 18px;
+			}
+
+			.history-wrapper .wrapper-item .item-right .price-item .state {
+				padding: 6px 13px;
+			}
+
+			.blue {
+				background-color: #EBF4FF;
+				color: #0374FF;
+			}
+
+			.red {
+				background-color: #FFEAEC;
+				color: #FA5767;
+			}
+
+			.grey {
+				background-color: #F5F5F5;
+				color: #666666;
+			}
+
+			.over {
+				background: rgba(0, 0, 0, 0.5) !important;
+			}
+
+			.dismount-state .item-left .state {
+				height: 100%;
+				line-height: 90px;
+				background: rgba(0, 0, 0, 0.5) !important;
+			}
+			
+			.dismount-state .item-right {
+				color: #999999;
+			}
+			.dismount-state .item-right .price-item .price, .dismount-state .item-right .price-item .price-txt{
+				color: #666666;
+			}
+			.error-wrapper {
+			  margin-top: 50px;
+			  text-align: center;
+			  color: #B7B7B7;
+			  font-size: 16px;
+			}
+			
+			.error-wrapper div {
+			  margin-top: 6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mescroll" class="mescroll">
+			<ul class="history-wrapper">
+				<!-- <li class="wrapper-item">
+					<div class="item-left">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/508930452729382.png" >
+						<p class="state">竞拍中</p>
+					</div>
+					<div class="item-right">
+						<h3>奔驰 GLE 2018 GLE 320 20 20 4MATIC 轿跑SUV</h3>
+						<div class="price-item">
+							<div>
+								<p class="price-txt">出价</p>
+								<p class="price">￥<span>534,909</span></p>
+							</div>
+							<p class="state blue">领先</p>
+						</div>
+					</div>
+				</li> -->
+				<!-- <li class="wrapper-item">
+					<div class="item-left">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/508930452729382.png" >
+						<p class="state over">已结束</p>
+					</div>
+					<div class="item-right">
+						<h3>奔驰 GLE 2018 GLE 320 20 20 4MATIC 轿跑SUV</h3>
+						<div class="price-item">
+							<div>
+								<p class="price-txt">出价</p>
+								<p class="price">￥<span>534,909</span></p>
+							</div>
+							<p class="state red">失败</p>
+						</div>
+					</div>
+				</li> -->
+				<!-- <li class="wrapper-item dismount-state">
+					<div class="item-left">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/508930452729382.png" >
+						<p class="state">已下架</p>
+					</div>
+					<div class="item-right">
+						<h3>奔驰 GLE 2018 GLE 320 20 20 4MATIC 轿跑SUV</h3>
+						<div class="price-item">
+							<div>
+								<p class="price-txt">出价</p>
+								<p class="price">￥<span>534,909</span></p>
+							</div>
+							<p class="state grey">失败</p>
+						</div>
+					</div>
+				</li> -->
+			</ul>
+			<div class="error-wrapper hide " id="error-container">
+				<img src="../../../assets/images/bg-empty.png" width="230">
+				<div>暂无数据~</div>
+			</div>
+		</div>
+		<script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
+		<script src="../../../assets/js/lib/layer/layer.js"></script>
+		<script src="../../../assets/js/lib/mescroll/mescroll.min.js"></script>
+		<script src="../../../assets/js/common.js?_=5"></script>
+		<script type="text/javascript">
+			var mescroll,
+				env = common.getQuery().env,
+				listHtml = "";
+			var envStr = '';
+			if (env) {
+				envStr = 'env=' + env
+			}
+			
+			var initModule = {
+				init: function() {
+					this.loadMescroll();
+					this.hadleDetail();
+				},
+				loadMescroll: function() {
+					var self = this;
+					mescroll = new MeScroll('mescroll', {
+						down: {
+							callback: self.refresh,
+							isBounce: false,
+						},
+						up: {
+							callback: self.loadData,
+							page: {
+								num: 0,
+								size: 10
+							},
+							htmlNodata: '<p class="upwarp-nodata">没有更多数据了</p>'
+						}
+					})
+				},
+				refresh: function() {
+					$('.mescroll ul').html('');
+					listHtml = "";
+					mescroll.resetUpScroll()
+				},
+				loadData: function(page) {
+					var self = this;
+					let param = {
+						pageNo: page.num,
+						pageSize: page.size
+					}
+
+					common.ajax({
+						// url: 'history.json',
+						// method: 'GET',
+						url: common.erpDomain + '/carDealer/carAuction/auctionHistory',
+						param: param,
+						success: function(res) {
+							var result = res.result;
+							if (res.code === '1' && result.items.length > 0) {
+								$('#error-container').addClass('hide');
+								$('#mescroll ul').removeClass('hide');
+								initModule.addListHTml(result.items);
+								var hasNext = (page.size == result.items.length);
+								mescroll.endSuccess(page.size, hasNext)
+							} else {
+								mescroll.endErr();
+								$('#mescroll ul').addClass('hide');
+								$('#error-container').removeClass('hide');
+								if (res.code == '100004') {
+									location.href = '../user/new_login.html?' + envStr + '&redirect=' + encodeURIComponent(window.location.href)
+								}
+							}
+						},
+						error: function(err) {
+							mescroll.endErr();
+							$('#mescroll').addClass('hide')
+							$('#error-container').removeClass('hide')
+						}
+					})
+				},
+				addListHTml: function(list) {
+					// var html = "";
+					var carState,carStatebg,stateColor,dismountState,stateTxt;
+					
+					list.map(item => {
+						if(item.auctionState === 0){
+							carState = '已结束';
+							carStatebg = 'over';
+							dismountState = '';
+						}else if(item.auctionState === 1){
+							carState = '竞拍中';
+							carStatebg = '';
+							dismountState = '';
+						}else if(item.auctionState === 2){
+							carState = '未开始';
+							carStatebg = '';
+							dismountState = '';
+						}else if(item.auctionState === 3){
+							carState = '已流拍';
+							carStatebg = 'over';
+							dismountState = '';
+						}else if(item.auctionState === 4){
+							carState = '已下架';
+							stateColor = 'grey';
+							dismountState = 'dismount-state';
+						}
+						
+						if(item.quoteState === 1 || item.quoteState === 2){
+							item.auctionState === 4 ? stateColor = 'grey' : stateColor = 'blue';
+							item.quoteState === 1 ? stateTxt = '领先' : stateTxt = '成功'
+						}else if(item.quoteState === 0 ){
+							stateColor = 'red';
+							stateTxt = '失败'
+						}
+						
+						listHtml += '<li class="wrapper-item ' + dismountState + '" data-id="' + item.carId + '" data-state="' + item.auctionState + '">' +
+									'<div class="item-left">' +
+										'<img src="' + item.carImage + '" >' +
+										'<p class="state ' + carStatebg + '">' + carState + '</p>' +
+									'</div>' +
+									'<div class="item-right">' +
+										'<h3>' + item.carName + '</h3>' +
+										'<div class="price-item">' +
+											'<div>' +
+												'<p class="price-txt">出价</p>' +
+												'<p class="price">￥<span>' + item.quotePrice + '</span></p>' +
+											'</div>' +
+											'<p class="state ' + stateColor + '"> ' + stateTxt + '</p>' +
+										'</div>' +
+									'</div>' +
+								'</li>'
+					})
+					$('#mescroll ul').html(listHtml)
+				},
+				hadleDetail: function(){
+					$('#mescroll ul').on('click', 'li', function(){
+						let carId = $(this).data('id');
+						let state = $(this).data('state');
+						if(state === 4){
+							return;
+						}
+						location.href = 'car-detail.html?carId='+carId + '&' + envStr
+					})
+				}
+			}
+			initModule.init();
+		</script>
+	</body>
+</html>

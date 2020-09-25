@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>车源图片</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            touch-action: pan-y;
+        }
+
+        html,
+        body {
+            width: 100%;
+            background-color: #ffffff;
+            font-size: 0;
+        }
+
+        .wrapper {
+            margin-left: 5px;
+            margin-right: 16px;
+            background-color: #ffffff;
+            font-size: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .item {
+            position: relative;
+            width: 50%;
+            height: 113px;
+            display: inline-block;
+            padding-left: 11px;
+            box-sizing: border-box;
+            overflow: hidden;
+            margin-top: 11px;
+        }
+
+        .item img {
+            width: 100%;
+            height: 113px;
+        }
+
+        .item span {
+            position: absolute;
+            display: inline-block;
+            font-size: 12px;
+            color: #CCCCCC;
+            background-color: rgba(0, 0, 0, 0.7);
+            bottom: 0px;
+            left: 11px;
+            right: 0;
+            text-align: center;
+            height: 28px;
+            line-height: 28px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- <div class="item">
+            <img src="../../assets/images/videoImage.png" alt="">
+            <span>哈哈哈哈哈</span>
+        </div> -->
+    </div>
+
+    <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
+    <script src="../../assets/js/common.js?_=3"></script>
+
+    <script>
+        var urlParams = common.getQuery();
+        var sessionId = urlParams.sessionId || '';
+        var cropImageStr = '?x-oss-process=image/resize,w_'+ parseInt($('.wrapper').width() - 22) +',h_226,m_fill/auto-orient,1/quality,q_100/format,jpg'
+
+        var carImageList = {
+            init: function () {
+                if (sessionId == 'carImages') {
+                    var obj = sessionStorage.getItem('carImages')
+                    var imgArr = JSON.parse(obj)
+                    console.log(imgArr)
+                    imgArr.forEach(function (img, index) {
+                        var explain = ''
+                        if (img.explain && img.explain != '') {
+                            explain = '<span>' + img.explain + '</span>'
+                        }
+                        var imageUrl = img.image + cropImageStr
+                        var str = '<div class="item">\
+                                    <img src="'+ imageUrl + '" alt="">' + explain + '\
+                               </div>'
+
+                        $('.wrapper').append(str)
+                    })
+                    $('.item').on('click', function () {
+                        window.location.href = './carImageSwiper.html?sessionId=carImages' + '&index=' + $(this).index()
+                    })
+                }           
+                if (sessionId == 'positionImages') {
+                    var obj = sessionStorage.getItem('positionImages')
+                    var imgArr = JSON.parse(obj)
+                    console.log(imgArr)
+                    imgArr.forEach(function (img, index) {
+                        var name = ''
+                        if (img.name && img.name != '') {
+                            name = '<span>' + img.name + '</span>'
+                        }
+                        var imageUrls = img.imageUrl.split(',')
+                        imageUrls.forEach(function (url) {
+                            var urlStr = url + cropImageStr
+                            var str = '<div class="item">\
+                                    <img src="'+ urlStr + '" alt="">' + name + '\
+                               </div>'
+                            $('.wrapper').append(str)
+                        })
+                    })
+                    $('.item').on('click', function () {
+                        window.location.href = './carImageSwiper.html?sessionId=positionImages' + '&index=' + $(this).index()
+                    })
+                }
+            }
+        }
+        carImageList.init()
+    </script>
+</body>
+
+</html>

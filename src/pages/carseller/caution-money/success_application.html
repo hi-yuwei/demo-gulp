@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>退还保证金</title>
+		<link rel="stylesheet" href="../../../assets/css/base.css?_=2">
+		<style type="text/css">
+			body {
+				background-color: #FFFFFF;
+				text-align: center;
+			}
+			#success_application{
+				padding-top: 35%;
+			}
+			#success_application img {
+				width: 129px;
+				height: 84px;
+			}
+			 #success_application .sub-suc {
+				font-size: 22px;
+				font-weight: 600;
+				margin: 36px 0 16px 0;
+			}
+
+			#success_application .sub-tip {
+				margin-bottom: 64px;
+				font-size: 14px;
+				color: #999999;
+			}
+
+			
+
+			#success_application .title {
+				font-size: 22px;
+				font-weight: 600;
+				color: rgba(234, 101, 114, 1);
+				margin: 36px 0 10px 0;
+			}
+
+			#success_application .title .txt {
+				color: #333333;
+				margin-left: 5px;
+			}
+
+			#success_application .tip {
+				font-size: 14px;
+				color: rgba(153, 153, 153, 1);
+				margin-bottom: 64px;
+			}
+
+			#success_application button {
+				width: 175px;
+				height: 48px;
+				border-radius: 2px;
+				border: 1px solid rgba(2, 116, 255, 1);
+				color: rgba(2, 116, 255, 1);
+				background: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="success_application">
+			<div class="return-content hide">
+				<img src="../img/money/applySuc.png">
+				<div class="title">
+					<span id="price"></span>
+					<span class="txt">退还申请成功</span>
+				</div>
+				<div class="tip">
+					预计0-3个工作日原路退还到支付账户
+				</div>
+				<button onclick="backGo()">完成</button>
+			</div>
+			<div class="rechange-content">
+				<div class="sub-suc">
+					充值成功
+				</div>
+				<div class="sub-tip">
+					工作人员会在1个工作日内与您联系
+				</div>
+				<button onclick="backGo()">返回</button>
+			</div>
+		</div>
+		
+		<script src="../../../assets/js/lib/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../assets/js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var price = common.getQuery().price,
+				env = common.getQuery().env,
+				supplierId = common.getQuery().supplierId;
+				
+				var envStr = '';
+				if (env) {
+					envStr = 'env=' + env
+				}
+			if(price){
+				$('.return-content').removeClass('hide');
+				$('.rechange-content').addClass('hide');
+			}
+			document.getElementById('price').innerText = price + '元';
+				
+			function backGo(){
+				location.href = 'caution-money.html?' + envStr
+			}
+		</script>
+	</body>
+</html>

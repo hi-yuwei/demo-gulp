@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+  <link rel="stylesheet" href="../../assets/css/base.css?_=1">
+  <title>车辆配置详情</title>
+  <style type="text/css">
+    body {
+      position: relative;
+      overflow-y: auto;
+      background: white;
+    }
+    .config-box {
+      margin: .8rem;
+    }
+    .config-box .config-title {
+      color: #333333;
+      font-size: .8rem;
+    }
+    .config-box .config-title:after {
+      margin-right: 0;
+      margin-left: .5rem;
+      transform: rotate(180deg);
+    }
+    .config-box .config-content {
+      margin-top: .4rem;
+    }
+    .config-box .config-row {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      color: #666666;
+      font-size: .6rem;
+    }
+    .config-box .config-row:nth-child(2n+1){
+      background: #F8F8FA;
+    }
+    .config-box .config-row label {
+      display: inline-block;
+      width: 40%;
+      padding: .4rem .6rem;
+      text-align: left;
+      border-right: 1px solid white;
+      /*padding-right: 1.6rem;*/
+    }
+    .config-box .config-row span {
+      display: inline-block;
+      width: 60%;
+      padding: .4rem .6rem;
+    }
+
+    .error-wrapper {
+      margin-top: 50px;
+      text-align: center;
+      color: #B7B7B7;
+      font-size:16px;
+    }
+    .error-wrapper div {
+      margin-top: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="js-config">
+      
+    </div>
+  </div>
+  <div class="error-wrapper hide" id="error-container">
+    <img src="../../assets/images/bg-empty.png" width="230" />
+    <div>暂无数据~</div>
+  </div>
+
+  <script src="../../assets/js/lib/zepto/zepto.min.js"></script>
+  <script src="../../assets/js/lib/layer/layer.js"></script>
+  <script src="../../assets/js/common.js?_=2"></script>
+  <script type="text/javascript">
+    var pageModule = {
+      init: function() {
+        this.initData()
+      },
+
+      initData: function() {
+        var self = this
+        layer.open({
+          type: 2
+          ,content: '加载中'
+        });
+        common.ajax({
+          type: 'post',
+          url: common.erpDomain + '/common/carInfo',
+          // url: '../../assets/mock/newcar/getConfigList.json',
+          dataType: 'json',
+          param: {
+            id: common.getQuery().id
+          },
+          success: function(data) {
+            layer.closeAll()
+            if (data.code == '1' && data.result && data.result.infos && data.result.infos.length) {
+              self.addConfigTpl(data.result.infos)
+            } else {
+              $('#error-container').removeClass('hide')
+            }
+          },
+          error: function(xhr, type) {
+            layer.closeAll()
+            $('#error-container').removeClass('hide')
+          }
+        });
+      },
+
+      addConfigTpl: function(list) {
+        if (list && list.length) {
+          var configTpl = ''
+          for (var i = 0; i < list.length; i++) {
+            var items = list[i].items
+            configTpl += 
+              '<div class="config-box">'
+                +'<div class="config-title">'+list[i].title+'</div>'
+                +'<div class="config-content">'
+            
+            for (var j = 0; j < items.length; j++) {
+              configTpl += 
+                '<div class="config-row">'
+                  +'<label>'+items[j].name+'</label>'
+                  +'<span>'+items[j].value+'</span>'
+                +'</div>'
+            }
+            configTpl += 
+              '</div>'
+            +'</div>'
+            $('.js-config').html(configTpl)
+          }
+        }
+      }
+
+    }
+
+    pageModule.init()
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+        <title>登录</title>
+        <link rel="stylesheet" href="../../assets/css/base.css?_=2" />
+        <style type="text/css">
+            body {
+                background: white;
+                background-color: red;
+            }
+            ::-webkit-input-placeholder {
+                /* WebKit browsers */
+                color: #cccccc;
+            }
+            .wrapper .login-bg {
+                padding: 35px 0 30px;
+                text-align: center;
+            }
+
+            .login-group {
+                background: white;
+                padding: 20px 36px 0;
+            }
+            .login-group .row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: #f6f6f6;
+                height: 48px;
+                padding: 0 20px;
+                margin-bottom: 12px;
+                border-radius: 24px;
+            }
+            .login-group .row label {
+                display: inline-block;
+                width: 60px;
+                margin-right: 10px;
+                color: #666666;
+                font-size: 15px;
+            }
+            .login-group .row input {
+                background: #f6f6f6;
+                border: none;
+                outline: none;
+                color: #333333;
+            }
+            .login-group .row button {
+                color: #1967b5;
+                font-size: 13px;
+                border: none;
+                background: transparent;
+                outline: none;
+            }
+            .login-group .code input {
+                width: 54%;
+                margin-right: 10px;
+            }
+            .login-group .code > div {
+                width: 71%;
+            }
+            .login-btn {
+                margin: 30px 36px 0;
+            }
+            .login-btn button {
+                display: inline-block;
+                width: 100%;
+                height: 48px;
+                line-height: 48px;
+                background: #1967b5;
+                color: white;
+                border-radius: 24px;
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+                border: none;
+                outline: none;
+            }
+            .login-desc {
+                margin-top: 20%;
+                width: 100%;
+                bottom: 32px;
+                line-height: 20px;
+                text-align: center;
+            }
+            .login-desc p {
+                color: #999999;
+                font-size: 12px;
+            }
+            .login-desc a {
+                color: #024f98;
+                font-size: 12px;
+            }
+            .login-group .row button:disabled {
+                color: #999999;
+            }
+
+            .login-btn button:disabled {
+                background: #cccccc;
+            }
+
+            @media screen and (max-width: 360px) {
+                .login-group {
+                    padding: 20px 18px 0;
+                }
+                .login-group .row label {
+                    margin-right: 8px;
+                }
+                .login-group .row input {
+                    width: 63%;
+                }
+                .login-group .code input {
+                    width: 54%;
+                    margin-right: 10px;
+                }
+                .login-group .code > div {
+                    width: 71%;
+                }
+            }
+            @media screen and (max-width: 320px) {
+                .login-group {
+                    padding: 20px 12px 0;
+                }
+                /*        .login-group .row label {
+          margin-right: 8px;
+        }
+        .login-group .row input {
+          width: 63%;
+        }
+        .login-group .code input {
+          width: 54%;
+          margin-right: 10px;
+        }
+        .login-group .code > div {
+          width: 71%;
+        }*/
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="login-bg">
+                <img src="../../assets/images/icon-logo.png" width="96" />
+            </div>
+
+            <div class="login-group">
+                <div class="row">
+                    <div>
+                        <label>账户名</label>
+                        <input type="text" placeholder="请输入账户名" class="js-phone" maxlength="30" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label>密码</label>
+                        <input type="password" placeholder="请输入密码" class="js-password" maxlength="30" />
+                    </div>
+                </div>
+                <!-- <div class="row code">
+          <div>
+            <label>验证码</label>
+            <input type="tel" placeholder="请输入验证码" class="js-code" maxlength="4" />
+          </div>
+          <button data-can-get="1" disabled class="js-code-btn">获取验证码</button>
+        </div> -->
+            </div>
+
+            <div class="login-btn">
+                <button disabled class="js-btn-sure">登录</button>
+            </div>
+
+            <div class="login-desc">
+                <p>登录遇到问题？请1联系客服</p>
+                <a href="tel:4001818889">客服热线：4001818889</a>
+            </div>
+        </div>
+
+        <script src="../../assets/js/lib/zepto/zepto.min.js"></script>
+        <script src="../../assets/js/lib/layer/layer.js"></script>
+        <script src="../../assets/js/common.js?_=3"></script>
+        <script>
+            var seconds = 30,
+                isCodeSubmiting = false,
+                isSureJoing = false,
+                codeTimer,
+                env = common.getQuery().env,
+                redirect = common.getQuery().redirect,
+                verification = common.getQuery().verification
+
+            var loginModule = {
+                init: function () {
+                    this.changeInput()
+                    this.login()
+                },
+
+                controlBtn: function () {
+                    var phone = $('.js-phone').val()
+                    var code = $('.code').val()
+                },
+
+                changeInput: function (value) {
+                    $('body').on('input', '.js-phone,.js-password', function () {
+                        var max = $(this).attr('maxlength')
+                        var val = $(this).val()
+                        if (val) {
+                            $(this).val(val.substring(0, max))
+                        }
+                        if ($('.js-phone').val().length >= 1 && $('.js-password').val().length >= 6) {
+                            $('.js-btn-sure').prop('disabled', false)
+                        } else {
+                            $('.js-btn-sure').prop('disabled', true)
+                        }
+                    })
+                },
+                // 登录
+                login: function () {
+                    $('body').on('click', '.js-btn-sure', function () {
+                        var phone = $('.js-phone').val()
+                        var password = $('.js-password').val()
+
+                        if (isSureJoing) return
+                        isSureJoing = true
+                        common.ajax({
+                            method: 'post',
+                            dataType: 'json',
+                            url: common.erpDomain + '/admin/login',
+                            param: {
+                                userName: phone,
+                                password: password,
+                                source: 'h5'
+                            },
+                            success: function (data) {
+                                isSureJoing = false
+                                if (data.code == '1' && data.result.status == 'ok') {
+                                    var userToken = data.result.token
+                                    common.setStorage('adminToken', userToken)
+                                    //成功后跳转
+                                    if (redirect) {
+                                        window.location.replace(decodeURIComponent(redirect))
+                                    } else if (verification) {
+                                        var authority = '0'
+                                        if (data.result.currentAuthority.indexOf('op_bld_me_operation_order_verification') != -1) {
+                                            authority = '1'
+                                        }
+                                        var verificationUrl = verification + '&authority=' + authority
+                                        window.location.replace(decodeURIComponent(verificationUrl))
+                                    } else {
+                                        history.go(-1)
+                                    }
+                                } else {
+                                    layer.open({
+                                        content: data.result.message || '系统繁忙.',
+                                        skin: 'msg',
+                                        style: 'top: 0;',
+                                        time: 2 //2秒后自动关闭
+                                    })
+                                }
+                            },
+                            error: function () {
+                                isSureJoing = false
+                                layer.open({
+                                    content: '系统繁忙.',
+                                    skin: 'msg',
+                                    style: 'top: 0;',
+                                    time: 2 //2秒后自动关闭
+                                })
+                            }
+                        })
+                    })
+                }
+            }
+
+            loginModule.init()
+        </script>
+    </body>
+</html>

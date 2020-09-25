@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>车源详情</title>
+    <link rel="stylesheet" href="../../assets/css/swiper/swiper.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            touch-action: pan-y;
+        }
+
+        html,
+        body,
+        .wrapper {
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+        .swiper1 {
+            width: 100%;
+            height: 203px;
+            background-color: #F3F5F8;
+        }
+
+        .swiper1 .swiper-slide {
+            width: 100%;
+            height: 203px;
+        }
+
+        .swiper1 .swiper-pagination {
+            text-align: right;
+            color: white;
+            width: 95%;
+        }
+
+        .bidinfo-back {
+            width: 100%;
+            height: 50px;
+            background-color: #FC6A79;
+            font-size: 0;
+        }
+
+        .bidinfo-back .time-back {
+            float: right;
+            padding-right: 16px;
+            text-align: center;
+        }
+
+        .bidinfo-back .star-bid-price-tag {
+            display: inline-block;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 16px;
+            font-size: 14px;
+            color: #ffffff;
+            vertical-align: top;
+        }
+
+        .bidinfo-back .star-bid-price {
+            display: inline-block;
+            height: 50px;
+            line-height: 50px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #ffffff;
+            vertical-align: top;
+        }
+
+        .bidinfo-back .star-bid-price-tag1 {
+            display: inline-block;
+            height: 50px;
+            line-height: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-left: 8px;
+            padding-top: 3px;
+        }
+
+        .bidinfo-back .time-back {
+            display: inline-block;
+            height: 40px;
+            line-height: 20px;
+            font-size: 12px;
+            color: #ffffff;
+            margin-top: 5px;
+        }
+
+        .carinfo-back {
+            background-color: #ffffff;
+        }
+
+        .carinfo-back .car-name {
+            color: #333333;
+            font-size: 17px;
+            font-weight: bold;
+            padding-top: 16px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .carinfo-back .car-parame {
+            margin-top: 14px;
+            color: #666666;
+            font-size: 14px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .carinfo-back .car-source-number {
+            margin-top: 14px;
+            color: #666666;
+            font-size: 14px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .bidserver-back {
+            margin-top: 48px;
+            background-color: #ffffff;
+            font-size: 0;
+        }
+
+        .bidserver-back .bidserver-tag {
+            color: #333333;
+            font-size: 18px;
+            font-weight: bold;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .bidserver-back .bidserver-item {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .bidserver-back .bidserver-item .tag {
+            display: inline-block;
+            box-sizing: inherit;
+            color: #999999;
+            font-size: 13px;
+            text-align: left;
+            margin-left: 16px;
+            width: 60px;
+        }
+
+        .bidserver-back .bidserver-item .content {
+            display: inline-block;
+            box-sizing: inherit;
+            font-size: 13px;
+            color: #0274FF;
+            text-align: left;
+            margin-left: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .bidserver-back .bidserver-item .content:nth-of-type(2) {
+            width: 70px;
+        }
+
+        .bidserver-back .bidserver-item .content:nth-of-type(3) {
+            width: 80px;
+        }
+
+        .bidserver-back .bidserver-item .content:nth-of-type(4) {
+            width: 92px;
+        }
+
+
+        .bidserver-back .bidserver-item .content span {
+            display: inline-block;
+            background-color: #0274FF;
+            width: 4px;
+            height: 4px;
+            margin-right: 8px;
+            border-radius: 2px;
+            vertical-align: middle;
+        }
+
+        .car-condition-back {
+            margin-top: 48px;
+            background-color: #ffffff;
+        }
+
+        .car-condition-back .tag {
+            display: inline-block;
+            color: #333333;
+            font-size: 18px;
+            font-weight: bold;
+            padding-left: 16px;
+            padding-right: 16px;
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .car-condition-back .rule {
+            display: inline-block;
+            float: right;
+            color: #999999;
+            font-size: 12px;
+            padding-left: 16px;
+            padding-right: 16px;
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .car-condition-back .rule span {
+            display: inline-block;
+            border: 1px solid #999999;
+            width: 11px;
+            height: 11px;
+            line-height: 11px;
+            text-align: center;
+            vertical-align: baseline;
+            border-radius: 6px;
+        }
+
+        .car-condition-back .star-back {
+            font-size: 14;
+            font-weight: bold;
+            margin-top: 8px;
+            margin-left: 16px;
+            margin-right: 16px;
+            color: #0274FF;
+        }
+
+        .car-condition-back .evaluate {
+            color: #666666;
+            font-size: 14px;
+            margin-top: 17px;
+            margin-left: 16px;
+            margin-right: 16px;
+        }
+
+        .carinfo-detail-back {
+            margin-top: 48px;
+        }
+
+        .carinfo-detail-back .tag {
+            color: #333333;
+            font-size: 18px;
+            font-weight: bold;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .carinfo-detail-back .detail {
+            margin-top: 12px;
+            margin-left: 16px;
+            margin-right: 16px;
+        }
+
+        .carinfo-detail-back .detail .detail-back {
+            margin-top: 8px;
+            display: inline-block;
+            width: 32%;
+        }
+
+        .carinfo-detail-back .detail .detail-back .detail-tag {
+            font-size: 12px;
+            color: #999999;
+        }
+
+        .carinfo-detail-back .detail .detail-back .detail-data0,
+        .detail-data1,
+        .detail-data2,
+        .detail-data3,
+        .detail-data4,
+        .detail-data5 {
+            margin-top: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #666666;
+        }
+
+        .carinfo-detail-back .carinfo-detail-more {
+            border: 1px solid #0274FF;
+            margin-left: 124px;
+            margin-right: 124px;
+            margin-top: 30px;
+            text-align: center;
+            height: 32px;
+            line-height: 32px;
+            color: #0274FF;
+            border-radius: 2px;
+        }
+
+        .video-back {
+            margin-top: 48px;
+            background-color: #ffffff;
+            width: 100%;
+        }
+
+        .video-back .tag {
+            color: #333333;
+            font-size: 18px;
+            font-weight: bold;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .video-back .swiper2 {
+            margin-top: 20px;
+            height: 113px;
+            background-color: #ffffff;
+            margin-left: 16px;
+            margin-right: 16px;
+        }
+
+        .video-back .swiper2 .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background-color: #F3F5F8;
+            width: 166px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .video-back .swiper2 .swiper-slide span {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 28px;
+            line-height: 28px;
+            background-color: #000000;
+            opacity: 0.7;
+            color: #FFFFFF;
+            font-size: 12px;
+        }
+
+        .video-back .swiper2 .swiper-slide .playIcon {
+            position: absolute;
+            top: 32px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .report-back {
+            margin-top: 48px;
+            background-color: #ffffff;
+            margin-bottom: 70px
+        }
+
+        .report-back .tag {
+            color: #333333;
+            font-size: 18px;
+            font-weight: bold;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .report-back table {
+            margin-top: 20px;
+            margin-left: 4%;
+            margin-right: 4%;
+            width: 92%;
+            border-collapse: collapse;
+            border-color: #F0F0F0;
+        }
+
+        .report-back table tr {
+            background-color: #ffffff;
+        }
+
+        .report-back table tr:nth-of-type(1) {
+            background-color: #F0F0F0;
+        }
+
+        .report-back table tr td:nth-of-type(1) {
+            width: 25%;
+            overflow: hidden;
+            word-wrap: break-word;
+            word-break: break-all;
+            color: #666666;
+        }
+
+        .report-back table tr td:nth-of-type(2) {
+            width: 75%;
+            overflow: hidden;
+            word-wrap: break-word;
+            word-break: break-all;
+            color: #666666;
+        }
+
+        .report-back table tr:nth-of-type(1) td {
+            color: #333333;
+        }
+
+        .specificPosition-img {
+            float: right;
+            width: 24px;
+            height: 24px;
+        }
+
+        .report-back table tr td {
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+            font-size: 14px;
+        }
+
+        .bottomBtn-back {
+            position: fixed;
+            bottom: 0px;
+            width: 100%;
+            height: 50px;
+            font-size: 0;
+            background-color: #ffffff;
+            z-index: 9999;
+        }
+
+        .bottomBtn-back .history {
+            display: inline-block;
+            width: 30%;
+            height: 49px;
+            line-height: 49px;
+            font-size: 16px;
+            color: #666666;
+            text-align: center;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .bottomBtn-back .bottom-tag {
+            display: inline-block;
+            width: 70%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #FFFFFF;
+            background-color: #1967B5;
+            text-align: center;
+        }
+
+        .video-js {
+            position: absolute;
+            top: 0;
+            /* width: 100%;
+            height: 100%; */
+            z-index: 10000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- 轮播 -->
+        <div class="swiper-container swiper1">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <!-- 价格信息 -->
+        <div class="bidinfo-back">
+            <span class="star-bid-price-tag">起拍价：</span>
+            <span class="star-bid-price">14.28</span>
+            <span class="star-bid-price-tag1">万元</span>
+            <span class="time-back"></span>
+        </div>
+        <!-- 车辆信息 -->
+        <div class="carinfo-back">
+            <div class="car-name">【杭州】保时捷718 2016款 豪华版 Boxster 2.0T</div>
+            <div class="car-parame">2016年10月 / 6.12万公里 / 杭州 / 国V</div>
+            <div class="car-source-number">编号：256121</div>
+        </div>
+        <!-- 比心代拍服务 -->
+        <div class="bidserver-back">
+            <div class="bidserver-tag">比心代拍服务</div>
+            <!-- <div>
+                <span class="tag">代拍服务</span>
+                <span class="content"><span></span>4S店代拍</span>
+                <span class="content"><span></span>用户0风险</span>
+                <span class="content"><span></span>全程专人服</span>
+            </div>
+            <div>
+                <span class="tag">代拍服务</span>
+                <span class="content"><span></span>4S店代拍</span>
+                <span class="content"><span></span>用户0风险</span>
+                <span class="content"><span></span>全程专人服</span>
+            </div>
+            <div>
+                <span class="tag">代拍服务</span>
+                <span class="content"><span></span>4S店代拍</span>
+                <span class="content"><span></span>用户0风险</span>
+                <span class="content"><span></span>全程专人服务</span>
+            </div>
+            <div>
+                <span class="tag">代拍服务</span>
+                <span class="content"><span></span>4S店代拍</span>
+                <span class="content"><span></span>用户0风险</span>
+                <span class="content"><span></span>全程专人服务</span>
+            </div> -->
+        </div>
+        <!-- 车况描述 -->
+        <div class="car-condition-back">
+            <div class="tag">车况描述</div>
+            <div class="rule"><span>?</span> 评分规则</div>
+            <div class="star-back"></div>
+            <div class="evaluate">该车整车印象良好。苏E户籍，2016年10月上牌。骨架-完好。外观-多处钣金喷漆，少数划伤凹陷。内饰-正常磨损。装置-正常使用。车主口述强险交至2020年9月随车
+            </div>
+        </div>
+
+        <!-- 车辆信息详情 -->
+        <div class="carinfo-detail-back">
+            <div class="tag">车辆信息</div>
+            <div class="detail">
+                <div class="detail-back">
+                    <div class="detail-tag">上牌时间</div>
+                    <div class="detail-data0">2018年10月</div>
+                </div>
+                <div class="detail-back">
+                    <div class="detail-tag">表显里程</div>
+                    <div class="detail-data1">8.32万公里</div>
+                </div>
+                <div class="detail-back">
+                    <div class="detail-tag">车辆所在地</div>
+                    <div class="detail-data2">杭州</div>
+                </div>
+                <div class="detail-back">
+                    <div class="detail-tag">车牌注册地</div>
+                    <div class="detail-data3">浙A</div>
+                </div>
+                <div class="detail-back">
+                    <div class="detail-tag">排放标准</div>
+                    <div class="detail-data4">国V</div>
+                </div>
+                <div class="detail-back">
+                    <div class="detail-tag">排量</div>
+                    <div class="detail-data5">2.0T</div>
+                </div>
+            </div>
+            <div class="carinfo-detail-more">更多车辆信息></div>
+        </div>
+        <!-- 检测视频 -->
+        <div class="video-back">
+            <div class="tag">检测视频</div>
+            <div class="swiper-container swiper2">
+                <div class="swiper-wrapper">
+                    <!-- <div class="swiper-slide">Slide 1</div>
+                    <div class="swiper-slide">Slide 2</div>
+                    <div class="swiper-slide">Slide 3</div>
+                    <div class="swiper-slide">Slide 4</div>
+                    <div class="swiper-slide">Slide 5</div>
+                    <div class="swiper-slide">Slide 6</div>
+                    <div class="swiper-slide">Slide 7</div>
+                    <div class="swiper-slide">Slide 8</div>
+                    <div class="swiper-slide">Slide 9</div>
+                    <div class="swiper-slide">Slide 10</div> -->
+                    <!-- <div class="swiper-slide">
+                        <img src="../../assets/images/videoImage.png" width="100%" >
+                        <span>hahahha</span>
+                        <img class="playIcon" src="../../assets/images/playIcon.png" alt="">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- 检测报告 -->
+        <div class="report-back">
+            <div class="tag">检测报告</div>
+            <!-- 　<table border="1">
+                <tr>
+                    <td colspan="2">111111</td>
+                </tr>
+                <tr>
+                    <td>33333</td>
+                    <td>444444444444444444444444444444444444444444444444444444444444</td>
+                </tr>
+                <tr>
+                    <td>55555</td>
+                    <td>66666</td>
+                </tr>
+            </table> -->
+        </div>
+
+        <!-- 底部按钮 -->
+        <div class="bottomBtn-back">
+            <div class="history">代拍记录（0）</div>
+            <div class="bottom-tag">请打开ERP电脑端代拍出价</div>
+        </div>
+
+    </div>
+
+    <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
+    <script src="../../assets/js/lib/swiper/swiper.min.js"> </script>
+    <script src="../../assets/js/common.js?_=3"></script>
+    <script src="../../assets/js/CarmeJsBridgeNoEvent.js"></script>
+    <script src="https://jscdn.car-me.com/assets/js/layer.mobile/layer.js"></script>
+
+    <script>
+        var urlParams = common.getQuery();
+        var id = urlParams.car_id || '';
+        var adminToken = urlParams.adminToken || '';
+        var resultData = ""
+        var carSourceDetail = {
+            init: function () {
+                this.loadOrderData()
+            },
+            loadOrderData: function () {
+                common.ajax({
+                    url: common.erpDomain + '/spiderCar/secondHand/carSource',
+                    param: { "id": id, 'adminToken': adminToken },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("--+++>", this.url, data)
+                        if (data.code == '1' && data.result) {
+                            window.resultData = data.result
+                            carSourceDetail.setValueForUI()
+                        }
+                    },
+                    error: function () {
+                        $('.placeHolder span').html('系统繁忙')
+                    }
+                });
+            },
+
+            setValueForUI: function () {
+                // 轮播
+                resultData.carImages.forEach(function (banner, index) {
+                    $(".swiper1 .swiper-wrapper").append('<div class="swiper-slide"><img src="' + banner.image + '" width="100%" ></div>');
+                });
+                var mySwiper = new Swiper('.swiper1', {
+                    direction: 'horizontal',
+                    loop: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        type: 'fraction',
+                    },
+                    autoplay: {
+                        delay: 3000,
+                        stopOnLastSlide: false,
+                        disableOnInteraction: false,
+                    }
+                })
+                //价格                
+                if (resultData.bidInfo.bidState == "0") {
+                    $('.bidinfo-back').css({ 'background': '#0274FF' })
+                    $('.time-back').html('开始时间<br>' + resultData.bidInfo.bidStarTime)
+                } else if (resultData.bidInfo.bidState == "1") {
+                    $('.bidinfo-back').css({ 'background': '#F95162' })
+                    carSourceDetail.cutDown()
+                } else {
+                    $('.bidinfo-back').css({ 'background': '#999999' })
+                    $('.time-back').html('')
+
+                }
+                if (resultData.bidInfo.bidState != "2") {
+                    if (resultData.bidInfo.bidStarPrice) {
+                        $('.star-bid-price-tag').html('起拍价：')
+                        $('.star-bid-price').html(resultData.bidInfo.bidStarPrice)
+                        $('.star-bid-price').css('display', 'inline-block')
+                        $('.star-bid-price-tag1').css('display', 'inline-block')
+                    } else {
+                        var str = resultData.bidInfo.bidState == "0" ? "未开始" : "竞拍中"
+                        $('.star-bid-price-tag').html(str)
+                        $('.star-bid-price').css('display', 'none')
+                        $('.star-bid-price-tag1').css('display', 'none')
+                    }
+                } else {
+                    $('.star-bid-price-tag').html('已下架')
+                    $('.star-bid-price').css('display', 'none')
+                    $('.star-bid-price-tag1').css('display', 'none')
+                }
+
+                $('.car-name').html(resultData.carInfo.carName)
+                var str = '车况：' + resultData.carInfo.carNoTime + "/" + resultData.carInfo.carMileage + "万公里/" + resultData.carInfo.sellCity + "/" + resultData.carInfo.emissionStandards
+                $('.car-parame').html(str)
+                $('.car-source-number').html('编号：' + window.id)
+
+                resultData.bidServerInfo.forEach(function (item, index) {
+                    var str = '<div class="bidserver-item">\
+                                 <span class="tag">'+ item.name + '</span>\
+                                <span class="content"><span></span>'+ item.content.firstService + '</span>\
+                                <span class="content"><span></span>'+ item.content.secondService + '</span>\
+                                <span class="content"><span></span>'+ item.content.threeContnet + '</span>\
+                            </div>'
+                    $('.bidserver-back').append(str)
+                })
+                if (resultData.carInfo.conditionLink && resultData.carInfo.conditionLink != "") {
+                    $('.car-condition-back .rule').css('display', 'inline-block')
+                } else {
+                    $('.car-condition-back .rule').css('display', 'none')
+                }
+                $('.star-back').html(resultData.carInfo.condition)
+                $('.evaluate').html(resultData.carInfo.evaluate)
+                $('.detail-data0').html(resultData.carInfo.carNoTime)
+                $('.detail-data1').html(resultData.carInfo.carMileage + "万公里")
+                $('.detail-data2').html(resultData.carInfo.sellCity)
+                $('.detail-data3').html(resultData.carInfo.carNoAddress)
+                $('.detail-data4').html(resultData.carInfo.emissionStandards)
+                $('.detail-data5').html(resultData.carInfo.engineDisplacement)
+
+                if (resultData.video && resultData.video.length > 0) {
+                    $('.video-back').css('display', 'inline-block')
+                    resultData.video.forEach(function (item, index) {
+                        $(".swiper2 .swiper-wrapper").append('<div class="swiper-slide" data-index=' + index + '><img src="../../assets/images/videoImage.png" width="100%" ><span>' + item.name + '</span><img class="playIcon" src="../../assets/images/playIcon.png" alt=""></div>');
+                    })
+                    var swiper2 = new Swiper('.swiper2', {
+                        slidesPerView: 'auto',
+                        spaceBetween: 11,
+                        freeMode: true,
+                    });
+                } else {
+                    $('.video-back').css('display', 'none')
+                }
+
+                resultData.detectionReport.forEach(function (item, index) {
+                    var str0 = ''
+                    if (item.specificPosition.length > 0) {
+                        item.specificPosition.forEach(function (nameItem, nameIndex) {
+                            str0 = str0 + '<tr>\
+                                            <td>'+ nameItem.positionName + '</td>\
+                                            <td>'+ nameItem.faultDetail + '</td>\
+                                        </tr>'
+                        })
+                        var imgStr = ''
+                        if (item.images && item.images.length > 0) {
+                            imgStr = '<img class="specificPosition-img" data-index=' + index + ' src="../../assets/images/icon-image.png"></img>'
+                        }
+                        var str1 = '<table border="1">\
+                                    <tr>\
+                                        <td colspan="2">'+ item.position + imgStr + '</td>\
+                                    </tr>'+ str0 + '</table>'
+                        $('.report-back').append(str1)
+                    } else {
+                        var str2 = '<table border="1">\
+                                    <tr>\
+                                        <td colspan="2">'+ item.position + '</td>\
+                                    </tr><td colspan="2">无损伤</td></table>'
+                        $('.report-back').append(str2)
+                    }
+                })
+                $('.history').html('代拍记录(' + resultData.bidCount + ')')
+
+                $('.swiper2 .swiper-slide').on('click', function () {
+                    window.appBridgeNoEvent({
+                        flag: 'play_video',
+                        extra: { 'videoUrl': resultData.video[$(this).data('index')].videoUrl }
+                    });
+                })
+
+                $('.carinfo-detail-more').on('click', function () {
+                    window.appBridgeNoEvent({
+                        flag: 'carSource_detail',
+                        extra: { 'car_id': window.id }
+                    });
+                })
+
+                $('.history').on('click', function () {
+                    if (resultData.bidCount == "0") {
+                        layer.open({
+                            content: "无代拍记录"
+                            , skin: 'msg'
+                            , time: 3
+                        });
+                    } else {
+                        window.appBridgeNoEvent({
+                            flag: 'bid_history',
+                            extra: { 'id': window.id }
+                        });
+                    }
+                })
+
+                $('.swiper1').on('click', function () {
+                    sessionStorage.setItem('carImages', JSON.stringify(resultData.carImages))
+                    window.location.href = './carImageList.html?sessionId=carImages'
+                })
+
+                $('.car-condition-back .rule').on('click', function () {
+                    window.appBridgeNoEvent({
+                        flag: 'hdxq',
+                        extra: { 'link_url': resultData.carInfo.conditionLink }
+                    });
+                })
+
+                $('.specificPosition-img').on('click', function () {
+                    var images = resultData.detectionReport[$(this).data('index')].images
+                    sessionStorage.setItem('positionImages', JSON.stringify(images))
+                    window.location.href = './carImageList.html?sessionId=positionImages'
+                })
+
+            },
+            //倒计时
+            cutDown: function () {
+                var SysSecond = parseInt(resultData.bidInfo.bidEndTime)
+                var InterValObj;
+                $(document).ready(function () {
+                    InterValObj = window.setInterval(SetRemainTime, 1000); //间隔函数，1秒执行 
+                });
+                function SetRemainTime() {
+                    if (SysSecond > 0) {
+                        SysSecond = SysSecond - 1;
+                        var second = Math.floor(SysSecond % 60);             // 计算秒     
+                        var minite = Math.floor((SysSecond / 60) % 60);      //计算分 
+                        var hour = Math.floor((SysSecond / 3600) % 24);      //计算小时 
+                        var day = Math.floor((SysSecond / 3600) / 24);        //计算天 
+
+                        var endStr = ''
+                        if (day > 0) {
+                            endStr = day + "天" + hour + "小时" + minite + "分" + second + "秒"
+                        } else if (hour > 0) {
+                            endStr = hour + "小时" + minite + "分" + second + "秒"
+                        } else if (minite > 0) {
+                            endStr = minite + "分" + second + "秒"
+                        } else if (second > 0) {
+                            endStr = second + "秒"
+                        } else {
+                            //倒计时已完成
+                        }
+                        $('.time-back').html('距结束<br>' + endStr)
+                    } else {//剩余时间小于或等于0的时候，就停止间隔函数 
+                        carSourceDetail.init()
+                        window.clearInterval(InterValObj);
+                    }
+                }
+            }
+        }
+
+        carSourceDetail.init()
+    </script>
+</body>
+
+</html>

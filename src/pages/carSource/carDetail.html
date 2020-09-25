@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>车源详细信息</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body,
+        .wrapper {
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+        .item .title {
+            width: 100%;
+            height: 38px;
+            line-height: 38px;
+            background-color: #f8f8f8;
+            padding-left: 16px;
+            color: #999999;
+            font-size: 14px;
+        }
+
+        .info-back {
+            font-size: 0;
+            width: 100%;
+            min-height: 56px;
+        }
+
+        .tag {
+            box-sizing: border-box;
+            display: inline-block;
+            padding-left: 16px;
+            width: 40%;
+            height: 56px;
+            line-height: 56px;
+            font-size: 15px;
+            color: #666666;
+        }
+
+        .value {
+            box-sizing: border-box;
+            display: inline-block;
+            padding-right: 16px;
+            width: 60%;
+            font-size: 16px;
+            text-align: right;
+            color: #333333;
+            vertical-align: top;
+            padding-top: 17px;
+            padding-bottom: 17px;
+        }
+
+        .line {
+            width: 100%;
+            height: 1px;
+            background-color: #F0F0F0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="item">
+            <!-- <div class="title">基本信息</div>
+            <div class="content">
+                <div class="info-back">
+                    <span class="tag">表显里程</span>
+                    <span class="value">15517公里</span>
+                    <div class="line"></div>
+                </div>
+                <div class="info-back">
+                    <span class="tag">车身颜色</span>
+                    <span class="value">黑色</span>
+                    <div class="line"></div>
+                </div>
+                <div class="info-back">
+                    <span class="tag">车牌</span>
+                    <span class="value">京NABCH</span>
+                    <div class="line"></div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
+    <script src="../../assets/js/common.js?_=3"></script>
+    <script src="../../assets/js/CarmeJsBridgeNoEvent.js"></script>
+    <script src="../../assets/js/lib/layer/layer.js"></script>
+
+    <script>
+        var urlParams = common.getQuery();
+        var id = urlParams.car_id || '';
+        var adminToken = urlParams.adminToken || '';
+        var resultData = ""
+        var carDetail = {
+            init: function () {
+                this.loadData()
+            },
+            loadData: function () {
+                common.ajax({
+                    url: common.erpDomain + '/spiderCar/secondHand/vehicleDetails',
+                    param: { "id": id, 'adminToken': adminToken },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("--+++>", this.param, this.url, data)
+                        if (data.code == '1' && data.result) {
+                            window.resultData = data.result
+                            carDetail.setValueForUI()
+                        }
+                    },
+                    error: function () {
+                        $('.placeHolder span').html('系统繁忙')
+                    }
+                });
+            },
+            setValueForUI: function () {
+                var str0 = ""
+                resultData.forEach(function (items, index) {
+                    var str1 = ""
+                    items.items.forEach(function (infoItems, infoItemsIndex) {
+                        str1 = str1 + '<div class="info-back">\
+                                        <span class="tag">'+infoItems.itemName+'</span>\
+                                        <span class="value">'+infoItems.itemContent+'</span>\
+                                        <div class="line"></div>\
+                                    </div>'
+                    })
+                    str0 = str0 + '<div class="title">' + items.infoName + '</div><div class="content">'+str1+'</div>'
+                })
+                $('.wrapper .item').html(str0)
+            }
+        }
+
+        carDetail.init()
+    </script>
+</body>
+
+</html>

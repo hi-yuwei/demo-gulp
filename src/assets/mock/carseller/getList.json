@@ -1,0 +1,13 @@
+{
+    "message": "success",
+    "code": "1",
+    "result": {
+        "items": [],
+        "pageNo": 1,
+        "pageSize": 10,
+        "pageCount": 0,
+        "recordCount": 0
+    },
+    "currentDate": "2019-04-28",
+    "success": true
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+		<title>绑定成功</title>
+		<link rel="stylesheet" href="../../../assets/css/base.css?_=2">
+		<style type="text/css">
+			body{
+				background: #FFFFFF;
+			}
+			.container{
+				text-align: center;
+				padding-top: 37px;
+				
+			}
+			.title{
+				font-size: 18px;
+				margin-top: 22px;
+			}
+			.sub-title{
+				color: #999999;font-size: 13px;
+				margin-top: 11px;
+			}
+			.btn{
+				padding: 8px 60px;
+				margin-top: 48px;
+				font-size: 14px;
+				background: #FFFFFF;
+				border: 1px solid #1967B5;
+				color: #1967B5;
+				border-radius: 25px;
+				margin-top: 48px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div><img src="../img/user/success-icon.png" width="44" /></div>
+			<div class="title">绑定成功</div>
+			<div class="sub-title">您将通过微信收到最新的车辆报价提醒</div>
+			<button class="btn" type="button">去报价</button>
+		</div>
+		<script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
+		<script src="../../../assets/js/common.js?_=3"></script>
+		<script type="text/javascript">
+			var env = common.getQuery().env;
+			
+			$('.btn').click(function(){
+				var str = ''
+				if (env) {
+				  str += 'env=' + env
+				}
+				window.location.href = '../new_list.html?' + str;
+			})
+		</script>
+	</body>
+</html>
+

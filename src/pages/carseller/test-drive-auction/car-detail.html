@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+		<title>车辆详情</title>
+		<link rel="stylesheet" href="../../../assets/css/base.css?_=1">
+		<link rel="stylesheet" type="text/css" href="../../../assets/css/swiper/swiper.min.css" />
+		<style type="text/css">
+			body {
+				background-color: #FFFFFF;
+				font-size: 14px;
+				padding-bottom: 44px;
+			}
+
+			.header-swiper,
+			.header-swiper .swiper-slide {
+				height: 203px;
+				width: 100%;
+			}
+
+			.bid-state {
+				height: 54px;
+				color: #FFFAF8;
+				padding: 0 20px 0 16px;
+			}
+
+			.bid-state0,
+			.bid-state3 {
+				background: linear-gradient(45deg, #B3B3B3 0%, #999999 100%);
+			}
+
+			.bid-state1 {
+				background: linear-gradient(45deg, #FC6A79 0%, #F95162 100%);
+			}
+
+			.bid-state2 {
+				background: linear-gradient(45deg, #5096FF 0%, #0274FF 100%);
+			}
+
+			.bid-state .price {
+				font-size: 26px;
+				font-weight: 500;
+			}
+
+			.bid-state .state-right {
+				font-size: 12px;
+				text-align: center;
+			}
+
+			.bid-state .state-right .time {
+				margin-top: 6px;
+			}
+
+			.car-info {
+				padding: 16px;
+			}
+
+			.car-info .title {
+				font-size: 17px;
+				font-weight: 600;
+				margin-bottom: 10px;
+			}
+
+			.car-info .condition {
+				color: #666666;
+			}
+
+			.auction-statement .wrapper1 {
+				margin-bottom: 10px;
+			}
+
+			.auction-statement .auction-wrapper {
+				display: flex;
+				justify-content: space-between;
+				padding: 0 16px;
+			}
+
+			.auction-statement .auction-wrapper .title {
+				margin-right: 4px;
+				margin-top: 5px;
+			}
+
+			.auction-statement .auction-wrapper ul {
+				display: flex;
+				flex: 1;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+
+			.auction-statement .auction-wrapper ul li {
+				color: #666666;
+				margin-right: 5px;
+				font-size: 12px;
+				width: 66px;
+				margin-top: 5px;
+			}
+
+			.auction-wrapper-tip {}
+
+			.auction-statement .auction-wrapper ul li span,
+			.auction-wrapper-tip li span:nth-child(1) {
+				background-color: #FFF4E7;
+				border-radius: 1px;
+				border: 1px solid #FE900D;
+				color: #FE900D;
+				font-size: 12px;
+				width: 16px;
+				height: 16px;
+				display: inline-block;
+				text-align: center;
+				line-height: 16px;
+				margin-right: 2px;
+			}
+
+			.auction-wrapper-tip .title {
+				color: #666666;
+				text-align: center;
+				border-bottom: 1px solid #E6E6E6;
+				padding: 22px 0 14px;
+			}
+
+			.auction-wrapper-tip ul {
+				padding: 20px;
+			}
+
+			.auction-wrapper-tip li {
+				display: flex;
+				margin-bottom: 10px;
+				color: #494949;
+				font-size: 13px;
+			}
+
+			.auction-wrapper-tip li span:nth-child(2) {
+				flex: 1;
+				margin-left: 6px;
+			}
+
+			.auction-wrapper-tip button {
+				border: none;
+				color: #FFFFFF;
+				font-size: 1rem;
+				text-align: center;
+				background: #0374FF;
+				box-shadow: 0px -1px 0px 0px rgba(240, 240, 240, 1);
+				width: 100%;
+				height: 49px;
+				line-height: 49px;
+			}
+
+			.maximum_price_box {
+				padding: 16px;
+			}
+
+			.maximum_price_box .maximum_price_title .title {
+				font-size: 18px;
+				font-weight: 600;
+			}
+
+			.maximum_price_box .maximum_price_title .refresh-btn {
+				color: #0374FF;
+			}
+
+			.maximum_price_box .maximum_price_title .refresh-btn img {
+				width: 14px;
+				height: 16px;
+				margin-right: 6px;
+				vertical-align: -2px;
+			}
+
+			.maximum_price_box .maximum_price_user {
+				margin-top: 20px;
+			}
+
+			.maximum_price_box .maximum_price_user .user-ava {
+				width: 48px;
+				height: 48px;
+			}
+
+			.maximum_price_box .maximum_price_user .user-name {
+				font-size: 16px;
+				font-weight: 600;
+				margin-bottom: 6px;
+			}
+
+			.maximum_price_box .maximum_price_user .time {
+				color: #666666;
+				font-size: 13px;
+			}
+
+			.maximum_price_box .maximum_price_user .price {
+				color: #FA5767;
+				font-size: 18px;
+			}
+
+			.auction-explain {
+				padding: 16px;
+			}
+
+			.auction-explain .title {
+				font-size: 18px;
+				font-weight: 600;
+				margin-bottom: 16px;
+			}
+
+			.auction-explain .explain {
+				width: 100%;
+				height: 64px;
+			}
+
+			.basic-info {
+				padding: 16px;
+			}
+
+			.basic-info .title {
+				font-size: 18px;
+				font-weight: 600;
+				margin-bottom: 20px;
+			}
+
+			.basic-info .info-wrapper {
+				flex-wrap: wrap;
+			}
+
+			.basic-info .info-wrapper li {
+				width: 33.33%;
+				margin-bottom: 24px;
+			}
+
+			.basic-info .info-wrapper li p:nth-child(1) {
+				color: #999999;
+				font-size: 12px;
+			}
+
+			.basic-info .info-wrapper li p:nth-child(2) {
+				color: #666666;
+				font-size: 15px;
+				font-weight: 600;
+				margin-top: 4px;
+			}
+
+			.car-detection,
+			.car-img-list {
+				padding: 16px;
+			}
+
+			.car-detection .title,
+			.car-img-list .title {
+				font-size: 18px;
+				font-weight: 600;
+				margin-bottom: 20px;
+			}
+
+			.car-detection .detectio-user {
+				justify-content: start;
+				margin-bottom: 28px;
+			}
+
+			.car-detection .detectio-user img {
+				width: 48px;
+				height: 48px;
+				margin-right: 16px;
+			}
+
+			.car-detection .detectio-user .name {
+				font-size: 16px;
+				font-weight: 600;
+				margin-bottom: 0.25rem;
+			}
+
+			.car-detection .detectio-user .desc {
+				color: #666666;
+				font-size: 13px;
+			}
+
+			.car-detection .detection-wrapper {
+				text-align: center;
+				margin-bottom: 16px;
+				font-size: 13px;
+				color: #0374FF;
+			}
+
+			.car-detection .detection-wrapper li img {
+				width: 48px;
+				height: 48px;
+				margin-bottom: 4px;
+			}
+
+			.car-detection .detectio-desc {
+				color: #666666;
+			}
+
+			.car-img-list .list-wrpper div {
+				margin-bottom: 24px;
+				color: #3E3E39;
+			}
+
+			.car-img-list .list-wrpper div p {
+				margin-bottom: 6px;
+			}
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+
+			.flex-between {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.flex-center {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.more-btn {
+				text-align: center;
+				width: 128px;
+				height: 32px;
+				line-height: 32px;
+				border-radius: 2px;
+				border: 1px solid #0374FF;
+				color: #0374FF;
+				margin: 24px auto 0;
+			}
+
+			.footer-btn {
+				position: fixed;
+				bottom: 0;
+				background-color: #FFFFFF;
+				height: 44px;
+				line-height: 48px;
+				width: 100%;
+				text-align: center;
+			}
+
+			.footer-btn button {
+				width: 90%;
+				height: 36px;
+				background-color: #0374FF;
+				border: none;
+				border-radius: 25px;
+				color: #FFFFFF;
+				font-size: 16px;
+			}
+
+			.footer-btn .tip {
+				background: rgba(0, 0, 0, .5);
+				position: absolute;
+				top: -28px;
+				width: 100%;
+				height: 28px;
+				line-height: 28px;
+				color: #fff;
+				font-size: 12px;
+			}
+
+			.auction-layer .layui-m-layerbtn {
+				background-color: #0374FF;
+
+			}
+
+			.auction-layer .layui-m-layerbtn span {
+				color: #FFFFFF !important;
+				font-size: 16px;
+			}
+
+			.offer-price {
+				text-align: center;
+				color: #666666;
+				padding-top: 32px;
+			}
+
+			.offer-price .price {
+				color: #FA5767;
+				font-size: 32px;
+				margin-top: 7px;
+			}
+
+			.offer-price .flex-center {
+				margin: 56px 0 80px;
+			}
+
+			.offer-price .reduce-btn {
+				background: #E5F1FF;
+				font-size: 36px;
+				color: #0374FF;
+				height: 45px;
+				width: 52px;
+				line-height: 45px;
+			}
+
+			.offer-price .price-base {
+				width: 148px;
+				height: 45px;
+				line-height: 46px;
+				background-color: #E6E6E6;
+				margin: 0 7px;
+				font-size: 20px;
+				font-weight: 600;
+			}
+
+			.mask-modal-box {
+				position: fixed;
+				z-index: 2147483647;
+			}
+
+			.mask-modal-box .mask-modal-bg {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, .7);
+			}
+
+			.mask-modal-box .mask-modal-content {
+				background-color: #FFFFFF;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: auto;
+			}
+
+			.mask-modal-box .mask-modal-content .btn {
+				width: 100%;
+				height: 49px;
+				background-color: #0374FF;
+				border: none;
+				color: #FFFFFF;
+				font-size: 16px;
+			}
+
+			.dismount-bg {
+				width: 100px;
+				height: 100px;
+				margin: 50% auto;
+			}
+
+			.showBigImg {
+				display: none;
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: #000000;
+				z-index: 999;
+			}
+
+			.showBigImg .showBigImgWrap {
+				position: relative;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%);
+				width: 100%;
+				/* height: 280px; */
+				overflow: hidden;
+			}
+
+			.showBigImg .showBigImgWrap .allImgBox {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+			}
+
+			.showBigImg .showBigImgWrap .allImgBox .imgIte img {
+				width: 100%;
+			}
+			.header-swiper-pagination{
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div class="detail-content">
+			<!-- 轮播图 -->
+			<div class="swiper-container header-swiper">
+				<div class="swiper-wrapper">
+					<!-- <div class="swiper-slide">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/608125838346855.png" >
+					</div>
+					<div class="swiper-slide">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/608125838346855.png" >
+					</div>
+					<div class="swiper-slide">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/carAuction/608125838346855.png" >
+					</div> -->
+				</div>
+				<!-- 分页器 -->
+				<div class="swiper-pagination header-swiper-pagination"></div>
+			</div>
+			<!-- 竞拍状态 -->
+			<div class="bid-state flex-between">
+				<!-- <div class="">
+					起拍价：<span class="price">23.54</span> 元
+				</div>
+				<div class="state-right">
+					<p>开始时间</p>
+					<p class="time">02:12:30</p>
+				</div> -->
+				<!-- <div class="">
+						已结束
+					</div> -->
+				<!-- 
+					<div class="">
+						竞拍中
+					</div>
+					<div class="state-right">
+						<p>距结束</p>
+						<p class="time">02:12:30</p>
+					</div>
+					<div class="">
+						已下架
+					</div> -->
+			</div>
+
+			<!-- 车型 车况 -->
+			<div class="car-info">
+				<!-- <div class="title">杭州】保时捷718 2016款 豪华版 Boxster 2.0T 保时捷718 2016款</div>
+				<div class="condition">车况：2016年10月 / 6.12万公里 / 杭州 / 国V</div> -->
+			</div>
+			<!-- 拍卖 服务说明 $('.auction-statement .auction-wrapper ul')-->
+			<div class="auction-statement">
+				<div class="auction-wrapper wrapper1">
+					<div class="title">拍卖</div>
+					<ul class="">
+						<!-- <li><span>起</span>¥555000</li>
+						<li><span>加</span>¥555000</li>
+						<li><span>保</span>¥500</li>
+						<li><span>延</span>5min</li> -->
+					</ul>
+					<img src="../img/icon-arrow-right.png" style="width: 10px;">
+				</div>
+				<div class="auction-wrapper wrapper2">
+					<div class="title">服务</div>
+					<ul class="">
+						<!-- <li><span>起</span>起起起起</li>
+						<li><span>加</span>起起起起</li>
+						<li><span>保</span>起起起起</li>
+						<li><span>延</span>起起起起</li> -->
+					</ul>
+					<img src="../img/icon-arrow-right.png" style="width: 10px;">
+				</div>
+			</div>
+			<!-- 当前最高价 -->
+			<div class="maximum_price_box">
+				<div class="flex-between maximum_price_title">
+					<p class="title">当前最高价</p>
+					<p class="refresh-btn">
+						<img src="../img/money/refresh-icon.png">
+						刷新出价
+					</p>
+				</div>
+				<div class="flex-between maximum_price_user">
+					<!-- <div class="flex-center">
+						<img src="../img/brandImage/11.png" class="user-ava">
+						<div>
+							<p class="user-name">昵称张先生</p>
+							<p class="time">2020-02-20 16:32</p>
+						</div>
+					</div>
+					<div class="price">￥550000</div> -->
+				</div>
+			</div>
+			<!-- 拍卖说明 -->
+			<div class="auction-explain">
+				<div class="title">拍卖说明</div>
+				<div class="explain"><img src="../img/money/explain-icon.png"></div>
+			</div>
+			<!-- 所属4S店 -->
+			<div class="basic-info">
+				<div class="title">基本信息</div>
+				<ul class="flex-center info-wrapper">
+					<!-- <li>
+						<p>上牌时间</p>
+						<p>2018年10月</p>
+					</li>
+					<li>
+						<p>表显里程</p>
+						<p>2018年10月</p>
+					</li>
+					<li>
+						<p>车辆所在地</p>
+						<p>2018年10月</p>
+					</li>
+					<li>
+						<p>车牌注册地</p>
+						<p>2018年10月</p>
+					</li>
+					<li>
+						<p>排放标准</p>
+						<p>2018年10月</p>
+					</li>
+					<li>
+						<p>排量</p>
+						<p>2018年10月</p>
+					</li> -->
+				</ul>
+				<div class="more-btn more-car-info">更多车辆信息></div>
+			</div>
+			<!-- 车辆检测 -->
+			<div class="car-detection">
+				<div class="title">车辆检测</div>
+				<div class="flex-center detectio-user">
+					<!-- <div><img src="../img/brandImage/0.png"></div>
+					<div>
+						<p class="name">张师傅</p>
+						<p class="desc">4S店专业检测师</p>
+					</div> -->
+				</div>
+				<ul class="flex-between detection-wrapper">
+					<li>
+						<img src="../img/money/detail-icon1.png">
+						<p>无重大事故</p>
+					</li>
+					<li>
+						<img src="../img/money/detail-icon2.png">
+						<p>无水泡</p>
+					</li>
+					<li>
+						<img src="../img/money/detail-icon3.png">
+						<p>无火烧</p>
+					</li>
+					<li>
+						<img src="../img/money/detail-icon4.png">
+						<p>真实车况</p>
+					</li>
+				</ul>
+				<div class="detectio-desc">
+					<!-- 该车整车印象良好。苏E户籍，2016年10月上牌。骨架-完好。外观-多处钣金喷漆，少数划伤凹陷。内饰-正常磨损。装置-正常使用。车主口述强险交至2020年9月随车 -->
+				</div>
+				<div class="more-btn" data-id="">完整检测报告></div>
+			</div>
+			<div class="car-img-list">
+				<div class="title">车辆实拍</div>
+				<div class="list-wrpper">
+					<!-- <div> $('.car-img-list .list-wrpper ul li')
+						<p>外观</p>
+						<ul class="flex-between" style="flex-wrap: wrap;">
+							<li style="width: 33.33%;padding: 4px;"><img src="../img/money/zfb-icon.png" style="width: 100%;height: 74px;"></li>
+							<li style="width: 33.33%;padding: 4px;"><img src="../img/money/zfb-icon.png" style="width: 100%;height: 74px;"></li>
+							<li style="width: 33.33%;padding: 4px;"><img src="../img/money/zfb-icon.png" style="width: 100%;height: 74px;"></li>
+							<li style="width: 33.33%;padding: 4px;"><img src="../img/money/zfb-icon.png" style="width: 100%;height: 74px;"></li>
+						</ul>
+					</div> -->
+				</div>
+			</div>
+			<div class="footer-btn">
+				<div class="offerPrice"><button>出个价</button></div>
+				<div class="payPrice hide">
+					<button>缴纳保证金</button>
+					<div class="tip">您未冻结的保证金不足1000元，无法出价</div>
+				</div>
+			</div>
+			<div class="mask-modal-box hide">
+				<div class="mask-modal-bg"></div>
+				<div class="mask-modal-content">
+					<!-- <div class="offer-price">
+						<p class="title">领先价</p>
+						<p class="price">￥57000</p>
+						<div class="flex-center">
+							<div class="reduce-btn decrease">-</div>
+							<div class="price-base">￥100</div>
+							<div class="reduce-btn increase">+</div>
+						</div>
+					</div>
+					<button class="btn">确认出价</button> -->
+				</div>
+			</div>
+		</div>
+		<div class="dismount-bg hide">
+			<img src="../img/dismount-bg.png">
+		</div>
+
+		<!-- 大图 -->
+		<div class="showBigImg">
+			<div class="showBigImgWrap swiper-container">
+				<div class="allImgBox swiper-wrapper">
+					<!-- <div class="imgIte swiper-slide">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/140_店长1(test1)_1576736069334.jpg">
+					</div>
+					<div class="imgIte swiper-slide">
+						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/140_店长1(test1)_1576736069334.jpg">
+					</div> -->
+				</div>
+				<!-- 分页器 -->
+				<!-- <div class="swiper-pagination"></div> -->
+			</div>
+		</div>
+		<!-- 大图 -->
+
+		<script src="../../../assets/js/lib/swiper/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
+		<script src="../../../assets/js/lib/layer/layer.js"></script>
+		<script src="../../../assets/js/common.js?_=5"></script>
+		<script type="text/javascript">
+			var headerSwiper,
+				env = common.getQuery().env,
+				carId = common.getQuery().carId,
+				supplierId = common.getStorage('userId'),
+				service_guarantee_content = [],
+				newMaximumPrice = 0,
+				newBidStarPrice = 0,
+				newPriceBase = 0,
+				addNewPriceBase = null,
+				offerPriceLayer, myBigSwiper,InterValObj = null;
+
+			var envStr = '';
+			if (env) {
+				envStr = 'env=' + env
+			}
+
+			var initModule = {
+				init: function() {
+					this.depositInfo();
+					this.loadDetail();
+					this.handleClick();
+					this.bigImgSwiper();
+				},
+				// 大图-start
+				bigImgSwiper: function() {
+					myBigSwiper = new Swiper('.showBigImgWrap', {
+						// pagination: {
+						// 	el: '.swiper-pagination',
+						// 	type: 'fraction',
+						// },
+					})
+					$('.showBigImg').click(function() {
+						$(".showBigImg").css('display', 'none'); //显示
+					})
+				},
+				openBigImg: function() {
+					var that = this;
+					var $img = $('.header-swiper .swiper-wrapper .swiper-slide');
+					$img.on('click', function() {
+						var arr = [];
+						$img.each(function() {
+							let obj = {
+								// name: $(this)[0].text(),
+								url: $(this).data('img-url')
+							}
+							arr.push(obj)
+						})
+						that.bigImgSlide(arr, $img.index(this));
+					})
+					var $img2 = $('.car-img-list .list-wrpper ul li');
+					$img2.on('click',function(){
+						var arr = [];
+						$img2.each(function() {
+							let obj = {
+								// name: $(this)[0].text(),
+								url: $(this).data('img-url')
+							}
+							arr.push(obj)
+						})
+						that.bigImgSlide(arr, $img2.index(this));
+					})
+				},
+				bigImgSlide: function(scArr, posi) {
+					$(".showBigImg").css('display', 'block'); //显示
+					var str = "";
+					for (var i = 0; i < scArr.length; i++) {
+						str += '<div class="imgIte swiper-slide"><img src=' + scArr[i].url + ' alt="" style="height:auto"></div>'
+					}
+					$('.allImgBox').html(str);
+					myBigSwiper.update();
+					myBigSwiper.slideTo(posi, 0);
+				},
+				// 大图-end
+				initHeaderSwiper: function(list) {
+					let html = "";
+					list.map(item => {
+						html += '<div class="swiper-slide" data-img-url="' + item + '">' +
+							'<img src="' + item + '" >' +
+							'</div>'
+					})
+					$('.header-swiper .swiper-wrapper').html(html);
+
+					if (list.length > 0) {
+						headerSwiper = new Swiper('.header-swiper', {
+							pagination: {
+								el: '.swiper-pagination',
+								type: 'fraction',
+							},
+							autoplay: true, //可选选项，自动滑动
+							delay: 2000,
+						})
+					}
+				},
+				initBidState: function(data) {
+					let that = this;
+					// 0:已结束，1:竞拍中2:未开始，3：已流拍 4.已下架
+					let {
+						bidState,
+						bidStarPrice,
+						bidEndTime,
+						bidStarTime,
+						endTimestamp,
+						nowTimestamp
+					} = data;
+					let html = "";
+					let priceStr = "",
+						timeTxt, bidTime;
+
+					if (bidState === 0 || bidState === 3 || bidState === 4) {
+						$('.bid-state').addClass('bid-state0');
+						let txt = '已结束';
+						if (bidState === 3) {
+							txt = '已流拍';
+						} else if (bidState === 4) {
+							txt = '已下架';
+						}
+						$('.bid-state').html(txt);
+						$('.footer-btn').addClass('hide');
+					} else {
+						$('.footer-btn').removeClass('hide');
+						$('.bid-state').addClass('bid-state1');
+						if (bidState === 1) {
+							timeTxt = '距结束';
+							bidTime = "";
+							that.cutDown(data);
+						} else {
+							timeTxt = '开始时间';
+							bidTime = bidStarTime;
+							$('.bid-state').addClass('bid-state2');
+						}
+						if (bidState === 1) {
+							priceStr = '竞拍中'
+						} else {
+							newBidStarPrice = bidStarPrice ? Number(bidStarPrice) : 0;
+							priceStr = '起拍价：<span class="price">' + (bidStarPrice ? bidStarPrice : 0) + '</span> 元'
+						}
+						html = '<div class="">' +
+							priceStr +
+							'</div>' +
+							'<div class="state-right">' +
+							'<p>' + timeTxt + '</p>' +
+							'<p class="time">' + bidTime + '</p>' +
+							'</div>';
+						$('.bid-state').html(html)
+					}
+				},
+				loadDetail: function() {
+					let that = this;
+					let param = {
+						id: carId,
+					}
+					common.ajax({
+						// url: 'detail.json',
+						// method: 'GET',
+						url: common.erpDomain + '/carDealer/carAuction/detail',
+						param: param,
+						success: function(res) {
+							if (res.code === '1') {
+								let {
+									plantImg,
+									bidInfo,
+									carInfo,
+									title,
+									factoryDate,
+									carMileage,
+									city,
+									standard,
+									priceBase,
+									serviceGuarantee,
+									maximumPrice,
+									checkInfo,
+									imageList
+								} = res.result;
+								newPriceBase = Number(priceBase)
+
+								that.initHeaderSwiper(plantImg);
+								that.initBidState(bidInfo);
+
+								// 车名称 车况
+								var factoryDateStr = '',
+									carMileageStr = '',
+									cityStr = '',
+									standardStr = "";
+								if (factoryDate) {
+									factoryDateStr = factoryDate + ' / ';
+								}
+								if (carMileage) {
+									carMileageStr = carMileage + '万公里' + ' / ';
+								}
+								if (city) {
+									cityStr = city + ' / ';
+								}
+								if (standard) {
+									standardStr = standard;
+								}
+								var carInfoHtml = '<div class="title">' + title + '</div>' +
+									'<div class="condition">车况：' + factoryDateStr + carMileageStr + cityStr + standardStr + '</div>';
+								$('.car-info').html(carInfoHtml);
+
+								// 拍卖  + (bidInfo.bidStarPrice ? bidInfo.bidStarPrice : 0) + 
+								var auctionTtml = '<li style="color: #FA5767;"><span>留</span>¥******</li>' +
+									'<li style="color: #FA5767;"><span>加</span>¥' + priceBase + '</li>' +
+									'<li style="color: #FA5767;"><span>保</span>¥1000</li>' +
+									'<li style="color: #FA5767;"><span>延</span>5min</li>'
+								$('.auction-statement .wrapper1 ul').html(auctionTtml);
+
+								// 服务
+								if (serviceGuarantee.length > 0) {
+									$('.auction-statement .wrapper2').removeClass('hide');
+									var serviceHTml = "";
+									service_guarantee_content = serviceGuarantee;
+									serviceGuarantee.map(item => {
+										serviceHTml += '<li><span>' + item.value + '</span>' + item.label + '</li>';
+									})
+									$('.auction-statement .wrapper2 ul').html(serviceHTml);
+								} else {
+									$('.auction-statement .wrapper2').addClass('hide');
+								}
+
+
+								// 最高价
+								var maxPriceHtml = "";
+								if (maximumPrice.price) {
+									newMaximumPrice = Number(maximumPrice.price),
+
+										maxPriceHtml =
+										// '<div class="flex-center">' +
+										// '<img src="../img/brandImage/11.png" class="user-ava">' +
+										'<div>' +
+										'<p class="user-name">' + maximumPrice.userName + '</p>' +
+										'<p class="time">' + maximumPrice.time + '</p>' +
+										'</div>' +
+										'</div>' +
+										'<div class="price">￥' + maximumPrice.price + '</div>';
+								} else {
+									maxPriceHtml = '<div>暂无出价</div>'
+								}
+								$('.maximum_price_box .maximum_price_user').html(maxPriceHtml);
+
+								// 基本信息
+								var basicHtml = "";
+								basicHtml = '<li>' +
+									'<p>上牌时间</p>' +
+									'<p>' + (carInfo.registerDate ? carInfo.registerDate : '暂无') + '</p>' +
+									'</li>' +
+									'<li>' +
+									'<p>表显里程</p>' +
+									'<p>' + (carInfo.carMileage ? carInfo.carMileage : '暂无') + '</p>' +
+									'</li>' +
+									'<li>' +
+									'<p>车辆所在地</p>' +
+									'<p>' + (carInfo.city ? carInfo.city : '暂无') + '</p>' +
+									'</li>' +
+									'<li>' +
+									'<p>车牌注册地</p>' +
+									'<p>' + (carInfo.registrationPlace ? carInfo.registrationPlace : '暂无') + '</p>' +
+									'</li>' +
+									'<li>' +
+									'<p>排放标准</p>' +
+									'<p>' + (carInfo.standard ? carInfo.standard : '暂无') + '</p>' +
+									'</li>' +
+									'<li>' +
+									'<p>排量</p>' +
+									'<p>' + (carInfo.outputVolume ? carInfo.outputVolume + 'T' : '暂无') + '</p>' +
+									'</li>'
+								$('.basic-info .info-wrapper').html(basicHtml);
+								$('.more-car-info').data('url', carInfo.moreUrl);
+
+								// 检测师信息
+								if (checkInfo.evaluateId) {
+									$('.car-detection').removeClass('hide');
+									var detectionUserHtml = "";
+									// ''
+									let imgUrl = '../img/detectionImg.png';
+									if(checkInfo.headImg!==undefined){
+										imgUrl = checkInfo.headImg;
+									}
+									detectionUserHtml = '<div><img src="' + imgUrl + '"></div>' +
+										'<div>' +
+										'<p class="name">' + checkInfo.name + '</p>' +
+										'<p class="desc">4S店专业检测师</p>' +
+										'</div>'
+									$('.car-detection .detectio-user').html(detectionUserHtml);
+									$('.car-detection .detectio-desc').html(checkInfo.evaluate);
+									$('.car-detection .more-btn').data('id', checkInfo.evaluateId)
+								} else {
+									$('.car-detection').addClass('hide');
+								}
+								// 车辆实拍
+								if (imageList.length === 0) {
+									$('.car-img-list').addClass('hide');
+								}
+								var carImgLIstStr = "",
+									typeStr;
+
+								imageList.map(item => {
+									switch (item.type) {
+										case 1:
+											typeStr = '车头';
+											break;
+										case 2:
+											typeStr = '左侧45度';
+											break;
+										case 3:
+											typeStr = '车尾';
+											break;
+										case 4:
+											typeStr = '右侧45度';
+											break;
+										case 5:
+											typeStr = '内饰';
+											break;
+										case 6:
+											typeStr = '仪表盘';
+											break;
+										case 7:
+											typeStr = '发动机舱';
+											break;
+										case 8:
+											typeStr = '铭牌';
+											break;
+										case 9:
+											typeStr = '外观';
+											break;
+										case 10:
+											typeStr = '内饰';
+											break;
+										case 11:
+											typeStr = '发动机';
+											break;
+									}
+									var carImgItemStr = "";
+									item.images.map(val => {
+										carImgItemStr += '<li style="width: 33.33%;padding: 4px;"  data-img-url="' + val + '"><img src="' + val +
+											'" style="width: 100%;height: 74px;"></li>';
+									})
+									carImgLIstStr += '<div>' +
+										'<p>' + typeStr + '</p>' +
+										'<ul style="flex-wrap: wrap;display:flex">' +
+										carImgItemStr +
+										'</ul>' +
+										'</div>'
+								})
+								$('.car-img-list .list-wrpper').html(carImgLIstStr);
+
+								that.openBigImg();
+								if(!$(".mask-modal-box").hasClass('hide')){
+									$(".mask-modal-box .offer-price .price").text('￥' + newMaximumPrice);
+								}
+							} else {
+								if (res.code == '100004') {
+									location.href = '../user/new_login.html?' + envStr + '&redirect=' + encodeURIComponent(window.location.href)
+								}
+								if (res.code == '-1') {
+									$('.dismount-bg').removeClass('hide');
+									$('.detail-content').addClass('hide')
+								}
+							}
+
+
+						}
+					})
+				},
+
+				// 查询保证金信息
+				depositInfo: function() {
+					let param = {
+						id: supplierId
+					}
+					common.ajax({
+						url: common.erpDomain + '/carDealer/deposit/info',
+						param: param,
+						success: function(res) {
+							if (res.code === '1') {
+								let {
+									useablePrice
+								} = res.result;
+								if (Number(useablePrice) >= 0.02) {
+									$('.footer-btn .offerPrice').removeClass('hide');
+									$('.footer-btn .payPrice').addClass('hide');
+								} else {
+									$('.footer-btn .offerPrice').addClass('hide');
+									$('.footer-btn .payPrice').removeClass('hide');
+								}
+							} else {
+								if (res.code == '100004') {
+									location.href = '../user/new_login.html?' + envStr + '&redirect=' + encodeURIComponent(window.location.href)
+								}
+							}
+						}
+					})
+				},
+				// 点击事件
+				handleClick: function() {
+					let that = this;
+					var decreaseBtn;
+					$('.auction-statement .wrapper1').click(function() {
+						layer.open({
+							className: 'auction-layer',
+							type: 1,
+							content: '<div class="auction-wrapper-tip">' +
+								'<div class="title">拍卖说明</div>' +
+								'<ul>' +
+								'<li><span>留</span><span>保留价</span></li>' +
+								'<li><span>加</span><span>每次出价的最低加价幅度</span></li>' +
+								'<li><span>保</span><span>参与拍卖需冻结的保证金金额</span></li>' +
+								'<li><span>延</span><span>弱商品截拍前5分钟内有人出价，截拍时间延长到5分钟</span></li>' +
+								'</ul>' +
+								// '<button>我知道了</button>' +
+								'</div>',
+							anim: 'up',
+							style: 'position:fixed; bottom:0; left:0; width: 100%; height: auto; padding:10px 0 0; border:none;',
+							btn: ['我知道了'],
+						});
+					});
+					$('.auction-statement .wrapper2').click(function() {
+						var str = "";
+						service_guarantee_content.map(item => {
+							str += '<li><span>' + item.value + '</span><span>' + item.remark + '</span></li>';
+						})
+						layer.open({
+							className: 'auction-layer',
+							type: 1,
+							content: '<div class="auction-wrapper-tip">' +
+								'<div class="title">服务说明</div>' +
+								'<ul>' +
+								str +
+								'</ul>' +
+								'</div>',
+							anim: 'up',
+							style: 'position:fixed; bottom:0; left:0; width: 100%; height: auto; padding:10px 0 0; border:none;',
+							btn: ['我知道了'],
+						});
+					});
+					// 刷新出价
+					$('.maximum_price_box .refresh-btn').click(function() {
+						that.loadDetail();
+					})
+					// 更多车辆信息
+					$('.more-car-info').click(function() {
+						let url = $(this).data('url');
+						location.href = url;
+					})
+					// 检测报告
+					$('.car-detection .more-btn').click(function() {
+						let id = $(this).data('id');
+						location.href = 'test-report.html?evaluateId=' + id + '&' + envStr
+					})
+					$('.footer-btn .payPrice').click(function() {
+						location.href = '../caution-money/caution-money.html?' + envStr
+					})
+					$('.footer-btn .offerPrice').click(function() {
+						$('.mask-modal-box').removeClass('hide');
+						addNewPriceBase = newPriceBase;
+						var str = "";
+						str = '<div class="offer-price">' +
+							'<p class="title">领先价</p>' +
+							'<p class="price">￥' + (newMaximumPrice ? newMaximumPrice : newBidStarPrice) + '</p>' +
+							'<div class="flex-center">' +
+							'<div class="reduce-btn decrease">-</div>' +
+							'<div class="price-base">￥' + newPriceBase + '</div>' +
+							'<div class="reduce-btn increase">+</div>' +
+							'</div>' +
+							'</div>' +
+							'<button class="btn">确认出价</button>'
+						$('.mask-modal-box .mask-modal-content').html(str);
+					})
+					$('.mask-modal-bg').click(function() {
+						$('.mask-modal-box').addClass('hide');
+					})
+					$('body').on('click', '.mask-modal-box .decrease', function() {
+						let price = newPriceBase;
+						if (addNewPriceBase <= newPriceBase) {
+							return;
+						}
+						addNewPriceBase -= price;
+						$('.mask-modal-box .price-base').text('￥' + addNewPriceBase);
+					})
+					$('body').on('click', '.mask-modal-box .increase', function() {
+						let price = newPriceBase;
+						addNewPriceBase += price;
+						$('.mask-modal-box .price-base').text('￥' + addNewPriceBase);
+					})
+					$('body').on('click', '.mask-modal-box .btn', function() {
+						let max_price = newMaximumPrice ? newMaximumPrice : newBidStarPrice;
+						let price = max_price + addNewPriceBase;
+
+						let param = {
+							id: carId,
+							price: price
+						}
+						common.ajax({
+							url: common.erpDomain + '/carDealer/carAuction/confirmedBid',
+							param: param,
+							success: function(res) {
+								if (res.code === '1' && res.success) {
+									$('.mask-modal-box').addClass('hide');
+									that.loadDetail();
+									that.depositInfo();
+									return;
+								}
+								layer.open({
+									content: res.message,
+									skin: 'msg',
+									style: 'top: 0;',
+									time: 2 //2秒后自动关闭
+								})
+								if (res.code === '-2') {
+									setTimeout(function() {
+										that.loadDetail();
+									}, 1000)
+								}
+							}
+						})
+					})
+				},
+				//倒计时
+				cutDown: function(data) {
+					
+					window.clearInterval(InterValObj);
+					var that = this;
+					var SysSecond = Number(data.endTimestamp) - Number(data.nowTimestamp);
+					
+					$(document).ready(function() {
+						InterValObj = window.setInterval(SetRemainTime, 1000); //间隔函数，1秒执行 
+					});
+
+					function SetRemainTime() {
+						if (SysSecond > 0) {
+							SysSecond = SysSecond - 1000;
+							var day = that.strFormat(Math.floor(SysSecond / 1000 / 60 / 60 / 24)); //计算天 
+							var hour = that.strFormat(Math.floor(SysSecond / 1000 / 60 / 60 % 24)); //计算小时 
+							var minite = that.strFormat(Math.floor(SysSecond / 1000 / 60 % 60)); //计算分
+							var second = that.strFormat(Math.floor(SysSecond / 1000 % 60)); // 计算秒
+							var endStr = ''
+							if (day > 0) {
+								endStr = day + ":" + hour + ":" + minite + ":" + second
+							} else if (hour > 0) {
+								endStr = hour + ":" + minite + ":" + second
+							} else if (minite > 0) {
+								endStr = minite + ":" + second
+							} else if (second > 0) {
+								endStr = '00:' + second
+							} else {
+								//倒计时已完成
+							}
+							$('.bid-state .state-right .time').html(endStr)
+						} else { //剩余时间小于或等于0的时候，就停止间隔函数 
+							that.init()
+							window.clearInterval(InterValObj);
+						}
+					}
+				},
+				strFormat: function(str) {
+					return str < 10 ? `0${str}` : str
+				}
+			}
+			initModule.init();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,303 @@
+@charset "UTF-8";
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 0.16rem;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+#app {
+  height: 100%;
+  padding: 1.04rem 0 0.2rem;
+  background-color: #f8f8f8;
+}
+
+#app.search {
+  padding-top: 0.56rem;
+  padding-top: calc(0.56rem + constant(safe-area-inset-top));
+  padding-top: calc(0.56rem + env(safe-area-inset-top));
+}
+
+#app.search .header-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#app.search .header-bar .icon-right {
+  color: #fff;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  padding: 0.07rem 0.16rem 0.08rem;
+  padding-top: calc(0.07rem + constant(safe-area-inset-top));
+  padding-top: calc(0.07rem + env(safe-area-inset-top));
+  background-color: #1967b5;
+}
+
+.header-bar .icon-nav.icon-left {
+  background: url(../img/left-icon.png) no-repeat center/100%;
+  width: 0.24rem;
+  height: 0.24rem;
+}
+
+.header-bar .header-search {
+  width: 2.75rem;
+  margin-left: 0.06rem;
+}
+
+.header-bar .header-search input {
+  width: 100%;
+  height: 0.29rem;
+  line-height: 0.29rem;
+  border: none;
+  border-radius: 1rem;
+  padding-left: 0.12rem;
+  outline: none;
+  caret-color: white;
+  color: #fff;
+  background-color: #377bbe;
+}
+
+.header-bar .header-search input::placeholder {
+  color: #fff;
+  font-size: 0.12rem;
+  opacity: 0.6;
+}
+
+.nav {
+  display: flex;
+  font-size: 0.15rem;
+  font-weight: 300;
+  color: #939a9f;
+  background-color: #fff;
+}
+
+.nav > li {
+  position: relative;
+  padding: 0.12rem 0;
+  width: 25%;
+  text-align: center;
+}
+
+.nav > li.active {
+  font-weight: 500;
+  color: #1967b5;
+}
+
+.nav > li.active::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 30%;
+  height: 0.02rem;
+  background-color: #1967b5;
+  transform: translateX(-50%);
+}
+
+.main {
+  padding: 0 0.16rem;
+}
+
+.main .card {
+  padding: 0 0.16rem;
+  background-color: #fff;
+  border-radius: 0.06rem;
+}
+
+.main .card + .card {
+  margin-top: 0.12rem;
+}
+
+.main .card .title {
+  padding: 0.08rem 0;
+  border-bottom: 0.01rem solid #f6f6f6;
+}
+
+.main .card .title .from {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.08rem;
+}
+
+.main .card .title .from .origin {
+  font-size: 0.13rem;
+  color: #666;
+}
+
+.main .card .title .from .type {
+  padding: 0.06rem 0.12rem;
+  font-size: 0.12rem;
+  border-radius: 0.02rem;
+  color: #f19527;
+  background-color: #fff5e9;
+}
+
+.main .card .title .from .type.maintain {
+  /* 保养 */
+  color: #0274ff;
+  background-color: #edf5ff;
+}
+
+.main .card .title .from .type.service {
+  /* 维修 */
+  color: #f19527;
+  background-color: #fff5e9;
+}
+
+.main .card .title .car {
+  font-size: 0.16rem;
+  color: #283540;
+  font-weight: 500;
+}
+
+.main .card .title .car p + p {
+  margin-top: 0.06rem;
+}
+
+.main .card .details {
+  padding: 0.12rem 0;
+  font-size: 0.13rem;
+  color: #666;
+  border-bottom: 0.01rem solid #f6f6f6;
+}
+
+.main .card .content > div {
+  display: flex;
+}
+
+.main .card .content > div > span:last-child {
+  flex: 1;
+}
+
+.main .card .content > div + div {
+  margin-top: 0.06rem;
+}
+
+.main .card .operate {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.16rem 0;
+}
+
+.main .card .operate .contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.12rem;
+  color: #1967b5;
+}
+
+.main .card .operate .contact .icon-phone {
+  margin-right: 0.08rem;
+  width: 0.14rem;
+  height: 0.14rem;
+  background: url("../img/icon-phone.png") no-repeat center/100%;
+}
+
+.main .card .operate .btns {
+  display: flex;
+  justify-content: space-between;
+  /* iphone5 */
+}
+
+.main .card .operate .btns button {
+  padding: 0.08rem;
+  font-size: 0.12rem;
+  color: #1967b5;
+  outline: none;
+  border: none;
+  background: transparent;
+  border-radius: 0.02rem;
+  border: 0.01rem solid #6ca0d3;
+}
+
+.main .card .operate .btns button + button {
+  margin-left: 0.04rem;
+}
+
+.main .card .operate .btns .btn-cancel {
+  border: 0.01rem solid #999;
+  color: #999;
+}
+
+@media screen and (device-width: 320px) and (-webkit-device-pixel-ratio: 2) {
+  .main .card .operate .btns button {
+    padding: 0.08rem 0.02rem;
+  }
+  .main .card .operate .btns button + button {
+    margin-left: 0.04rem;
+  }
+}
+
+.main .card .img {
+  padding-top: 0.12rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main .card .img > div {
+  margin-bottom: 0.04rem;
+  width: 32%;
+  height: 0.76rem;
+}
+
+.main .card .img > div:not(:nth-child(3n)) {
+  margin-right: 2%;
+}
+
+.main .card .img > div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.02rem;
+}
+
+.main .card .danger {
+  color: #ea6572;
+}
+
+.main .card .warn {
+  color: #f19527;
+}
+
+.no-data {
+  margin-top: 0.5rem;
+  text-align: center;
+  color: #b7b7b7;
+  font-size: 0.16rem;
+}
+
+.no-data img {
+  width: 2.3rem;
+  margin-bottom: 0.06rem;
+}
+
+.f-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.f-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

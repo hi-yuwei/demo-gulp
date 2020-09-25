@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+    <title>车辆保险信息</title>
+    <link rel="stylesheet" href="../../assets/css/base.css?_=1">
+    <style type="text/css">
+      .flex {
+        display: flex;
+      }
+      .c-red {
+        color: #EA6572;
+      }
+      .wrapper {
+        
+      }
+      .pb50 {
+        padding-bottom: 50px;
+      }
+      .mt10 {
+        margin-top: 10px;
+      }
+      .wrapper .comm-box {
+        margin-bottom: 10px;
+        background: white;
+      }
+      .wrapper .comm-box .comm-title {
+        position: relative;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 12px 16px 8px;
+        color: #1967B5;
+      }
+      .wrapper .comm-box .comm-title:before {
+        /*position: absolute;*/
+        left: 16px;
+        top: 14px;
+        content: ' ';
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+      }
+      .wrapper .comm-box .comm-title.icon-car:before {
+        background: url(../../assets/images/car/icon-car.png) no-repeat;
+        background-size: 100%;
+      }
+      .wrapper .comm-box .comm-title.icon-car-owner:before {
+        background: url(../../assets/images/car/icon-user.png) no-repeat;
+        background-size: 100%;
+      }
+      .wrapper .comm-box .comm-title.icon-insurance:before {
+        background: url(../../assets/images/car/icon-insurance.png) no-repeat;
+        background-size: 100%;
+      }
+
+      .wrapper .comm-box .comm-cont {
+        border-top: 1px solid #F3F5F8;
+        justify-content: space-between;
+        padding: 12px 16px;
+        font-size: 12px;
+      }
+      .wrapper .comm-box .row-item {
+        justify-content: space-between;
+        padding-bottom: 13px;
+        margin-bottom: 13px;
+        border-bottom: 1px solid #EFEFEF;
+      }
+      .wrapper .comm-box .row-item:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: 0;
+      }
+      .wrapper .comm-box .row-item .row-left {
+        /*width: 80%;*/
+        align-items: center;
+      }
+      .wrapper .comm-box .row-item .row-left span {
+        color: #999999;
+        flex: 1;
+        color: #2E2D2D;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .wrapper .comm-box .row-item .row-left label {
+        display: inline-block;
+        width: 85px;
+        color: #333333;
+        font-size: 14px;
+       }
+      .wrapper .comm-box .row-item .row-left .m-input {
+        padding: 5px 10px;
+        width: 100%;
+        outline: none;
+        border: none;
+      }
+
+      .insurance-box {
+        padding-bottom: 20px;
+        margin-bottom: 0!important;
+      }
+      .insurance-box .comm-cont-title {
+        padding: 5px 0 10px;
+        color: #2E2D2D;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .insurance-box .comm-cont-desc {
+        color: #666666;
+        font-size: 13px;
+        line-height: 25px;
+      }
+
+      .insurance-box .insurance-list table {
+        width: 100%;
+        border: 1px solid #6CA3D8;
+        text-align: center;
+        letter-spacing: 1px;
+      }
+      .insurance-box .insurance-list table th {
+        padding: 7px;
+        background:rgba(235,245,255,1);
+        font-size: 14px;
+        color: #024F98;
+        font-weight: bold;
+        border:1px solid #6CA3D8;
+      }
+      .insurance-box .insurance-list table td {
+        padding: 7px;
+        font-size: 13px;
+        color: #024F98;
+        border:1px solid #6CA3D8;
+      }
+        
+
+      .bottom-box {
+        display: flex;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        height: 48px;
+        padding: 0 16px 0 16px;
+        background: #FDB836;
+        font-size: 13px;
+        color: white;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .bottom-box i {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background: url(../../assets/images/car/icon-close.png) no-repeat;
+        background-size: 100%;
+        margin-left: 5px;
+      }
+
+      .error-wrapper {
+        margin-top: 50px;
+        text-align: center;
+        color: #B7B7B7;
+        font-size:16px;
+      }
+      .error-wrapper div {
+        margin-top: 6px;
+      }
+      .error-box {
+        padding: 8px 16px 10px;
+        font-size: 14px;
+        color: #B7B7B7;
+        border-top: 1px solid #EFEFEF;
+      }
+    </style>
+</head>
+<body>
+    <div class="wrapper js-wrapper pb50 hide" id="success-container">
+      <div class="comm-box">
+        <div class="comm-cont">
+          <div class="row-item">
+            <div class="row-left flex">
+              <label>进店车辆：</label>
+              <span class="js_carNo"></span>
+            </div>
+          </div>
+          <div class="row-item">
+            <div class="row-left flex">
+              <label>进店时间：</label>
+              <span class="js_enterTime"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comm-box mt10">
+        <div class="comm-title icon-car"><span>车辆信息</span></div>
+        <div class="comm-cont">
+          <div class="row-item">
+            <div class="row-left flex">
+              <label>车牌号码：</label>
+              <span class="js_carNo"></span>
+            </div>
+          </div>
+          <div class="row-item flex">
+            <div class="row-left flex">
+              <label>车牌识别码：</label>
+              <span class="js_carIdentifyNo"></span>
+            </div>
+          </div>
+          <div class="row-item">
+            <div class="row-left flex">
+              <label>品牌车型：</label>
+              <span class="js_modleName"></span>
+            </div>
+          </div>
+          <div class="row-item flex">
+            <div class="row-left flex">
+              <label>发动机号：</label>
+              <span class="js_engineNo"></span>
+            </div>
+          </div>
+          <div class="row-item">
+            <div class="row-left flex">
+              <label>注册日期：</label>
+              <span class="js_registerTime"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comm-box car-owner mt10 js-car-owner">
+        <div class="comm-title icon-car-owner"><span>车主信息</span></div>
+        <div class="comm-cont">
+          <div class="row-item">
+            <div class="row-left flex">
+              <label>车主姓名：</label>
+              <span class="js_ownerName"></span>
+            </div>
+          </div>
+          <div class="row-item flex">
+            <div class="row-left flex">
+              <label>证件类型：</label>
+              <span class="js_certificateNo"></span>
+            </div>
+          </div>
+          <div class="row-item">
+            <div class="row-left flex">
+              <label>证件号码：</label>
+              <span class="js_certificateName"></span>
+            </div>
+          </div>
+        </div>
+        <div class="error-box hide" id="error-car-owner">
+          <div>暂无数据</div>
+        </div>
+      </div>
+
+      <div class="comm-box insurance-box mt10 js-insurance">
+        <div class="comm-title icon-insurance"><span>去年投保信息</span></div>
+        <div class="comm-cont">
+          <div class="comm-cont-title">保险信息：<span class="js_companyName"></span></div>
+          <div class="comm-cont-desc">
+            <p>交强险到期时间：<span class="js_trafficExpiredTime">2019-02-28</span></p>
+            <p>商业险到期时间：<span class="js_commercialExpiredTime">2018-02-19</span></p>
+          </div>
+          <div class="insurance-list mt10 js-insurance-list">
+            <table>
+              <thead>
+                <tr>
+                  <th>险种</th>
+                  <th>保额</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>交强险/车船税</td>
+                  <td>投保</td>
+                </tr>
+                <tr>
+                  <td>车损险</td>
+                  <td>258000(不计免赔)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="error-box hide" id="error-insurance">
+          <div>暂无数据</div>
+        </div>
+      </div>
+
+      <div class="bottom-box">
+        <p>以上进店车辆信息由三方提供，更多信息请登陆ERP 客户管理>进店车辆查看</p>
+        <i class="js-close"></i>
+      </div>
+    </div>
+
+    <div class="error-wrapper hide" id="error-container">
+      <img src="../../assets/images/bg-empty.png" width="230" />
+      <div>暂无数据~</div>
+    </div>
+
+    <script src="../../assets/js/lib/zepto/zepto.min.js"></script>
+    <script src="../../assets/js/lib/layer/layer.js"></script>
+    <script src="../../assets/js/common.js?_=6"></script>
+    <script>
+      var env = common.getQuery().env,
+        id = common.getQuery().id
+
+      var insuranceModule = {
+        init: function() {
+          this.loadDetail()
+          this.closeBottom()
+        },
+
+        loadDetail: function() {
+          var self = this
+          common.ajax({
+            // url: '../../assets/mock/car/getInsurance.json',
+            url: common.erpDomain + '/insuranceDetail/message',
+            param: {
+              id: id,
+              source: 'h5'
+            },
+            success: function(res) {
+              var result = res.result
+              if (res.code == '0' && result) {
+                $('#success-container').removeClass('hide')
+                self.addTpl(result)
+              } else {
+                $('#success-container').remove()
+                $('#error-container').removeClass('hide')
+                if (res.code == '2') { // erp表示登录失效，需登录
+                  var str = 'redirect='+encodeURIComponent(window.location.href)
+                  if (env) {
+                    str += '&env='+env
+                  }
+                  // location.href = '../user/login.html?'+str
+                  window.location.replace('../user/login.html?'+str)
+                }
+              }
+            },
+            error: function() {
+              $('#success-container').remove()
+              $('#error-container').removeClass('hide')
+            }
+          })
+        },
+
+        addTpl: function(data) {
+          var carInfo = data.carInfo
+          var carOwnerInfo = data.carOwnerInfo
+          var insuranceInfo = data.insuranceInfo
+          var insuranceList = insuranceInfo ? insuranceInfo.insuranceList : []
+          if (carInfo) {
+            for (var key in carInfo) {
+              $('.js_'+key).text(carInfo[key])
+            }
+          }
+          if (carOwnerInfo && carOwnerInfo.certificateNo != '0') {
+            for (var key in carOwnerInfo) {
+              if (key == 'certificateNo') {
+                var str = ''
+                switch(carOwnerInfo[key]) {
+                  case '1':
+                    str = '身份证'
+                    break;
+                  case '2':
+                    str = '组织机构代码证'
+                    break;
+                  case '3':
+                    str = '护照'
+                    break;
+                  case '4':
+                    str = '军官证'
+                    break;
+                  case '5':
+                    str = '港澳居民来往内地通行证'
+                    break;
+                  case '6':
+                    str = '其他'
+                    break;
+                  case '7':
+                    str = '港澳通行证'
+                    break;
+                  case '8':
+                    str = '出生证'
+                    break;
+                  case '9':
+                    str = '营业执照（社会统一信用代码）'
+                    break;
+                  case '10':
+                    str = '税务登记证'
+                    break;
+                  case '14':
+                    str = '港澳身份证'
+                    break;
+                  default:
+                    break;
+                }
+                $('.js_'+key).text(str)
+              } else {
+                $('.js_'+key).text(carOwnerInfo[key])
+              }
+            }
+          } else {
+            $('.js-car-owner').find('.error-box').removeClass('hide').siblings('.comm-cont').remove()
+          }
+
+          if (insuranceInfo && insuranceInfo.companyId != -1) {
+            for (var key in insuranceInfo) {
+              $('.js_'+key).text(insuranceInfo[key])
+            }
+          
+            if (insuranceList) {
+              var trTpl = ''
+              for (var i = 0; i < insuranceList.length; i++) {
+                trTpl += 
+                  '<tr>'
+                    +'<td>'+(insuranceList[i].name || '')+'</td>'
+                    +'<td>'+(insuranceList[i].insuredAmount || '')+'</td>'
+                  +'</tr>'
+              }
+              $('.js-insurance-list tbody').html(trTpl)
+            }
+          } else {
+            $('.js-insurance').find('.error-box').removeClass('hide').siblings('.comm-cont').remove()
+          }
+        },
+
+        closeBottom: function() {
+          $('.js-close').on('click', function() {
+            $(this).parent().remove()
+            $('.js-wrapper').removeClass('pb50')
+          })
+        }
+      }
+
+      insuranceModule.init()
+
+
+    </script>
+</body>
+
+</html>
