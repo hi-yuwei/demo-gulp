@@ -17,7 +17,7 @@ sass.compiler = require('node-sass')
 
 // 清理目录
 function cleanDir() {
-    return src('dist/', { read: false }).pipe(clean())
+    return src('dist/', { read: false, allowEmpty: true }).pipe(clean())
 }
 
 // 压缩HTML
@@ -97,7 +97,7 @@ function minifyImage() {
 
 function webServer() {
     connect.server({
-        root: 'dist/pages',
+        root: 'dist',
         livereload: true,
         port: 2333
     })
