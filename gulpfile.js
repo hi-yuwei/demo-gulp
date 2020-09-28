@@ -45,11 +45,14 @@ function sassToCss() {
 // 压缩css
 function minifyCss() {
     const DESTINATION = 'dist'
+    let f = filter('!src/assets/js/lib/**/*.css', { restore: true })
     return src('src/**/*.css')
         .pipe(changed(DESTINATION))
+        .pipe(f)
         .pipe(autoprefixer('last 6 version'))
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(rev())
+        .pipe(f.restore)
         .pipe(dest(DESTINATION))
         .pipe(rev.manifest())
         .pipe(dest('dist/rev/css'))
@@ -59,7 +62,7 @@ function minifyCss() {
 // 压缩js
 function minifyJs() {
     const DESTINATION = 'dist'
-    let f = filter(['**', '!src/assets/js/lib/**/*.js'], { restore: true })
+    let f = filter('!src/assets/js/lib/**/*.js', { restore: true })
     return src('src/**/*.js')
         .pipe(changed(DESTINATION))
         .pipe(f)
