@@ -59,7 +59,7 @@ function minifyCss() {
 // 压缩js
 function minifyJs() {
     const DESTINATION = 'dist'
-    let f = filter('!src/assets/js/lib/**/*.js', { restore: true })
+    let f = filter(['**', '!src/assets/js/lib/**/*.js'], { restore: true })
     return src('src/**/*.js')
         .pipe(changed(DESTINATION))
         .pipe(f)
@@ -70,8 +70,8 @@ function minifyJs() {
             })
         )
         .pipe(uglify())
-        .pipe(f.restore)
         .pipe(rev())
+        .pipe(f.restore)
         .pipe(dest(DESTINATION))
         .pipe(rev.manifest())
         .pipe(dest('dist/rev/js'))
