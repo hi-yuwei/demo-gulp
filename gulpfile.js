@@ -45,7 +45,7 @@ function sassToCss() {
 // 压缩css
 function minifyCss() {
     const DESTINATION = 'dist'
-    let f = filter('!src/assets/js/lib/**/*.css', { restore: true })
+    let f = filter(['**', '!src/assets/js/lib/**/*.css'], { restore: true })
     return src('src/**/*.css')
         .pipe(changed(DESTINATION))
         .pipe(f)
@@ -62,7 +62,7 @@ function minifyCss() {
 // 压缩js
 function minifyJs() {
     const DESTINATION = 'dist'
-    let f = filter('!src/assets/js/lib/**/*.js', { restore: true })
+    let f = filter(['**', '!src/assets/js/lib/**/*.js'], { restore: true })
     return src('src/**/*.js')
         .pipe(changed(DESTINATION))
         .pipe(f)
@@ -108,9 +108,9 @@ function webServer() {
 
 function watchFile() {
     watch('src/**/*.html', minifyHtml)
-    watch('src/**/*.js', minifyJs)
-    watch('src/**/*.{png,jpg,gif,jpeg}', minifyImage)
-    watch('src/**/*.css', minifyCss)
+    watch('src/**/*.js', series(minifyJs, minifyHtml))
+    watch('src/**/*.{png,jpg,gif,jpeg}', series(minifyImage, minifyHtml))
+    watch('src/**/*.css', series(minifyCss, minifyHtml))
     watch('src/**/*.scss', series(sassToCss, minifyCss))
 }
 
