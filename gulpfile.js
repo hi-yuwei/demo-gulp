@@ -1,4 +1,5 @@
 const { series, parallel, src, dest, watch } = require('gulp')
+const del = require('del')
 const rev = require('gulp-rev')
 const revCollector = require('gulp-rev-collector')
 const htmlmin = require('gulp-htmlmin')
@@ -7,21 +8,21 @@ const imagemin = require('gulp-imagemin')
 const uglify = require('gulp-uglify')
 const changed = require('gulp-changed')
 const filter = require('gulp-filter')
-const clean = require('gulp-clean') //清理文件或文件夹
 const babel = require('gulp-babel') //ES6转ES5
 const cache = require('gulp-cache')
 const autoprefixer = require('gulp-autoprefixer')
 const sass = require('gulp-sass')
 sass.compiler = require('node-sass')
 
+const DESTINATION = 'dist' //文件处理后输出目录
+
 // 清理目录
-function cleanDir() {
-    return src('dist/', { read: false, allowEmpty: true }).pipe(clean())
+function delDir() {
+    return del('dist')
 }
 
 // 压缩HTML
 function minifyHtml() {
-    const DESTINATION = 'dist'
     const options = {
         removeComments: true, //清除HTML注释
         collapseWhitespace: true, //压缩HTML
@@ -43,21 +44,21 @@ function minifyHtml() {
 }
 
 function sassToCss() {
-    const DESTINATION = 'dist'
-    return src('src/**/*.scss').pipe(changed(DESTINATION)).pipe(sass.sync().on('error', sass.logError)).pipe(dest(DESTINATION))
+    return src('src/**/*.scss').pipe(changed(DESTINATION)).pipe(sass.sync().on('error', sass.logError)).pipe(dest('src'))
 }
 
 // 压缩css
 function minifyCss() {
-    const DESTINATION = 'dist'
-    let f = filter(['**', '!src/assets/js/lib/**/*.css'], { restore: true })
+    let filterCss = filter(['**', '!src/assets/**/lib/**/*.css'], { restore: true })
+
+    del('dist/**/*.css', { force: true }) //清理之前的Css
     return src('src/**/*.css')
         .pipe(changed(DESTINATION))
-        .pipe(f)
+        .pipe(filterCss)
         .pipe(autoprefixer('last 6 version'))
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(rev())
-        .pipe(f.restore)
+        .pipe(filterCss.restore)
         .pipe(dest(DESTINATION))
         .pipe(rev.manifest())
         .pipe(dest('dist/rev/css'))
@@ -65,11 +66,12 @@ function minifyCss() {
 
 // 压缩js
 function minifyJs() {
-    const DESTINATION = 'dist'
-    let f = filter(['**', '!src/assets/js/lib/**/*.js'], { restore: true })
+    let filterJs = filter(['**', '!src/assets/js/lib/**/*.js'], { restore: true })
+
+    del('dist/**/*.js', { force: true }) //清理之前的JS
     return src('src/**/*.js')
         .pipe(changed(DESTINATION))
-        .pipe(f)
+        .pipe(filterJs)
         .pipe(
             babel({
                 presets: ['env'],
@@ -78,7 +80,7 @@ function minifyJs() {
         )
         .pipe(uglify())
         .pipe(rev())
-        .pipe(f.restore)
+        .pipe(filterJs.restore)
         .pipe(dest(DESTINATION))
         .pipe(rev.manifest())
         .pipe(dest('dist/rev/js'))
@@ -105,12 +107,12 @@ function watchFile() {
     watch('src/**/*.js', series(minifyJs, minifyHtml))
     watch('src/**/*.{png,jpg,gif,jpeg}', series(minifyImage, minifyHtml))
     watch('src/**/*.css', series(minifyCss, minifyHtml))
-    watch('src/**/*.scss', series(sassToCss, minifyCss))
+    watch('src/**/*.scss', series(sassToCss, minifyCss, minifyHtml))
 }
 
 function defaultTask() {
-    let tasks = [cleanDir, minifyImage, sassToCss, minifyCss, minifyJs, minifyHtml]
-    return series([...tasks], parallel(watchFile))
+    let tasks = [delDir, minifyImage, sassToCss, minifyCss, minifyJs, minifyHtml]
+    return series(tasks, parallel(watchFile))
 }
 
 exports.default = defaultTask()
