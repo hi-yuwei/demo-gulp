@@ -34,13 +34,7 @@ function minifyHtml() {
         minifyCSS: true //压缩页面CSS
     }
 
-    return (
-        src(['dist/rev/**/*.json', 'src/**/*.html'])
-            // .pipe(changed(DESTINATION))
-            .pipe(revCollector({ replaceReved: true }))
-            .pipe(htmlmin(options))
-            .pipe(dest(DESTINATION))
-    )
+    return src('src/**/*.html').pipe(changed(DESTINATION)).pipe(htmlmin(options)).pipe(dest(DESTINATION))
 }
 
 function sassToCss() {
@@ -102,12 +96,27 @@ function minifyImage() {
         .pipe(dest(DESTINATION))
 }
 
+function revFile() {
+    console.log('================')
+    return src(['dist/rev/**/*.json', 'src/**/*.html'])
+        .pipe(
+            revCollector({
+                replaceReved: true,
+                dirReplacements: {
+                    // './js': 'dist/pages/saleReserve/js'
+                }
+            })
+        )
+        .pipe(dest(DESTINATION))
+}
+
 function watchFile() {
     watch('src/**/*.html', minifyHtml)
-    watch('src/**/*.js', series(minifyJs, minifyHtml))
-    watch('src/**/*.{png,jpg,gif,jpeg}', series(minifyImage, minifyHtml))
-    watch('src/**/*.css', series(minifyCss, minifyHtml))
-    watch('src/**/*.scss', series(sassToCss, minifyCss, minifyHtml))
+    watch('src/**/*.js', minifyJs)
+    watch('src/**/*.{png,jpg,gif,jpeg}', minifyImage)
+    watch('src/**/*.css', minifyCss)
+    watch('src/**/*.scss', sassToCss)
+    watch('dist/rev/**/*.json', revFile)
 }
 
 function defaultTask() {
