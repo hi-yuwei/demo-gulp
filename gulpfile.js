@@ -101,10 +101,7 @@ function revFile() {
     return src(['dist/rev/**/*.json', 'src/**/*.html'])
         .pipe(
             revCollector({
-                replaceReved: true,
-                dirReplacements: {
-                    // './js': 'dist/pages/saleReserve/js'
-                }
+                replaceReved: true
             })
         )
         .pipe(dest(DESTINATION))
