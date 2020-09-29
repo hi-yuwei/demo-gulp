@@ -11,7 +11,6 @@ const clean = require('gulp-clean') //清理文件或文件夹
 const babel = require('gulp-babel') //ES6转ES5
 const cache = require('gulp-cache')
 const autoprefixer = require('gulp-autoprefixer')
-const connect = require('gulp-connect')
 const sass = require('gulp-sass')
 sass.compiler = require('node-sass')
 
@@ -34,7 +33,13 @@ function minifyHtml() {
         minifyCSS: true //压缩页面CSS
     }
 
-    return src(['dist/rev/**/*.json', 'src/**/*.html']).pipe(changed(DESTINATION)).pipe(revCollector()).pipe(htmlmin(options)).pipe(dest(DESTINATION)).pipe(connect.reload())
+    return (
+        src(['dist/rev/**/*.json', 'src/**/*.html'])
+            // .pipe(changed(DESTINATION))
+            .pipe(revCollector({ replaceReved: true }))
+            .pipe(htmlmin(options))
+            .pipe(dest(DESTINATION))
+    )
 }
 
 function sassToCss() {
@@ -56,7 +61,6 @@ function minifyCss() {
         .pipe(dest(DESTINATION))
         .pipe(rev.manifest())
         .pipe(dest('dist/rev/css'))
-        .pipe(connect.reload())
 }
 
 // 压缩js
@@ -78,7 +82,6 @@ function minifyJs() {
         .pipe(dest(DESTINATION))
         .pipe(rev.manifest())
         .pipe(dest('dist/rev/js'))
-        .pipe(connect.reload())
 }
 
 // 压缩图片
@@ -95,15 +98,6 @@ function minifyImage() {
         .pipe(changed(DESTINATION))
         .pipe(cache(imagemin(options)))
         .pipe(dest(DESTINATION))
-        .pipe(connect.reload())
-}
-
-function webServer() {
-    connect.server({
-        root: 'dist',
-        livereload: true,
-        port: 2333
-    })
 }
 
 function watchFile() {
@@ -116,7 +110,7 @@ function watchFile() {
 
 function defaultTask() {
     let tasks = [cleanDir, minifyImage, sassToCss, minifyCss, minifyJs, minifyHtml]
-    return series([...tasks], parallel(webServer, watchFile))
+    return series([...tasks], parallel(watchFile))
 }
 
 exports.default = defaultTask()
