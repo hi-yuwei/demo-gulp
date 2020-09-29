@@ -113,11 +113,11 @@ function watchFile() {
     watch('src/**/*.{png,jpg,gif,jpeg}', minifyImage)
     watch('src/**/*.css', minifyCss)
     watch('src/**/*.scss', sassToCss)
-    watch('dist/rev/**/*.json', revFile)
+    watch(['dist/rev/**/*.json', 'src/**/*.html'], revFile)
 }
 
 function defaultTask() {
-    let tasks = [delDir, minifyImage, sassToCss, minifyCss, minifyJs, minifyHtml]
+    let tasks = [delDir, minifyImage, sassToCss, minifyCss, minifyJs, minifyHtml, revFile]
     return series(tasks, parallel(watchFile))
 }
 
