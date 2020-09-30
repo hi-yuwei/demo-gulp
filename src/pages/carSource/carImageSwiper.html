@@ -1,79 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>车源图片</title>
+        <link rel="stylesheet" href="../../assets/css/lib/swiper/swiper.min.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                touch-action: pan-y;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>车源图片</title>
-    <link rel="stylesheet" href="../../assets/css/swiper/swiper.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            touch-action: pan-y;
-        }
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                background-color: #ffffff;
+            }
 
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            background-color: #ffffff;
-        }
+            .swiper-container {
+                width: 100%;
+                height: 100%;
+            }
 
-        .swiper-container {
-            width: 100%;
-            height: 100%;
-        }
+            .swiper-slide {
+                text-align: center;
+                font-size: 18px;
+                background: #000000;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+            }
 
-        .swiper-slide {
-            text-align: center;
-            font-size: 18px;
-            background: #000000;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-        }
+            .evaluate-content {
+                display: inline-block;
+                position: absolute;
+                bottom: 10px;
+                width: 90%;
+                height: 100px;
+                background: transparent;
+                border-style: none;
+                color: #ffffff;
+                font-size: 14px;
+            }
 
-        .evaluate-content {
-            display: inline-block;
-            position: absolute;
-            bottom: 10px;
-            width: 90%;
-            height: 100px;
-            background: transparent;
-            border-style: none;
-            color: #ffffff;
-            font-size: 14px;
-        }
+            .swiper-pagination {
+                bottom: 120px;
+                text-align: left;
+                padding-left: 5%;
+                color: #ffffff;
+                font-weight: bold;
+                font-size: 18px;
+            }
+        </style>
+    </head>
 
-        .swiper-pagination {
-            bottom: 120px;
-            text-align: left;
-            padding-left: 5%;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 18px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-
-            <!-- <div class="swiper-slide">
+    <body>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <!-- <div class="swiper-slide">
                 <div class="swiper-zoom-container">
                     <img src="./test.png" alt="" class="main-image">
                     <textarea class="evaluate-content" name="" id="">都i啊把茶杯武侯祠被我和iu成本维护成本为货车被我u和慈悲为怀不测玩滑板车我去飙车我把车我不吃</textarea>
@@ -86,69 +83,77 @@
                 </div>
             </div>
             <div class="swiper-slide">Slide 2</div> -->
-
+            </div>
+            <div class="swiper-pagination"></div>
         </div>
-        <div class="swiper-pagination"></div>
-    </div>
 
-    <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
-    <script src="../../assets/js/lib/swiper/swiper.min.js"> </script>
-    <script src="../../assets/js/common.js?_=3"></script>
+        <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
+        <script src="../../assets/js/lib/swiper/swiper.min.js"></script>
+        <script src="../../assets/js/common.js?_=3"></script>
 
-    <script>
-        var urlParams = common.getQuery();
-        var sessionId = urlParams.sessionId || '';
-        var index = urlParams.index || 0;
-        var carImageSwiper = {
-            init: function () {
-                if (sessionId == 'carImages') {
-                    var obj = sessionStorage.getItem('carImages')
-                    var imgArr = JSON.parse(obj)
-                    imgArr.forEach(function (img, index) {
-                        var explain = ''
-                        if (img.explain && img.explain != '') {
-                            explain = '<textarea class="evaluate-content" name="" id="">'+ img.explain + '</textarea>'
-                        }
-                        var str = '<div class="swiper-slide">\
+        <script>
+            var urlParams = common.getQuery()
+            var sessionId = urlParams.sessionId || ''
+            var index = urlParams.index || 0
+            var carImageSwiper = {
+                init: function () {
+                    if (sessionId == 'carImages') {
+                        var obj = sessionStorage.getItem('carImages')
+                        var imgArr = JSON.parse(obj)
+                        imgArr.forEach(function (img, index) {
+                            var explain = ''
+                            if (img.explain && img.explain != '') {
+                                explain = '<textarea class="evaluate-content" name="" id="">' + img.explain + '</textarea>'
+                            }
+                            var str =
+                                '<div class="swiper-slide">\
                                     <div class="swiper-zoom-container">\
-                                        <img src='+ img.image + ' alt="" class="main-image">'+ explain +'\
-                                    </div>\
-                                </div>'
-                        $('.swiper-wrapper').append(str)
-                    })
-                }
-
-                if (sessionId == 'positionImages') {
-                    var obj = sessionStorage.getItem('positionImages')
-                    var imgArr = JSON.parse(obj)
-                    imgArr.forEach(function (img, index) {
-                        var name = ''
-                        if (img.name && img.name != '') {
-                            name = '<textarea class="evaluate-content" name="" id="">'+ img.name + '</textarea>'
-                        }
-                        var imageUrls = img.imageUrl.split(',')
-                        imageUrls.forEach(function (url) {
-                            var str = '<div class="swiper-slide">\
-                                    <div class="swiper-zoom-container">\
-                                        <img src='+ url + ' alt="" class="main-image">'+ name +'\
+                                        <img src=' +
+                                img.image +
+                                ' alt="" class="main-image">' +
+                                explain +
+                                '\
                                     </div>\
                                 </div>'
                             $('.swiper-wrapper').append(str)
                         })
+                    }
+
+                    if (sessionId == 'positionImages') {
+                        var obj = sessionStorage.getItem('positionImages')
+                        var imgArr = JSON.parse(obj)
+                        imgArr.forEach(function (img, index) {
+                            var name = ''
+                            if (img.name && img.name != '') {
+                                name = '<textarea class="evaluate-content" name="" id="">' + img.name + '</textarea>'
+                            }
+                            var imageUrls = img.imageUrl.split(',')
+                            imageUrls.forEach(function (url) {
+                                var str =
+                                    '<div class="swiper-slide">\
+                                    <div class="swiper-zoom-container">\
+                                        <img src=' +
+                                    url +
+                                    ' alt="" class="main-image">' +
+                                    name +
+                                    '\
+                                    </div>\
+                                </div>'
+                                $('.swiper-wrapper').append(str)
+                            })
+                        })
+                    }
+                    var swiper = new Swiper('.swiper-container', {
+                        initialSlide: index,
+                        effect: 'fade',
+                        pagination: {
+                            el: '.swiper-pagination',
+                            type: 'fraction'
+                        }
                     })
                 }
-                var swiper = new Swiper('.swiper-container', {
-                    initialSlide :index,
-                    effect: 'fade',
-                    pagination: {
-                        el: '.swiper-pagination',
-                        type: 'fraction',
-                    }
-                });
             }
-        }
-        carImageSwiper.init()
-    </script>
-</body>
-
+            carImageSwiper.init()
+        </script>
+    </body>
 </html>

@@ -1,165 +1,165 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
-		<title>保证金</title>
-		<link rel="stylesheet" href="../../../assets/css/base.css?_=2">
-		<link rel="stylesheet" type="text/css" href="../../../assets/css/mescroll.min.css">
-		<style type="text/css">
-			body {
-				background-color: #FFFFFF;
-				padding: 16px;
-				font-size: 14px;
-			}
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+        <title>保证金</title>
+        <link rel="stylesheet" href="../../../assets/css/base.css?_=2" />
+        <link rel="stylesheet" type="text/css" href="../../../assets/css/lib/mescroll.min.css" />
+        <style type="text/css">
+            body {
+                background-color: #ffffff;
+                padding: 16px;
+                font-size: 14px;
+            }
 
-			.caution-container {
-				width: 100%;
-				height: 100%;
-			}
+            .caution-container {
+                width: 100%;
+                height: 100%;
+            }
 
-			.caution-container .money-wrapper {
-				text-align: center;
-				background: url(../img/money/topBg.png) center center no-repeat;
-				background-size: 100% 100%;
-				width: 100%;
-				height: 122px;
-				color: #FFFFFF;
-			}
+            .caution-container .money-wrapper {
+                text-align: center;
+                background: url(../img/money/topBg.png) center center no-repeat;
+                background-size: 100% 100%;
+                width: 100%;
+                height: 122px;
+                color: #ffffff;
+            }
 
-			.caution-container .money-wrapper .wrapper-item {
-				width: 50%;
-			}
+            .caution-container .money-wrapper .wrapper-item {
+                width: 50%;
+            }
 
-			.caution-container .money-wrapper .wrapper-item .key {
-				opacity: 0.7;
-			}
+            .caution-container .money-wrapper .wrapper-item .key {
+                opacity: 0.7;
+            }
 
-			.caution-container .money-wrapper .wrapper-item .value {
-				font-size: 28px;
-			}
+            .caution-container .money-wrapper .wrapper-item .value {
+                font-size: 28px;
+            }
 
-			.caution-container .money-wrapper .wrapper-item img {
-				width: 24px;
-				height: 24px;
-			}
+            .caution-container .money-wrapper .wrapper-item img {
+                width: 24px;
+                height: 24px;
+            }
 
-			.caution-container .btn-wrapper {
-				margin-top: 20px;
-			}
+            .caution-container .btn-wrapper {
+                margin-top: 20px;
+            }
 
-			.caution-container .btn-wrapper .wrapper-item {
-				height: 48px;
-				line-height: 48px;
-				text-align: center;
-				border-radius: 4px;
-				border: 1px solid #0274FF;
-				font-size: 16px;
-			}
+            .caution-container .btn-wrapper .wrapper-item {
+                height: 48px;
+                line-height: 48px;
+                text-align: center;
+                border-radius: 4px;
+                border: 1px solid #0274ff;
+                font-size: 16px;
+            }
 
-			.return-btn {
-				width: 38%;
-				color: #0274FF;
-			}
+            .return-btn {
+                width: 38%;
+                color: #0274ff;
+            }
 
-			.recharge-btn {
-				background-color: #0274FF;
-				color: #ffffff;
-				width: 56%;
-			}
+            .recharge-btn {
+                background-color: #0274ff;
+                color: #ffffff;
+                width: 56%;
+            }
 
-			.caution-container .desc-wrapper {
-				font-size: 13px;
-				color: #999999;
-				padding: 15px 0 30px;
-				line-height: 21px;
-			}
+            .caution-container .desc-wrapper {
+                font-size: 13px;
+                color: #999999;
+                padding: 15px 0 30px;
+                line-height: 21px;
+            }
 
-			.record-box {
-				margin-top: 10px;
-			}
+            .record-box {
+                margin-top: 10px;
+            }
 
-			.record-box .title {
-				font-size: 18px;
-				font-weight: 600;
-			}
+            .record-box .title {
+                font-size: 18px;
+                font-weight: 600;
+            }
 
-			.record-box .record-wrapper .wrapper-item {
-				border-bottom: 1px solid #F6F6F6;
-				padding: 16px 0;
-			}
+            .record-box .record-wrapper .wrapper-item {
+                border-bottom: 1px solid #f6f6f6;
+                padding: 16px 0;
+            }
 
-			.record-box .record-wrapper .wrapper-item .title {
-				font-size: 15px;
-				font-weight: 500;
-				margin-bottom: 5px;
-			}
+            .record-box .record-wrapper .wrapper-item .title {
+                font-size: 15px;
+                font-weight: 500;
+                margin-bottom: 5px;
+            }
 
-			.record-box .record-wrapper .wrapper-item .time {
-				color: #666666;
-				font-size: 12px;
-			}
+            .record-box .record-wrapper .wrapper-item .time {
+                color: #666666;
+                font-size: 12px;
+            }
 
-			.record-box .record-wrapper .wrapper-item .price {
-				font-size: 18px;
-			}
+            .record-box .record-wrapper .wrapper-item .price {
+                font-size: 18px;
+            }
 
-			.record-box .record-wrapper .wrapper-item .item-right {
-				width: 40%;
-				text-align: right;
-			}
+            .record-box .record-wrapper .wrapper-item .item-right {
+                width: 40%;
+                text-align: right;
+            }
 
-			.record-box .record-wrapper .wrapper-item .item-right .blue {
-				color: #0274FF;
-			}
+            .record-box .record-wrapper .wrapper-item .item-right .blue {
+                color: #0274ff;
+            }
 
-			.record-box .record-wrapper .wrapper-item .remark {
-				font-size: 12px;
-				color: #999999;
-			}
+            .record-box .record-wrapper .wrapper-item .remark {
+                font-size: 12px;
+                color: #999999;
+            }
 
-			.btn-grey {
-				border: 1px solid #CCCCCC !important;
-				color: #CCCCCC !important;
-			}
+            .btn-grey {
+                border: 1px solid #cccccc !important;
+                color: #cccccc !important;
+            }
 
-			.btn-history {
-				font-size: 12px;
-				background: #0274FF;
-				color: #ffffff;
-				border: none;
-				padding: 5px 10px;
-				border-radius: 4px;
-			}
+            .btn-history {
+                font-size: 12px;
+                background: #0274ff;
+                color: #ffffff;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 4px;
+            }
 
-			.flex-center {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
+            .flex-center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-			.flex-between {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-			}
-			.error-wrapper {
-			  margin-top: 50px;
-			  text-align: center;
-			  color: #B7B7B7;
-			  font-size: 16px;
-			}
-			
-			.error-wrapper div {
-			  margin-top: 6px;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="mescroll" class="caution-container mescroll">
-			<div class="flex-center money-wrapper">
-				<!-- <div class="wrapper-item">
+            .flex-between {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .error-wrapper {
+                margin-top: 50px;
+                text-align: center;
+                color: #b7b7b7;
+                font-size: 16px;
+            }
+
+            .error-wrapper div {
+                margin-top: 6px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="mescroll" class="caution-container mescroll">
+            <div class="flex-center money-wrapper">
+                <!-- <div class="wrapper-item">
 					<div>1000</div>
 					<div>可用金额（元）</div>
 				</div>
@@ -167,23 +167,23 @@
 					<div>1000</div>
 					<div>冻结金额（元）</div>
 				</div> -->
-			</div>
-			<div class="flex-between btn-wrapper">
-				<div class="wrapper-item return-btn btn-grey">退还保证金</div>
-				<div class="wrapper-item recharge-btn">充值</div>
-			</div>
-			<div class="desc-wrapper">
-				<p>温馨提示：如果您需要竞价比心二手车请您先充值保证金。充值后可随时退还。</p>
-				<p>比心二手车竞拍：您每参与一辆车的竞价则冻结1000元保证金</p>
-			</div>
-			<div class="record-box">
-				<div class="title flex-between">
-					<div>保证金充值/退还记录</div>
-					<button class="btn-history">竞拍历史</button>
-				</div>
-				<div class="record-wrapper ">
-					<ul>
-						<!-- <li class="wrapper-item flex-between">
+            </div>
+            <div class="flex-between btn-wrapper">
+                <div class="wrapper-item return-btn btn-grey">退还保证金</div>
+                <div class="wrapper-item recharge-btn">充值</div>
+            </div>
+            <div class="desc-wrapper">
+                <p>温馨提示：如果您需要竞价比心二手车请您先充值保证金。充值后可随时退还。</p>
+                <p>比心二手车竞拍：您每参与一辆车的竞价则冻结1000元保证金</p>
+            </div>
+            <div class="record-box">
+                <div class="title flex-between">
+                    <div>保证金充值/退还记录</div>
+                    <button class="btn-history">竞拍历史</button>
+                </div>
+                <div class="record-wrapper">
+                    <ul>
+                        <!-- <li class="wrapper-item flex-between">
 							<div class="item-left">
 								<p>充值</p>
 								<p>2019-09-02</p>
@@ -202,210 +202,215 @@
 								<p class="remark">处理中，预计0-3个工作日原路退还到支付账户</p>
 							</div>
 						</li> -->
-					</ul>
-					<div class="error-wrapper hide" id="error-container">
-						<img src="../../../assets/images/bg-empty.png" width="230">
-						<div>暂无数据~</div>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-		
-		<script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
-		<script src="../../../assets/js/lib/layer/layer.js"></script>
-		<script src="../../../assets/js/lib/mescroll/mescroll.min.js"></script>
-		<script src="../../../assets/js/common.js?_=5"></script>
-		<script type="text/javascript">
-			var mescroll,
-				env = common.getQuery().env,
-				supplierId = common.getStorage('userId'),
-				recordHtml = "";
-				var envStr = '';
-				if (env) {
-					envStr = 'env=' + env
-				}
-				
-			var homeModule = {
-				init: function() {
-					this.loadDepositInfo();
-					this.loadMescroll();
-					this.handleTab();
+                    </ul>
+                    <div class="error-wrapper hide" id="error-container">
+                        <img src="../../../assets/images/bg-empty.png" width="230" />
+                        <div>暂无数据~</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-				},
-				loadMescroll: function() {
-					var self = this;
-					mescroll = new MeScroll('mescroll', {
-						down: {
-							callback: self.refresh,
-							isBounce: false,
-							use: false //默认为true，不使用的时候必须加上
-						},
-						up: {
-							callback: self.loadData,
-							page: {
-								num: 0,
-								size: 10
-							},
-							htmlNodata: '<p class="upwarp-nodata">没有更多数据了</p>'
-						}
-					})
-				},
-				refresh: function() {
-					$('.mescroll ul').html('');
-					recordHtml = "";
-					mescroll.resetUpScroll()
-				},
-				loadData: function(page) {
-					let that = this;
-					let params = {
-						pageNo: page.num,
-						pageSize: page.size,
-						id: supplierId
-					}
-					common.ajax({
-						url: common.erpDomain + '/carDealer/deposit/apply/list',
-						param: params,
-						success: function(res) {
-							var {
-								list
-							} = res.result;
-							if (res.code === '1' && list.length > 0) {
-								$('#error-container').addClass('hide');
-								$('#mescroll ul').removeClass('hide');
-								homeModule.recordListHTml(list);
-								var hasNext = (page.size == list.length);
-								mescroll.endSuccess(page.size, hasNext)
-							} else {
-								mescroll.endErr();
-								$('#mescroll ul').addClass('hide');
-								$('#error-container').removeClass('hide');
-								if (res.code == '100004') {
-									location.href = '../user/new_login.html?' + envStr + '&redirect=' + encodeURIComponent(window.location.href)
-								}
-							}
-						},
-						error: function(err) {
-							mescroll.endErr();
-							$('#mescroll ul').addClass('hide')
-							$('#error-container').removeClass('hide')
-						}
-					})
-				},
-				recordListHTml: function(list) {
+        <script src="../../../assets/js/lib/zepto/zepto.min.js"></script>
+        <script src="../../../assets/js/lib/layer/layer.js"></script>
+        <script src="../../../assets/js/lib/mescroll/mescroll.min.js"></script>
+        <script src="../../../assets/js/common.js?_=5"></script>
+        <script type="text/javascript">
+            var mescroll,
+                env = common.getQuery().env,
+                supplierId = common.getStorage('userId'),
+                recordHtml = ''
+            var envStr = ''
+            if (env) {
+                envStr = 'env=' + env
+            }
 
-					list.forEach(item => {
-						var priceColor = '';
-						if (item.isAdd === '1') {
-							priceColor = 'blue';
-						}
-						var remarkStr = "";
-						if (item.remark) {
-							remarkStr = '<p class="remark">' + item.remark + '</p>';
-						}
-						recordHtml += '<li class="wrapper-item flex-between">' +
-							'<div class="item-left">' +
-							'<p class="title">' + item.title + '</p>' +
-							'<p class="time">' + item.time + '</p>' +
-							'</div>' +
-							'<div class="item-right">' +
-							'<p class="price ' + priceColor + '">' + (item.isAdd === '1' ? '+' + item.price : '-' + item.price) + '</p>' +
-							remarkStr +
-							'</div>' +
-							'</li>'
+            var homeModule = {
+                init: function () {
+                    this.loadDepositInfo()
+                    this.loadMescroll()
+                    this.handleTab()
+                },
+                loadMescroll: function () {
+                    var self = this
+                    mescroll = new MeScroll('mescroll', {
+                        down: {
+                            callback: self.refresh,
+                            isBounce: false,
+                            use: false //默认为true，不使用的时候必须加上
+                        },
+                        up: {
+                            callback: self.loadData,
+                            page: {
+                                num: 0,
+                                size: 10
+                            },
+                            htmlNodata: '<p class="upwarp-nodata">没有更多数据了</p>'
+                        }
+                    })
+                },
+                refresh: function () {
+                    $('.mescroll ul').html('')
+                    recordHtml = ''
+                    mescroll.resetUpScroll()
+                },
+                loadData: function (page) {
+                    let that = this
+                    let params = {
+                        pageNo: page.num,
+                        pageSize: page.size,
+                        id: supplierId
+                    }
+                    common.ajax({
+                        url: common.erpDomain + '/carDealer/deposit/apply/list',
+                        param: params,
+                        success: function (res) {
+                            var { list } = res.result
+                            if (res.code === '1' && list.length > 0) {
+                                $('#error-container').addClass('hide')
+                                $('#mescroll ul').removeClass('hide')
+                                homeModule.recordListHTml(list)
+                                var hasNext = page.size == list.length
+                                mescroll.endSuccess(page.size, hasNext)
+                            } else {
+                                mescroll.endErr()
+                                $('#mescroll ul').addClass('hide')
+                                $('#error-container').removeClass('hide')
+                                if (res.code == '100004') {
+                                    location.href = '../user/new_login.html?' + envStr + '&redirect=' + encodeURIComponent(window.location.href)
+                                }
+                            }
+                        },
+                        error: function (err) {
+                            mescroll.endErr()
+                            $('#mescroll ul').addClass('hide')
+                            $('#error-container').removeClass('hide')
+                        }
+                    })
+                },
+                recordListHTml: function (list) {
+                    list.forEach(item => {
+                        var priceColor = ''
+                        if (item.isAdd === '1') {
+                            priceColor = 'blue'
+                        }
+                        var remarkStr = ''
+                        if (item.remark) {
+                            remarkStr = '<p class="remark">' + item.remark + '</p>'
+                        }
+                        recordHtml +=
+                            '<li class="wrapper-item flex-between">' +
+                            '<div class="item-left">' +
+                            '<p class="title">' +
+                            item.title +
+                            '</p>' +
+                            '<p class="time">' +
+                            item.time +
+                            '</p>' +
+                            '</div>' +
+                            '<div class="item-right">' +
+                            '<p class="price ' +
+                            priceColor +
+                            '">' +
+                            (item.isAdd === '1' ? '+' + item.price : '-' + item.price) +
+                            '</p>' +
+                            remarkStr +
+                            '</div>' +
+                            '</li>'
+                    })
+                    $('#mescroll ul').html(recordHtml)
+                },
+                loadDepositInfo: function () {
+                    let params = {
+                        id: supplierId
+                    }
+                    common.ajax({
+                        // url: 'info.json',
+                        // method: 'GET',
+                        url: common.erpDomain + '/carDealer/deposit/info',
+                        param: params,
+                        success: function (res) {
+                            var html = ''
+                            if (res.code === '1') {
+                                html =
+                                    '<div class="wrapper-item">' +
+                                    '<div class="key"><img src="../img/money/money_able.png" />可用金额（元）</div>' +
+                                    '<div class="value">' +
+                                    res.result.useablePrice +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="wrapper-item">' +
+                                    '<div class="key"><img src="../img/money/money_disable.png" />冻结金额（元）</div>' +
+                                    '<div class="value">' +
+                                    res.result.freezePrice +
+                                    '</div>' +
+                                    '</div>'
+                                $('.caution-container .money-wrapper').html(html)
+                                console.log(res.result.useablePrice)
+                                if (res.result.useablePrice != '0.00' && res.result.useablePrice) {
+                                    $('.caution-container .btn-wrapper .return-btn').removeClass('btn-grey')
+                                }
+                            } else {
+                                if (res.code == '100004') {
+                                    location.href = '../user/new_login.html?' + envStr + '&redirect=' + encodeURIComponent(window.location.href)
+                                }
+                            }
+                        }
+                    })
+                },
 
-					})
-					$('#mescroll ul').html(recordHtml);
-				},
-				loadDepositInfo: function() {
-					let params = {
-						id: supplierId
-					}
-					common.ajax({
-						// url: 'info.json',
-						// method: 'GET',
-						url: common.erpDomain + '/carDealer/deposit/info',
-						param: params,
-						success: function(res) {
-							var html = '';
-							if (res.code === '1') {
-								html =
-									'<div class="wrapper-item">' +
-									'<div class="key"><img src="../img/money/money_able.png" />可用金额（元）</div>' +
-									'<div class="value">' + res.result.useablePrice + '</div>' +
-									'</div>' +
-									'<div class="wrapper-item">' +
-									'<div class="key"><img src="../img/money/money_disable.png" />冻结金额（元）</div>' +
-									'<div class="value">' + res.result.freezePrice + '</div>' +
-									'</div>'
-								$('.caution-container .money-wrapper').html(html);
-								console.log(res.result.useablePrice)
-								if (res.result.useablePrice != '0.00' && res.result.useablePrice) {
-									$('.caution-container .btn-wrapper .return-btn').removeClass('btn-grey')
-								}
-							} else {
-								if (res.code == '100004') {
-									location.href = '../user/new_login.html?' + envStr + '&redirect=' + encodeURIComponent(window.location.href)
-								}
-							}
-						}
-					})
+                handleTab: function () {
+                    let that = this
+                    $('.btn-wrapper .recharge-btn').click(function () {
+                        location.href = 'recharge.html?supplierId=' + supplierId + '&' + envStr
+                    })
+                    // 退还保证金
+                    $('.btn-wrapper .return-btn').click(function () {
+                        let isFlag = $(this).hasClass('btn-grey')
+                        if (isFlag) {
+                            return
+                        }
+                        layer.open({
+                            content: '是否确定退还所有可用金额？',
+                            btn: ['确定', '取消'],
+                            yes: function (index) {
+                                layer.close(index)
+                                that.refundDeposit()
+                            }
+                        })
+                    })
 
-				},
+                    $('.btn-history').click(function () {
+                        location.href = '../test-drive-auction/auction-history.html?' + envStr
+                    })
+                },
+                // 退还保证金
+                refundDeposit: function () {
+                    let params = {
+                        source: 'cs',
+                        id: supplierId
+                    }
 
-				handleTab: function() {
-					let that = this;
-					$('.btn-wrapper .recharge-btn').click(function() {
-						location.href = 'recharge.html?supplierId=' + supplierId + '&' + envStr
-					})
-					// 退还保证金
-					$('.btn-wrapper .return-btn').click(function() {
-						let isFlag = $(this).hasClass('btn-grey');
-						if (isFlag) {
-							return;
-						}
-						layer.open({
-							content: '是否确定退还所有可用金额？',
-							btn: ['确定', '取消'],
-							yes: function(index) {
-								layer.close(index)
-								that.refundDeposit();
-							}
-						})
-					})
-					
-					$('.btn-history').click(function(){
-						location.href = '../test-drive-auction/auction-history.html?' + envStr
-					})
-				},
-				// 退还保证金
-				refundDeposit: function() {
-					let params = {
-						source: 'cs',
-						id: supplierId
-					}
-
-					let useablePrice = $($('.caution-container .money-wrapper .wrapper-item .value')[0]).text();
-					common.ajax({
-						url: common.erpDomain + '/carDealer/deposit/refund',
-						param: params,
-						success: function(res) {
-							if (res.code === '1' && res.result.flag === '1') {
-								location.href = "success_application.html?price=" + useablePrice + '&supplierId=' + supplierId + '&' + envStr
-							} else {
-								layer.open({
-									content: res.message,
-									skin: 'msg',
-									style: 'top: 0;',
-									time: 2 //2秒后自动关闭
-								})
-							}
-						}
-					})
-				}
-
-			}
-			homeModule.init()
-		</script>
-	</body>
+                    let useablePrice = $($('.caution-container .money-wrapper .wrapper-item .value')[0]).text()
+                    common.ajax({
+                        url: common.erpDomain + '/carDealer/deposit/refund',
+                        param: params,
+                        success: function (res) {
+                            if (res.code === '1' && res.result.flag === '1') {
+                                location.href = 'success_application.html?price=' + useablePrice + '&supplierId=' + supplierId + '&' + envStr
+                            } else {
+                                layer.open({
+                                    content: res.message,
+                                    skin: 'msg',
+                                    style: 'top: 0;',
+                                    time: 2 //2秒后自动关闭
+                                })
+                            }
+                        }
+                    })
+                }
+            }
+            homeModule.init()
+        </script>
+    </body>
 </html>

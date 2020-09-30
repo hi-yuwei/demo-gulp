@@ -1,158 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="https://jscdn.car-me.com/assets/css/lib/mescroll.min.css" />
+        <link rel="stylesheet" href="../../assets/js/iosSelect.css" />
+        <title>代拍记录</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://jscdn.car-me.com/assets/css/mescroll.min.css">
-    <link rel="stylesheet" href="../../assets/js/iosSelect.css">
-    <title>代拍记录</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
+            html,
+            body,
+            .wrapper {
+                width: 100%;
+                background-color: #f8f8f8;
+            }
 
-        html,
-        body,
-        .wrapper {
-            width: 100%;
-            background-color: #F8F8F8;
-        }
+            #dataList {
+                width: 100%;
+            }
 
-        #dataList {
-            width: 100%;
-        }
+            #dataList li {
+                margin-top: 16px;
+                margin-left: 16px;
+                margin-right: 16px;
+                background-color: #ffffff;
+                border-radius: 6px;
+            }
 
-        #dataList li {
-            margin-top: 16px;
-            margin-left: 16px;
-            margin-right: 16px;
-            background-color: #ffffff;
-            border-radius: 6px;
-        }
+            .header {
+                width: 100%;
+                height: 70px;
+                font-size: 0;
+            }
 
-        .header {
-            width: 100%;
-            height: 70px;
-            font-size: 0;
-        }
+            .header .header-left {
+                display: inline-block;
+                width: 70%;
+                height: 100%;
+            }
 
-        .header .header-left {
-            display: inline-block;
-            width: 70%;
-            height: 100%;
-        }
+            .header .header-right {
+                display: inline-block;
+                width: 30%;
+                height: 100%;
+                vertical-align: top;
+                text-align: center;
+            }
 
-        .header .header-right {
-            display: inline-block;
-            width: 30%;
-            height: 100%;
-            vertical-align: top;
-            text-align: center;
-        }
+            .header .header-left .user-name {
+                margin-left: 16px;
+                height: 40px;
+                line-height: 40px;
+                color: #333333;
+                font-weight: bold;
+                font-size: 16px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
 
-        .header .header-left .user-name {
-            margin-left: 16px;
-            height: 40px;
-            line-height: 40px;
-            color: #333333;
-            font-weight: bold;
-            font-size: 16px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            .header .header-left .baozhengjin {
+                margin-left: 16px;
+                height: 30px;
+                line-height: 30px;
 
-        }
+                font-size: 14px;
+            }
 
-        .header .header-left .baozhengjin {
-            margin-left: 16px;
-            height: 30px;
-            line-height: 30px;
+            .guaranteeState0 {
+                color: #1967b5;
+            }
 
-            font-size: 14px;
-        }
+            .guaranteeState1 {
+                color: #666666;
+            }
 
-        .guaranteeState0 {
-            color: #1967B5;
-        }
+            .header .header-right .release {
+                margin-top: 23px;
+                display: inline-block;
+                font-size: 12px;
+                height: 24px;
+                line-height: 24px;
+                width: 80px;
+                text-align: center;
+                border: 1px solid #1967b5;
+                border-radius: 2px;
+                color: #1967b5;
+            }
 
-        .guaranteeState1 {
-            color: #666666;
-        }
+            .list {
+                margin-left: 16px;
+                margin-right: 16px;
+                height: 98px;
+                overflow: hidden;
+            }
 
-        .header .header-right .release {
-            margin-top: 23px;
-            display: inline-block;
-            font-size: 12px;
-            height: 24px;
-            line-height: 24px;
-            width: 80px;
-            text-align: center;
-            border: 1px solid #1967B5;
-            border-radius: 2px;
-            color: #1967B5;
-        }
+            .list .content-back {
+                margin-top: 8px;
+                border-radius: 4px;
+                background-color: #f8f8f8;
+                height: 90px;
+            }
 
-        .list {
-            margin-left: 16px;
-            margin-right: 16px;
-            height: 98px;
-            overflow: hidden;
-        }
+            .list .content-back .time,
+            .store,
+            .price-back {
+                margin-left: 16px;
+                margin-right: 16px;
+                padding-top: 12px;
+                font-size: 12px;
+                color: #666666;
+                height: 12px;
+                line-height: 12px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
 
-        .list .content-back {
-            margin-top: 8px;
-            border-radius: 4px;
-            background-color: #F8F8F8;
-            height: 90px;
+            .bottom {
+                text-align: center;
+                color: #999999;
+                font-size: 12px;
+            }
 
-        }
+            .bottom img {
+                vertical-align: middle;
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+            }
 
-        .list .content-back .time,
-        .store,
-        .price-back {
-            margin-left: 16px;
-            margin-right: 16px;
-            padding-top: 12px;
-            font-size: 12px;
-            color: #666666;
-            height: 12px;
-            line-height: 12px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+            .bottom .show {
+                transform: rotate(180deg);
+                -webkit-transform: rotate(180deg);
+                -webkit-transtion: all 0.3s linear;
+            }
+        </style>
+    </head>
 
-        .bottom {
-            text-align: center;
-            color: #999999;
-            font-size: 12px;
-
-        }
-
-        .bottom img {
-            vertical-align: middle;
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-        }
-
-        .bottom .show {
-            transform: rotate(180deg);
-            -webkit-transform: rotate(180deg);
-            -webkit-transtion: all .3s linear;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="wrapper">
-        <ul id='dataList'>
-            <!-- <li>
+    <body>
+        <div class="wrapper">
+            <ul id="dataList">
+                <!-- <li>
                 <div class="header">
                     <div class="header-left">
                         <div class="user-name">杨斌 17764505456</div>
@@ -181,134 +176,159 @@
                 </div>
                 <div class="bottom"><span>查看全部</span><img src="../../assets/images/jiantou_bottom1.png" alt=""></div>
             </li> -->
-        </ul>
-    </div>
-    <script src="https://jscdn.car-me.com/assets/js/scroll/mescroll.min-1.2.3.js"></script>
-    <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
-    <script src="../../assets/js/common.js?_=3"></script>
-    <script src="../../assets/js/CarmeJsBridgeNoEvent.js"></script>
-    <script src="../../assets/js/iosSelect.js"></script>
-    <script src="https://jscdn.car-me.com/assets/js/layer.mobile/layer.js"></script>
-    <script>
-        var urlParams = common.getQuery();
-        var id = urlParams.id || '';
-        var resultData = ""
-        var mescroll;
-        var bidHistory = {
-            init: function () {
-                bidHistory.pullUpLoadData();
-            },
-            //上拉加载更多
-            pullUpLoadData: function () {
-                var that = this;
-                mescroll = new MeScroll('body', {
-                    down: {
-                        use: false
-                    },
-                    up: {
-                        auto: true,
-                        callback: that.loadData,
-                        htmlNodata: '<p class="upwarp-nodata">没有更多数据了</p>',
-                        htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">正在加载数据</p>',
-                        noMoreSize: '2',
-                        page: {
-                            num: 0,
-                            size: 10
+            </ul>
+        </div>
+        <script src="https://jscdn.car-me.com/assets/js/scroll/mescroll.min-1.2.3.js"></script>
+        <script src="https://jscdn.car-me.com/assets/js/zepto/zepto.min.js"></script>
+        <script src="../../assets/js/common.js?_=3"></script>
+        <script src="../../assets/js/CarmeJsBridgeNoEvent.js"></script>
+        <script src="../../assets/js/iosSelect.js"></script>
+        <script src="https://jscdn.car-me.com/assets/js/layer.mobile/layer.js"></script>
+        <script>
+            var urlParams = common.getQuery()
+            var id = urlParams.id || ''
+            var resultData = ''
+            var mescroll
+            var bidHistory = {
+                init: function () {
+                    bidHistory.pullUpLoadData()
+                },
+                //上拉加载更多
+                pullUpLoadData: function () {
+                    var that = this
+                    mescroll = new MeScroll('body', {
+                        down: {
+                            use: false
                         },
-                        clearEmptyId: 'dataList'
-                    }
-                });
-            },
-            loadData: function (page) {
-                common.ajax({
-                    url: common.erpDomain + '/usedCar/substituteRecord/get.do',
-                    param: {
-                        pageNo: page.num,
-                        pageSize: page.size,
-                        id: window.id
-                    },
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        mescroll.endSuccess(10, true);
-                        console.log("--+++>", this.param, this.url, data)
-                        if (data.code == '1' && data.result && data.result.items && data.result.items.length > 0) {
-                            var dataSize = data.result.pageSize;
-                            var hasNext = data.result.pageNo != data.result.recordCount;
-                            mescroll.endSuccess(dataSize, hasNext);
-                            window.resultData = data.result
-                            bidHistory.setValueForUI()
-                        } else {
-                            mescroll.destroy();
+                        up: {
+                            auto: true,
+                            callback: that.loadData,
+                            htmlNodata: '<p class="upwarp-nodata">没有更多数据了</p>',
+                            htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">正在加载数据</p>',
+                            noMoreSize: '2',
+                            page: {
+                                num: 0,
+                                size: 10
+                            },
+                            clearEmptyId: 'dataList'
                         }
-                    },
-                    error: function () {
-                        mescroll.endErr();
-                    }
-                });
-            },
-            setValueForUI: function () {
-                var str0 = ''
-                window.resultData.items.forEach(function (item, index) {
-                    var str1 = ''
-                    item.bidRecord.forEach(function (bidRecorditem, bidRecordindex) {
-                        str1 = str1 + '<div class="content-back">\
-                                            <div class="time">代拍时间：'+ bidRecorditem.time + '</div>\
-                                            <div class="store">代拍操作人：'+ bidRecorditem.storeName + bidRecorditem.operator + '</div>\
-                                            <div class="price-back">客户意向出价：<span>'+ bidRecorditem.bidPrice + '万</span></div>\
-                                        </div>'
                     })
-                    str1 = '<div class="list">' + str1 + '</div>'
-                    var str2 = ''
-                    var str3 = '<div class="release" data-recordid=' + item.recordId + '>释放保证金></div>'
-                    if (item.guaranteeState == '0') {
-                        str2 = '<div class="baozhengjin guaranteeState0">保证金：' + item.guaranteeMoney + '（冻结中）</div>'
-                    } else {
-                        str2 = '<div class="baozhengjin guaranteeState1">保证金：' + item.guaranteeMoney + '（已释放）</div>'
-                        str3 = ''
-                    }
-                    var str4 = '<div class="bottom" data-show=false data-count=' + item.bidRecord.length + ' style="height:50px; line-height:50px"><span>查看全部</span><img src="../../assets/images/jiantou_bottom1.png" alt=""></div>'
-                    if (item.bidRecord.length < 2) {
-                        str4 = '<div class="bottom" style="height:20px"></div>'
-                    }
-                    str0 = str0 + '<li>\
+                },
+                loadData: function (page) {
+                    common.ajax({
+                        url: common.erpDomain + '/usedCar/substituteRecord/get.do',
+                        param: {
+                            pageNo: page.num,
+                            pageSize: page.size,
+                            id: window.id
+                        },
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (data) {
+                            mescroll.endSuccess(10, true)
+                            console.log('--+++>', this.param, this.url, data)
+                            if (data.code == '1' && data.result && data.result.items && data.result.items.length > 0) {
+                                var dataSize = data.result.pageSize
+                                var hasNext = data.result.pageNo != data.result.recordCount
+                                mescroll.endSuccess(dataSize, hasNext)
+                                window.resultData = data.result
+                                bidHistory.setValueForUI()
+                            } else {
+                                mescroll.destroy()
+                            }
+                        },
+                        error: function () {
+                            mescroll.endErr()
+                        }
+                    })
+                },
+                setValueForUI: function () {
+                    var str0 = ''
+                    window.resultData.items.forEach(function (item, index) {
+                        var str1 = ''
+                        item.bidRecord.forEach(function (bidRecorditem, bidRecordindex) {
+                            str1 =
+                                str1 +
+                                '<div class="content-back">\
+                                            <div class="time">代拍时间：' +
+                                bidRecorditem.time +
+                                '</div>\
+                                            <div class="store">代拍操作人：' +
+                                bidRecorditem.storeName +
+                                bidRecorditem.operator +
+                                '</div>\
+                                            <div class="price-back">客户意向出价：<span>' +
+                                bidRecorditem.bidPrice +
+                                '万</span></div>\
+                                        </div>'
+                        })
+                        str1 = '<div class="list">' + str1 + '</div>'
+                        var str2 = ''
+                        var str3 = '<div class="release" data-recordid=' + item.recordId + '>释放保证金></div>'
+                        if (item.guaranteeState == '0') {
+                            str2 = '<div class="baozhengjin guaranteeState0">保证金：' + item.guaranteeMoney + '（冻结中）</div>'
+                        } else {
+                            str2 = '<div class="baozhengjin guaranteeState1">保证金：' + item.guaranteeMoney + '（已释放）</div>'
+                            str3 = ''
+                        }
+                        var str4 = '<div class="bottom" data-show=false data-count=' + item.bidRecord.length + ' style="height:50px; line-height:50px"><span>查看全部</span><img src="../../assets/images/jiantou_bottom1.png" alt=""></div>'
+                        if (item.bidRecord.length < 2) {
+                            str4 = '<div class="bottom" style="height:20px"></div>'
+                        }
+                        str0 =
+                            str0 +
+                            '<li>\
                                         <div class="header">\
                                             <div class="header-left">\
-                                                <div class="user-name">'+ item.clientName + '  ' + item.clientPhone + '</div>\
-                                                '+ str2 + '\
+                                                <div class="user-name">' +
+                            item.clientName +
+                            '  ' +
+                            item.clientPhone +
+                            '</div>\
+                                                ' +
+                            str2 +
+                            '\
                                             </div>\
-                                            <div class="header-right">'+ str3 + '</div>\
-                                        </div>'+ str1 + str4 + '\
+                                            <div class="header-right">' +
+                            str3 +
+                            '</div>\
+                                        </div>' +
+                            str1 +
+                            str4 +
+                            '\
                                     </li>'
-                })
-                $('#dataList').append(str0)
-
-                $('.bottom').on('click', function () {
-                    var isShow = $(this).data('show')
-                    var num = $(this).data('count')
-                    var H = isShow ? 98 : 98 * num
-                    var listEnv = $(this).prev()
-
-                    $(listEnv).animate({
-                        height: H + 'px'
                     })
-                    if (isShow) {
-                        $(this).children('img').removeClass('show')
-                        $(this).children('span').html("查看全部")
-                    } else {
-                        $(this).children('img').addClass('show')
-                        $(this).children('span').html("收起")
-                    }
-                    $(this).data('show', !isShow)
-                })
+                    $('#dataList').append(str0)
 
-                $('.release').on('click', function () {
-                    var releaseThat = this
-                    var recordid = $(this).data('recordid')
+                    $('.bottom').on('click', function () {
+                        var isShow = $(this).data('show')
+                        var num = $(this).data('count')
+                        var H = isShow ? 98 : 98 * num
+                        var listEnv = $(this).prev()
 
-                    let data = [{ "id": "0", "value": "竞拍失败" }, { "id": "1", "value": "竞拍成功，并已支付定金" }, { "id": "2", "value": "未竞拍" }]
-                    var bankSelect = new IosSelect(1, [data],
-                        {
+                        $(listEnv).animate({
+                            height: H + 'px'
+                        })
+                        if (isShow) {
+                            $(this).children('img').removeClass('show')
+                            $(this).children('span').html('查看全部')
+                        } else {
+                            $(this).children('img').addClass('show')
+                            $(this).children('span').html('收起')
+                        }
+                        $(this).data('show', !isShow)
+                    })
+
+                    $('.release').on('click', function () {
+                        var releaseThat = this
+                        var recordid = $(this).data('recordid')
+
+                        let data = [
+                            { id: '0', value: '竞拍失败' },
+                            { id: '1', value: '竞拍成功，并已支付定金' },
+                            { id: '2', value: '未竞拍' }
+                        ]
+                        var bankSelect = new IosSelect(1, [data], {
                             container: '.wrapper',
                             title: '释放保证金原因',
                             itemHeight: 50,
@@ -317,53 +337,49 @@
                             callback: function (selectOneObj) {
                                 common.ajax({
                                     url: common.erpDomain + '/usedCar/releasePrice.do',
-                                    param: { "id": recordid, 'type': selectOneObj.id },
+                                    param: { id: recordid, type: selectOneObj.id },
                                     type: 'post',
                                     dataType: 'json',
                                     success: function (data) {
-                                        console.log("--+++>", data)
-                                        if (data.code == "1") {
-                                            if (data.result.flag == "1") {
+                                        console.log('--+++>', data)
+                                        if (data.code == '1') {
+                                            if (data.result.flag == '1') {
                                                 var header = $(releaseThat).parents('.header')[0]
                                                 var headerLeft = $(header).children('.header-left')[0]
                                                 var baozhengjin = $(headerLeft).children('.baozhengjin')[0]
                                                 $(baozhengjin).css('color', '#666666')
-                                                var text = $(baozhengjin).html().replace('冻结中','已释放')
+                                                var text = $(baozhengjin).html().replace('冻结中', '已释放')
                                                 $(baozhengjin).html(text)
                                                 $(releaseThat).css('display', 'none')
 
                                                 layer.open({
-                                                    content: '保证金释放成功'
-                                                    , skin: 'msg'
-                                                    , time: 2
-                                                });
+                                                    content: '保证金释放成功',
+                                                    skin: 'msg',
+                                                    time: 2
+                                                })
                                             } else {
                                                 layer.open({
-                                                    content: data.result.message
-                                                    , skin: 'msg'
-                                                    , time: 2
-                                                });
+                                                    content: data.result.message,
+                                                    skin: 'msg',
+                                                    time: 2
+                                                })
                                             }
                                         } else {
                                             layer.open({
-                                                content: data.message
-                                                , skin: 'msg'
-                                                , time: 2
-                                            });
+                                                content: data.message,
+                                                skin: 'msg',
+                                                time: 2
+                                            })
                                         }
                                     },
-                                    error: function () {
-                                    }
-                                });
+                                    error: function () {}
+                                })
                             }
-                        });
-
-
-                })
+                        })
+                    })
+                }
             }
-        }
-        bidHistory.init()
-    </script>
-</body>
-
+            bidHistory.init()
+        </script>
+    </body>
 </html>

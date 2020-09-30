@@ -185,7 +185,7 @@ $(function () {
         },
         // 大图-start
         bigImgSwiper: function () {
-            myBigSwiper = new Swiper('.showBigImgWrap', {
+            let myBigSwiper = new Swiper('.showBigImgWrap', {
                 // pagination: {
                 // 	el: '.swiper-pagination',
                 // 	type: 'fraction',

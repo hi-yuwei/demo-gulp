@@ -216,7 +216,7 @@ var common = {
                                     flag: 'login'
                                 })
                             } else {
-                                location.href = '/erph5/pages/user/login.html?env=' + common.getQuery().env + '&ssssId=' + common.getQuery().ssssId
+                                location.href = '/src/pages/user/login.html?env=' + common.getQuery().env + '&ssssId=' + common.getQuery().ssssId
                             }
                         } else {
                             obj.success && obj.success(data)

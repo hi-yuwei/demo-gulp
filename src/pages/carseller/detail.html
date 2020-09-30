@@ -1,405 +1,406 @@
 <!DOCTYPE html>
 <html>
-	<head lang="en">
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
-		<title>车辆详情</title>
-		<link rel="stylesheet" href="../../assets/css/base.css?_=1">
-		<!-- 	<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+    <head lang="en">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1" />
+        <title>车辆详情</title>
+        <link rel="stylesheet" href="../../assets/css/base.css?_=1" />
+        <!-- 	<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
 	<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> -->
-		<link rel="stylesheet" type="text/css" href="../../assets/css/swiper/swiper.min.css" />
-		<style type="text/css">
-			.flex {
-				display: flex;
-			}
+        <link rel="stylesheet" type="text/css" href="../../assets/css/lib/swiper/swiper.min.css" />
+        <style type="text/css">
+            .flex {
+                display: flex;
+            }
 
-			.c-red {
-				color: #EA6572;
-			}
+            .c-red {
+                color: #ea6572;
+            }
 
-			.wrapper {}
+            .wrapper {
+            }
 
-			.pb80 {
-				padding-bottom: 80px;
-			}
+            .pb80 {
+                padding-bottom: 80px;
+            }
 
-			.c-gray-deep {
-				color: #333333;
-			}
+            .c-gray-deep {
+                color: #333333;
+            }
 
-			.wrapper .comm-box {
-				margin-bottom: 10px;
-				background: white;
-			}
+            .wrapper .comm-box {
+                margin-bottom: 10px;
+                background: white;
+            }
 
-			.wrapper .comm-box .comm-title {
-				position: relative;
-				font-size: 15px;
-				font-weight: bold;
-				padding: 12px 16px 8px;
-				color: #1967B5;
-			}
+            .wrapper .comm-box .comm-title {
+                position: relative;
+                font-size: 15px;
+                font-weight: bold;
+                padding: 12px 16px 8px;
+                color: #1967b5;
+            }
 
-			.accident-title {
-				position: relative;
-				font-size: 15px;
-				font-weight: bold;
-				padding: 0px 0px 8px;
-				color: #1967B5;
-			}
+            .accident-title {
+                position: relative;
+                font-size: 15px;
+                font-weight: bold;
+                padding: 0px 0px 8px;
+                color: #1967b5;
+            }
 
-			.wrapper .comm-box .comm-title:before {
-				/*position: absolute;*/
-				left: 16px;
-				top: 14px;
-				content: ' ';
-				display: inline-block;
-				vertical-align: middle;
-			}
+            .wrapper .comm-box .comm-title:before {
+                /*position: absolute;*/
+                left: 16px;
+                top: 14px;
+                content: ' ';
+                display: inline-block;
+                vertical-align: middle;
+            }
 
-			.wrapper .comm-box .comm-title.icon-offer:before {
-				background: url(img/icon-offer.png?_=1) no-repeat;
-				background-size: 100%;
-				width: 12px;
-				height: 18px;
-				margin-right: 6px;
-			}
+            .wrapper .comm-box .comm-title.icon-offer:before {
+                background: url(img/icon-offer.png?_=1) no-repeat;
+                background-size: 100%;
+                width: 12px;
+                height: 18px;
+                margin-right: 6px;
+            }
 
-			.wrapper .comm-box .comm-title.icon-carpic:before {
-				background: url(img/icon-carpic.png?_=1) no-repeat;
-				background-size: 100%;
-				width: 20px;
-				height: 20px;
-				margin-right: 6px;
-			}
+            .wrapper .comm-box .comm-title.icon-carpic:before {
+                background: url(img/icon-carpic.png?_=1) no-repeat;
+                background-size: 100%;
+                width: 20px;
+                height: 20px;
+                margin-right: 6px;
+            }
 
-			.wrapper .comm-box .comm-title.icon-car:before {
-				background: url(img/icon-car.png?_=1) no-repeat;
-				background-size: 100%;
-				width: 20px;
-				height: 20px;
-				margin-right: 6px;
-			}
+            .wrapper .comm-box .comm-title.icon-car:before {
+                background: url(img/icon-car.png?_=1) no-repeat;
+                background-size: 100%;
+                width: 20px;
+                height: 20px;
+                margin-right: 6px;
+            }
 
-			.wrapper .comm-box .comm-cont {
-				border-top: 1px solid #F3F5F8;
-				justify-content: space-between;
-				padding: 10px 16px;
-				font-size: 12px;
-			}
+            .wrapper .comm-box .comm-cont {
+                border-top: 1px solid #f3f5f8;
+                justify-content: space-between;
+                padding: 10px 16px;
+                font-size: 12px;
+            }
 
-			.wrapper .comm-box .row-item {
-				justify-content: space-between;
-				align-items: center;
-				padding-bottom: 13px;
-				margin-bottom: 13px;
-				border-bottom: 1px solid #EFEFEF;
-			}
+            .wrapper .comm-box .row-item {
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 13px;
+                margin-bottom: 13px;
+                border-bottom: 1px solid #efefef;
+            }
 
-			.wrapper .comm-box .row-item:last-child {
-				padding-bottom: 0;
-				margin-bottom: 0;
-				border-bottom: 0;
-			}
+            .wrapper .comm-box .row-item:last-child {
+                padding-bottom: 0;
+                margin-bottom: 0;
+                border-bottom: 0;
+            }
 
-			.wrapper .comm-box .row-item .row-left {
-				width: 80%;
-				align-items: center;
-			}
+            .wrapper .comm-box .row-item .row-left {
+                width: 80%;
+                align-items: center;
+            }
 
-			.wrapper .comm-box .row-item-spec .row-left {
-				width: 65%;
-			}
+            .wrapper .comm-box .row-item-spec .row-left {
+                width: 65%;
+            }
 
-			.wrapper .comm-box .row-item .row-left span {
-				color: #999999;
-				flex: 1;
-				color: #2E2D2D;
-				font-size: 14px;
-				font-weight: bold;
-			}
+            .wrapper .comm-box .row-item .row-left span {
+                color: #999999;
+                flex: 1;
+                color: #2e2d2d;
+                font-size: 14px;
+                font-weight: bold;
+            }
 
-			.wrapper .comm-box .row-item .row-left label {
-				display: inline-block;
-				width: 85px;
-				color: #333333;
-				font-size: 14px;
-			}
+            .wrapper .comm-box .row-item .row-left label {
+                display: inline-block;
+                width: 85px;
+                color: #333333;
+                font-size: 14px;
+            }
 
-			.wrapper .comm-box .row-item .row-left .m-input {
-				padding: 5px 10px;
-				width: 100%;
-				outline: none;
-				border: none;
-			}
+            .wrapper .comm-box .row-item .row-left .m-input {
+                padding: 5px 10px;
+                width: 100%;
+                outline: none;
+                border: none;
+            }
 
-			.icon-arrow {
-				color: #999999;
-			}
+            .icon-arrow {
+                color: #999999;
+            }
 
-			.evaluate-erea {
-				width: 100%;
-				height: 100px;
-				padding: 10px;
-				border: 1px solid #EDEDED;
-			}
+            .evaluate-erea {
+                width: 100%;
+                height: 100px;
+                padding: 10px;
+                border: 1px solid #ededed;
+            }
 
-			.evaluate-erea:focus {
-				outline: none;
-			}
+            .evaluate-erea:focus {
+                outline: none;
+            }
 
-			.swiper-container-list {
-				width: 100%;
-				height: 158px;
-				margin-top: 6px;
-				margin-bottom: 6px;
-				overflow: auto;
-			}
+            .swiper-container-list {
+                width: 100%;
+                height: 158px;
+                margin-top: 6px;
+                margin-bottom: 6px;
+                overflow: auto;
+            }
 
-			.swiper-wrapper-list {
-				width: 90%;
-			}
+            .swiper-wrapper-list {
+                width: 90%;
+            }
 
-			.swiper-slide-item {
-				text-align: center;
-				font-size: 18px;
-				background: #fff;
-				margin-right: 15px;
-				width: 90%;
+            .swiper-slide-item {
+                text-align: center;
+                font-size: 18px;
+                background: #fff;
+                margin-right: 15px;
+                width: 90%;
 
-				/* Center slide text vertically */
-				display: -webkit-box;
-				display: -ms-flexbox;
-				display: -webkit-flex;
-				display: flex;
-				-webkit-box-pack: center;
-				-ms-flex-pack: center;
-				-webkit-justify-content: center;
-				justify-content: center;
-				-webkit-box-align: center;
-				-ms-flex-align: center;
-				-webkit-align-items: center;
-				align-items: center;
-				flex-shrink: 0;
-			}
+                /* Center slide text vertically */
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+                flex-shrink: 0;
+            }
 
-			.swiper-img {
-				position: relative;
-				width: 100%;
-				height: 100%;
-			}
+            .swiper-img {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
 
-			.swiper-img .img-center {
-				width: 100%;
-				height: 158px;
-				object-fit: cover;
-				border-radius: 4px;
-			}
+            .swiper-img .img-center {
+                width: 100%;
+                height: 158px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
 
-			.swiper-img a {
-				text-decoration: none;
-			}
+            .swiper-img a {
+                text-decoration: none;
+            }
 
-			.swiper-desc {
-				font-size: 12px;
-				color: #333333;
-				letter-spacing: 0;
-				text-align: justify;
-				height: 88px;
-				font-size: 14px;
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				line-height: 18px;
-				color: #FFFFFF;
-				background: url(img/swiper-bg.png) no-repeat;
-				background-size: cover;
-			}
+            .swiper-desc {
+                font-size: 12px;
+                color: #333333;
+                letter-spacing: 0;
+                text-align: justify;
+                height: 88px;
+                font-size: 14px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                line-height: 18px;
+                color: #ffffff;
+                background: url(img/swiper-bg.png) no-repeat;
+                background-size: cover;
+            }
 
-			.swiper-desc p {
-				position: absolute;
-				left: 5%;
-				right: 5%;
-				bottom: 11px;
-				max-height: 54px;
-				overflow: hidden;
-			}
+            .swiper-desc p {
+                position: absolute;
+                left: 5%;
+                right: 5%;
+                bottom: 11px;
+                max-height: 54px;
+                overflow: hidden;
+            }
 
-			.swiper-pagination-bullet {
-				background: white;
-				opacity: .8;
-			}
+            .swiper-pagination-bullet {
+                background: white;
+                opacity: 0.8;
+            }
 
-			.swiper-pagination-bullet-active {
-				background: #007aff;
-				opacity: 1;
-			}
+            .swiper-pagination-bullet-active {
+                background: #007aff;
+                opacity: 1;
+            }
 
-			.icon-flag {
-				position: absolute;
-				top: 10px;
-				left: 10px;
-				background: #000000;
-				opacity: 0.7;
-				border-radius: 11px;
-				font-size: 12px;
-				color: #FFFFFF;
-				padding: 3px 10px;
-			}
+            .icon-flag {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                background: #000000;
+                opacity: 0.7;
+                border-radius: 11px;
+                font-size: 12px;
+                color: #ffffff;
+                padding: 3px 10px;
+            }
 
-			.icon-arrow {
-				display: inline-block;
-				width: 8px;
-				height: 16px;
-				background: url('img/icon-arrow-right.png?_=1') no-repeat;
-				background-size: 100%;
-			}
+            .icon-arrow {
+                display: inline-block;
+                width: 8px;
+                height: 16px;
+                background: url('img/icon-arrow-right.png?_=1') no-repeat;
+                background-size: 100%;
+            }
 
-			.evaluate-box .desc {
-				padding: 0 16px 16px;
-				font-size: 14px;
-				color: #999999;
-			}
+            .evaluate-box .desc {
+                padding: 0 16px 16px;
+                font-size: 14px;
+                color: #999999;
+            }
 
-			.accident-box .desc {
-				padding: 0 16px 16px;
-				font-size: 14px;
-				color: #999999;
-			}
+            .accident-box .desc {
+                padding: 0 16px 16px;
+                font-size: 14px;
+                color: #999999;
+            }
 
-			.accident-desc {
-				padding: 0 0px 16px;
-				font-size: 14px;
-				color: #999999;
-			}
+            .accident-desc {
+                padding: 0 0px 16px;
+                font-size: 14px;
+                color: #999999;
+            }
 
-			.btn-box {
-				display: flex;
-				position: fixed;
-				width: 100%;
-				bottom: 0;
-				font-size: 0;
-			}
+            .btn-box {
+                display: flex;
+                position: fixed;
+                width: 100%;
+                bottom: 0;
+                font-size: 0;
+            }
 
-			.btn-box button {
-				border: none;
-				height: 49px;
-				font-size: 16px;
-				text-align: center;
-				outline: none;
-			}
+            .btn-box button {
+                border: none;
+                height: 49px;
+                font-size: 16px;
+                text-align: center;
+                outline: none;
+            }
 
-			.btn-box button:first-child {
-				width: 38%;
-				background: white;
-				color: #999999;
-			}
+            .btn-box button:first-child {
+                width: 38%;
+                background: white;
+                color: #999999;
+            }
 
-			.btn-box button:last-child {
-				flex: 1;
-				background: #1967B5;
-				color: white;
-			}
+            .btn-box button:last-child {
+                flex: 1;
+                background: #1967b5;
+                color: white;
+            }
 
-			.layui-m-anim-scale .layui-m-layercont {
-				padding: 0 !important;
-			}
+            .layui-m-anim-scale .layui-m-layercont {
+                padding: 0 !important;
+            }
 
-			.layui-m-layershade {
-				background: rgba(27, 27, 27, 1) !important;
-			}
+            .layui-m-layershade {
+                background: rgba(27, 27, 27, 1) !important;
+            }
 
-			.layui-m-layer0 .layui-m-layerchild {
-				width: 100% !important;
-			}
+            .layui-m-layer0 .layui-m-layerchild {
+                width: 100% !important;
+            }
 
-			.img-pop img {
-				max-height: 400px;
-				object-fit: cover;
-			}
+            .img-pop img {
+                max-height: 400px;
+                object-fit: cover;
+            }
 
-			@media screen and (max-width: 320px) {
-				.swiper-desc {
-					font-size: 12px;
-				}
+            @media screen and (max-width: 320px) {
+                .swiper-desc {
+                    font-size: 12px;
+                }
 
-				.wrapper .comm-box .row-item .row-left {
-					width: 75%;
-				}
-			}
+                .wrapper .comm-box .row-item .row-left {
+                    width: 75%;
+                }
+            }
 
-			.error-wrapper {
-				margin-top: 50px;
-				text-align: center;
-				color: #B7B7B7;
-				font-size: 16px;
-			}
+            .error-wrapper {
+                margin-top: 50px;
+                text-align: center;
+                color: #b7b7b7;
+                font-size: 16px;
+            }
 
-			.error-wrapper div {
-				margin-top: 6px;
-			}
+            .error-wrapper div {
+                margin-top: 6px;
+            }
 
-			.showBigImg {
-				display: none;
-				position: fixed;
-				left: 0;
-				top: 0;
-				width: 100%;
-				height: 100%;
-				background: #000000;
-				z-index: 999;
-			}
+            .showBigImg {
+                display: none;
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: #000000;
+                z-index: 999;
+            }
 
-			.showBigImg .showBigImgWrap {
-				position: relative;
-				top: 50%;
-				left: 0;
-				transform: translateY(-50%);
-				width: 100%;
-				height: 280px;
-				overflow: hidden;
-			}
+            .showBigImg .showBigImgWrap {
+                position: relative;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                width: 100%;
+                height: 280px;
+                overflow: hidden;
+            }
 
-			.showBigImg .showBigImgWrap .allImgBox {
-				position: relative;
-				width: 100%;
-				height: 100%;
-			}
+            .showBigImg .showBigImgWrap .allImgBox {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
 
-			.showBigImg .showBigImgWrap .allImgBox .imgIte img {
-				width: 100%;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="wrapper js-wrapper hide" id="success-container">
-			<div class="comm-box">
-				<div class="comm-title icon-offer"><span>报价信息</span></div>
-				<div class="comm-cont js-bidden">
-					<!-- <div class="row-item flex">
+            .showBigImg .showBigImgWrap .allImgBox .imgIte img {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper js-wrapper hide" id="success-container">
+            <div class="comm-box">
+                <div class="comm-title icon-offer"><span>报价信息</span></div>
+                <div class="comm-cont js-bidden">
+                    <!-- <div class="row-item flex">
             <div class="row-left flex">
               <label>01-01 11:11</label>
             </div>
             <span class="fs16 c-red fwb">53.3万</span>
           </div> -->
-					<!-- <div class="row-item flex">
+                    <!-- <div class="row-item flex">
             <div class="row-left flex">
               <label>报价：</label>
               <input type="text" class="m-input" placeholder="请输入报价价格" maxlength="11" />
             </div>
             <div class="row-right fwb">万元</div>
           </div> -->
-				</div>
-			</div>
+                </div>
+            </div>
 
-			<div class="comm-box js-pic-box hide">
-				<div class="comm-title icon-carpic"><span>车辆照片</span></div>
-				<div class="comm-cont">
-					<div class="swiper-container-list">
-						<div class="swiper-wrapper-list flex js-slide">
-							<!-- <div class="swiper-slide">
+            <div class="comm-box js-pic-box hide">
+                <div class="comm-title icon-carpic"><span>车辆照片</span></div>
+                <div class="comm-cont">
+                    <div class="swiper-container-list">
+                        <div class="swiper-wrapper-list flex js-slide">
+                            <!-- <div class="swiper-slide">
                 <div class="swiper-img">
                   <img src="img/test-bg.png" class="img-center" />
                   <div class="swiper-desc">
@@ -435,448 +436,455 @@
                   <div class="icon-flag">发动机舱</div>
                 </div>
               </div> -->
-						</div>
-					</div>
-				</div>
-			</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<div class="comm-box">
-				<div class="comm-title icon-car"><span>车辆基本信息</span></div>
-				<div class="comm-cont">
-					<div class="row-item">
-						<div class="row-left flex">
-							<label>车牌号码：</label>
-							<span class="js_car_no"></span>
-						</div>
-					</div>
-					<div class="row-item">
-						<div class="row-left flex">
-							<label>品牌车型：</label>
-							<span class="js_brand"></span>
-						</div>
-					</div>
-					<div class="row-item flex js-go-config-detail">
-						<div class="row-left flex">
-							<label>参数配置：</label>
-							<span>查看车辆详细配置</span>
-						</div>
-						<div class="row-right icon-arrow"></div>
-					</div>
-					<div class="row-item flex">
-						<div class="row-left flex">
-							<label>表显里程：</label>
-							<span><span class="js_mileage"></span>万公里</span>
-						</div>
-					</div>
-					<div class="row-item">
-						<div class="row-left flex">
-							<label>出厂年月：</label>
-							<span class="js_production_date"></span>
-						</div>
-					</div>
-					<div class="row-item">
-						<div class="row-left flex">
-							<label>上牌时间：</label>
-							<span class="js_car_on_time"></span>
-						</div>
-					</div>
-					<div class="row-item flex">
-						<div class="row-left flex">
-							<label>过户次数：</label>
-							<span><span class="js_owner_number"></span>次</span>
-						</div>
-					</div>
-					<div class="row-item">
-						<div class="row-left flex">
-							<label>年检到期：</label>
-							<span class="js_inspection_time"></span>
-						</div>
-					</div>
-					<div class="row-item">
-						<div class="row-left flex">
-							<label>是否有事故：</label>
-							<span class="js_accident_date"></span>
-						</div>
-					</div>
-					<div class="comm-box accident-box">
-						<div class="accident-title"><span>事故说明</span></div>
-						<div class="accident-desc">
-							<p class="js_accident"></p>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div class="comm-box">
+                <div class="comm-title icon-car"><span>车辆基本信息</span></div>
+                <div class="comm-cont">
+                    <div class="row-item">
+                        <div class="row-left flex">
+                            <label>车牌号码：</label>
+                            <span class="js_car_no"></span>
+                        </div>
+                    </div>
+                    <div class="row-item">
+                        <div class="row-left flex">
+                            <label>品牌车型：</label>
+                            <span class="js_brand"></span>
+                        </div>
+                    </div>
+                    <div class="row-item flex js-go-config-detail">
+                        <div class="row-left flex">
+                            <label>参数配置：</label>
+                            <span>查看车辆详细配置</span>
+                        </div>
+                        <div class="row-right icon-arrow"></div>
+                    </div>
+                    <div class="row-item flex">
+                        <div class="row-left flex">
+                            <label>表显里程：</label>
+                            <span><span class="js_mileage"></span>万公里</span>
+                        </div>
+                    </div>
+                    <div class="row-item">
+                        <div class="row-left flex">
+                            <label>出厂年月：</label>
+                            <span class="js_production_date"></span>
+                        </div>
+                    </div>
+                    <div class="row-item">
+                        <div class="row-left flex">
+                            <label>上牌时间：</label>
+                            <span class="js_car_on_time"></span>
+                        </div>
+                    </div>
+                    <div class="row-item flex">
+                        <div class="row-left flex">
+                            <label>过户次数：</label>
+                            <span><span class="js_owner_number"></span>次</span>
+                        </div>
+                    </div>
+                    <div class="row-item">
+                        <div class="row-left flex">
+                            <label>年检到期：</label>
+                            <span class="js_inspection_time"></span>
+                        </div>
+                    </div>
+                    <div class="row-item">
+                        <div class="row-left flex">
+                            <label>是否有事故：</label>
+                            <span class="js_accident_date"></span>
+                        </div>
+                    </div>
+                    <div class="comm-box accident-box">
+                        <div class="accident-title"><span>事故说明</span></div>
+                        <div class="accident-desc">
+                            <p class="js_accident"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<div class="comm-box evaluate-box">
-				<div class="comm-title"><span>整体评价</span></div>
-				<div class="desc">
-					<p class="js_evaluate"></p>
-				</div>
-			</div>
+            <div class="comm-box evaluate-box">
+                <div class="comm-title"><span>整体评价</span></div>
+                <div class="desc">
+                    <p class="js_evaluate"></p>
+                </div>
+            </div>
 
-			<div class="btn-box js-btn hide">
-				<button class="js-cancel-bidden">放弃报价</button>
-				<button class="js-sure-bidden">报价</button>
-			</div>
-		</div>
+            <div class="btn-box js-btn hide">
+                <button class="js-cancel-bidden">放弃报价</button>
+                <button class="js-sure-bidden">报价</button>
+            </div>
+        </div>
 
-		<!-- 大图 -->
-		<div class="showBigImg">
-			<div class="showBigImgWrap swiper-container">
-				<div class="allImgBox swiper-wrapper">
-					<!-- <div class="imgIte swiper-slide">
+        <!-- 大图 -->
+        <div class="showBigImg">
+            <div class="showBigImgWrap swiper-container">
+                <div class="allImgBox swiper-wrapper">
+                    <!-- <div class="imgIte swiper-slide">
 						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/140_店长1(test1)_1576736069334.jpg">
 					</div>
 					<div class="imgIte swiper-slide">
 						<img src="https://bld-erp-pic.oss-cn-shanghai.aliyuncs.com/usedCar/140_店长1(test1)_1576736069334.jpg">
 					</div> -->
-				</div>
-				<!-- 分页器 -->
-				<div class="swiper-pagination"></div>
-			</div>
-		</div>
-		<!-- 大图 -->
+                </div>
+                <!-- 分页器 -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <!-- 大图 -->
 
-		<div class="error-wrapper hide" id="error-container">
-			<img src="../../assets/images/bg-empty.png" width="230" />
-			<div>暂无数据~</div>
-		</div>
+        <div class="error-wrapper hide" id="error-container">
+            <img src="../../assets/images/bg-empty.png" width="230" />
+            <div>暂无数据~</div>
+        </div>
 
-
-		<!-- <script src="https://unpkg.com/swiper/js/swiper.js"> </script>
+        <!-- <script src="https://unpkg.com/swiper/js/swiper.js"> </script>
 	<script src="https://unpkg.com/swiper/js/swiper.min.js"> </script> -->
-		<script src="../../assets/js/lib/swiper/swiper.min.js"></script>
-		<script src="../../assets/js/lib/zepto/zepto.min.js"></script>
-		<script src="../../assets/js/lib/layer/layer.js"></script>
-		<script src="../../assets/js/common.js?_=5"></script>
-		<script>
-			var env = common.getQuery().env,
-				carId = common.getQuery().carId,
-				supplierId = common.getQuery().supplierId,
-				mySwiper = null
+        <script src="../../assets/js/lib/swiper/swiper.min.js"></script>
+        <script src="../../assets/js/lib/zepto/zepto.min.js"></script>
+        <script src="../../assets/js/lib/layer/layer.js"></script>
+        <script src="../../assets/js/common.js?_=5"></script>
+        <script>
+            var env = common.getQuery().env,
+                carId = common.getQuery().carId,
+                supplierId = common.getQuery().supplierId,
+                mySwiper = null
 
-			var detailModule = {
-				init: function() {
-					this.loadDetail()
-					this.sureBidden()
-					this.cancelBidden()
-					this.bigImgSwiper()
-				},
-				bigImgSwiper: function() {
-					mySwiper = new Swiper('.showBigImgWrap', {
-						pagination: {
-							el: '.swiper-pagination',
-							type: 'fraction',
-						},
-					})
-					$('.showBigImg').click(function() {
-						$(".showBigImg").css('display', 'none'); //显示
-					})
-				},
-				goConfigDetail: function(data) {
-					$('.js-go-config-detail').on('click', function() {
-						var str = ''
-						if (data.vehicleTypeId) str += 'id=' + data.vehicleTypeId
-						if (env) str += '&env=' + env
-						location.href = '../car/config-detail.html?' + str
-					})
-				},
-				bigImgSlide: function(scArr, posi) {
-					$(".showBigImg").css('display', 'block'); //显示
-					var str = "";
-					for (var i = 0; i < scArr.length; i++) {
-						str += '<div class="imgIte swiper-slide"><img src=' + scArr[i].url + ' alt=""></div>'
-					}
-					$('.allImgBox').html(str);
-					mySwiper.update();
-					mySwiper.slideTo(posi, 0);
-				},
-				loadDetail: function() {
-					var self = this
-					var param = {
-						carId: carId,
-						supplierId: supplierId
-					}
+            var detailModule = {
+                init: function () {
+                    this.loadDetail()
+                    this.sureBidden()
+                    this.cancelBidden()
+                    this.bigImgSwiper()
+                },
+                bigImgSwiper: function () {
+                    mySwiper = new Swiper('.showBigImgWrap', {
+                        pagination: {
+                            el: '.swiper-pagination',
+                            type: 'fraction'
+                        }
+                    })
+                    $('.showBigImg').click(function () {
+                        $('.showBigImg').css('display', 'none') //显示
+                    })
+                },
+                goConfigDetail: function (data) {
+                    $('.js-go-config-detail').on('click', function () {
+                        var str = ''
+                        if (data.vehicleTypeId) str += 'id=' + data.vehicleTypeId
+                        if (env) str += '&env=' + env
+                        location.href = '../car/config-detail.html?' + str
+                    })
+                },
+                bigImgSlide: function (scArr, posi) {
+                    $('.showBigImg').css('display', 'block') //显示
+                    var str = ''
+                    for (var i = 0; i < scArr.length; i++) {
+                        str += '<div class="imgIte swiper-slide"><img src=' + scArr[i].url + ' alt=""></div>'
+                    }
+                    $('.allImgBox').html(str)
+                    mySwiper.update()
+                    mySwiper.slideTo(posi, 0)
+                },
+                loadDetail: function () {
+                    var self = this
+                    var param = {
+                        carId: carId,
+                        supplierId: supplierId
+                    }
 
-					common.ajax({
-						// url: '../../assets/mock/carseller/getDetail.json?_=1',
-						url: common.erpDomain + '/carDealer/carDealerDetail',
-						param: param,
-						method: 'post',
-						success: function(res) {
-							var result = res.result
-							if (res.code == '1' && result) {
-								$('#success-container').removeClass('hide')
-								self.addTpl(result)
-								self.formatFloat()
-								self.goConfigDetail(result)
-								self.openBigImg()
-							} else {
-								$('#success-container').remove()
-								$('#error-container').removeClass('hide')
-								if (res.code == '100004') {
-									var str = ''
-									if (env) {
-										str += 'env=' + env
-									}
-									location.href = './user/new_login.html?' + str
-								}
-							}
-						},
-						error: function() {
-							$('#success-container').remove()
-							$('#error-container').removeClass('hide')
-						}
-					})
-				},
+                    common.ajax({
+                        // url: '../../assets/mock/carseller/getDetail.json?_=1',
+                        url: common.erpDomain + '/carDealer/carDealerDetail',
+                        param: param,
+                        method: 'post',
+                        success: function (res) {
+                            var result = res.result
+                            if (res.code == '1' && result) {
+                                $('#success-container').removeClass('hide')
+                                self.addTpl(result)
+                                self.formatFloat()
+                                self.goConfigDetail(result)
+                                self.openBigImg()
+                            } else {
+                                $('#success-container').remove()
+                                $('#error-container').removeClass('hide')
+                                if (res.code == '100004') {
+                                    var str = ''
+                                    if (env) {
+                                        str += 'env=' + env
+                                    }
+                                    location.href = './user/new_login.html?' + str
+                                }
+                            }
+                        },
+                        error: function () {
+                            $('#success-container').remove()
+                            $('#error-container').removeClass('hide')
+                        }
+                    })
+                },
 
-				addTpl: function(data) {
-					// 报价信息
-					var biddenTpl = ''
-					// type：3:待报价，2:已报价，1:已交易；0放弃报价
-					if (data.type == '3') {
-						biddenTpl =
-							'<div class="row-item flex">' +
-							'<div class="row-left flex">' +
-							'<label>报价：</label>' +
-							'<input type="text" class="m-input js-bidden-ipt" placeholder="请输入报价价格" maxlength="11" />' +
-							'</div>' +
-							'<div class="row-right fwb">万元</div>' +
-							'</div>'
+                addTpl: function (data) {
+                    // 报价信息
+                    var biddenTpl = ''
+                    // type：3:待报价，2:已报价，1:已交易；0放弃报价
+                    if (data.type == '3') {
+                        biddenTpl =
+                            '<div class="row-item flex">' +
+                            '<div class="row-left flex">' +
+                            '<label>报价：</label>' +
+                            '<input type="text" class="m-input js-bidden-ipt" placeholder="请输入报价价格" maxlength="11" />' +
+                            '</div>' +
+                            '<div class="row-right fwb">万元</div>' +
+                            '</div>'
 
-						$('.js-wrapper').addClass('pb80')
-						$('.js-btn').removeClass('hide')
-					} else if (data.type == '0') { // 放弃报价
-						biddenTpl =
-							'<div class="row-item flex">' +
-							'<div class="row-left flex">' +
-							'<label>报价：</label>' +
-							'<span>放弃报价</span>' +
-							'</div>' +
-							'</div>'
-					} else if (data.type == '1' && data.deal) { // 已交易
-						biddenTpl =
-							'<div class="row-item flex">' +
-							'<div class="row-left flex">' +
-							'<label>成交价：</label>' +
-							'<span>' + Number(data.deal.price) + '万</span>' +
-							'</div>' +
-							'<div class="row-right">' + data.deal.time + '</div>' +
-							'</div>'
-					} else if (data.type == '2' && data.bidden) {
-						biddenTpl =
-							'<div class="row-item flex row-item-spec">' +
-							'<div class="row-left flex">' +
-							'<div class="fs14 c-gray-deep">' + data.bidden.time + '</div>' +
-							'</div>' +
-							'<span class="fs16 c-red fwb">' + Number(data.bidden.price) + '万</span>' +
-							'</div>'
-						$('.js-btn').remove()
-					}
-					$('.js-bidden').html(biddenTpl)
+                        $('.js-wrapper').addClass('pb80')
+                        $('.js-btn').removeClass('hide')
+                    } else if (data.type == '0') {
+                        // 放弃报价
+                        biddenTpl = '<div class="row-item flex">' + '<div class="row-left flex">' + '<label>报价：</label>' + '<span>放弃报价</span>' + '</div>' + '</div>'
+                    } else if (data.type == '1' && data.deal) {
+                        // 已交易
+                        biddenTpl = '<div class="row-item flex">' + '<div class="row-left flex">' + '<label>成交价：</label>' + '<span>' + Number(data.deal.price) + '万</span>' + '</div>' + '<div class="row-right">' + data.deal.time + '</div>' + '</div>'
+                    } else if (data.type == '2' && data.bidden) {
+                        biddenTpl =
+                            '<div class="row-item flex row-item-spec">' +
+                            '<div class="row-left flex">' +
+                            '<div class="fs14 c-gray-deep">' +
+                            data.bidden.time +
+                            '</div>' +
+                            '</div>' +
+                            '<span class="fs16 c-red fwb">' +
+                            Number(data.bidden.price) +
+                            '万</span>' +
+                            '</div>'
+                        $('.js-btn').remove()
+                    }
+                    $('.js-bidden').html(biddenTpl)
 
-					// 图片信息
-					var imgList = data.carPicList
-					if (imgList && imgList.length) {
-						var imgTpl = ''
-						for (var i = 0; i < imgList.length; i++) {
-							if (imgList[i].desc) {
-								imgTpl += '<div class="swiper-slide-item" data-img-url="' + imgList[i].picUrl + '">' +
-									'<div class="swiper-img">' +
-									'<img src="' + imgList[i].picUrl + '" class="img-center" />' +
-									'<div class="swiper-desc">' +
-									'<p>' + imgList[i].desc + '</p>' +
-									'</div>' +
-									'<div class="icon-flag">' + imgList[i].name + '</div>' +
-									'</div>' +
-									'</div>'
-							} else {
-								imgTpl += '<div class="swiper-slide-item" data-img-url="' + imgList[i].picUrl + '">' +
-									'<div class="swiper-img">' +
-									'<img src="' + imgList[i].picUrl + '" class="img-center" />' +
-									'<div class="icon-flag">' + imgList[i].name + '</div>' +
-									'</div>' +
-									'</div>'
-							}
-						}
-						$('.js-pic-box').removeClass('hide').find('.js-slide').html(imgTpl)
-					} else {
-						$('.js-slide').parents('.comm-box').remove()
-					}
+                    // 图片信息
+                    var imgList = data.carPicList
+                    if (imgList && imgList.length) {
+                        var imgTpl = ''
+                        for (var i = 0; i < imgList.length; i++) {
+                            if (imgList[i].desc) {
+                                imgTpl +=
+                                    '<div class="swiper-slide-item" data-img-url="' +
+                                    imgList[i].picUrl +
+                                    '">' +
+                                    '<div class="swiper-img">' +
+                                    '<img src="' +
+                                    imgList[i].picUrl +
+                                    '" class="img-center" />' +
+                                    '<div class="swiper-desc">' +
+                                    '<p>' +
+                                    imgList[i].desc +
+                                    '</p>' +
+                                    '</div>' +
+                                    '<div class="icon-flag">' +
+                                    imgList[i].name +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
+                            } else {
+                                imgTpl +=
+                                    '<div class="swiper-slide-item" data-img-url="' +
+                                    imgList[i].picUrl +
+                                    '">' +
+                                    '<div class="swiper-img">' +
+                                    '<img src="' +
+                                    imgList[i].picUrl +
+                                    '" class="img-center" />' +
+                                    '<div class="icon-flag">' +
+                                    imgList[i].name +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
+                            }
+                        }
+                        $('.js-pic-box').removeClass('hide').find('.js-slide').html(imgTpl)
+                    } else {
+                        $('.js-slide').parents('.comm-box').remove()
+                    }
 
-					// 基础车辆信息
-					$('.js_car_no').text(data.carNo)
-					$('.js_brand').text((data.brandName || '') + ' ' + (data.seriesName || '') + ' ' + (data.modelYear || '') + ' ' +
-						(data.vehicleTypeName || ''))
-					$('.js_mileage').text(data.mileage)
-					$('.js_car_on_time').text(data.carOnTime)
-					$('.js_owner_number').text(data.ownerNumber)
-					$('.js_inspection_time').text(data.inspectionTime)
-					$('.js_evaluate').text(data.evaluateContent || '暂无评价')
-					$('.js_production_date').text(data.productionDate)
-					if (data.isAccident == '0') {
-						$('.js_accident_date').text('无事故')
-						$('.accident-box').addClass('hide')
-					} else if (data.isAccident == '1') {
-						$('.js_accident_date').text('有事故')
-						$('.js_accident').text(data.accidentDescription || '暂无事故说明')
-					} else {
-						$('.js_accident_date').text('暂无数据来源')
-						$('.accident-box').addClass('hide')
-					}
-				},
+                    // 基础车辆信息
+                    $('.js_car_no').text(data.carNo)
+                    $('.js_brand').text((data.brandName || '') + ' ' + (data.seriesName || '') + ' ' + (data.modelYear || '') + ' ' + (data.vehicleTypeName || ''))
+                    $('.js_mileage').text(data.mileage)
+                    $('.js_car_on_time').text(data.carOnTime)
+                    $('.js_owner_number').text(data.ownerNumber)
+                    $('.js_inspection_time').text(data.inspectionTime)
+                    $('.js_evaluate').text(data.evaluateContent || '暂无评价')
+                    $('.js_production_date').text(data.productionDate)
+                    if (data.isAccident == '0') {
+                        $('.js_accident_date').text('无事故')
+                        $('.accident-box').addClass('hide')
+                    } else if (data.isAccident == '1') {
+                        $('.js_accident_date').text('有事故')
+                        $('.js_accident').text(data.accidentDescription || '暂无事故说明')
+                    } else {
+                        $('.js_accident_date').text('暂无数据来源')
+                        $('.accident-box').addClass('hide')
+                    }
+                },
 
-				openBigImg: function() {
-					var self = this;
-					var $img = $('.js-slide .swiper-slide-item');
-					console.log($img)
-					$img.on('click', function() {
-						var arr = [];
-						$img.each(function() {
-							let obj = {
-								name: $(this).text(),
-								url: $(this).data('img-url')
-							}
-							arr.push(obj)
-							console.log()
-						})
-						self.bigImgSlide(arr, $img.index(this));
-						// var imgUrl = $(this).data('img-url')
-						// layer.open({
-						//   content: '<div class="img-pop"><img src="'+imgUrl+'" width="100%"/></div>'
-						// })
-					})
-				},
+                openBigImg: function () {
+                    var self = this
+                    var $img = $('.js-slide .swiper-slide-item')
+                    console.log($img)
+                    $img.on('click', function () {
+                        var arr = []
+                        $img.each(function () {
+                            let obj = {
+                                name: $(this).text(),
+                                url: $(this).data('img-url')
+                            }
+                            arr.push(obj)
+                            console.log()
+                        })
+                        self.bigImgSlide(arr, $img.index(this))
+                        // var imgUrl = $(this).data('img-url')
+                        // layer.open({
+                        //   content: '<div class="img-pop"><img src="'+imgUrl+'" width="100%"/></div>'
+                        // })
+                    })
+                },
 
-				formatFloat: function() {
-					$('.js-bidden-ipt').on('input', function() {
-						var value = common.formatFloat($(this).val(), 999.99)
-						$(this).val(value)
-					}).on('blur', function() {
-						var value = common.controlValue($(this).val(), 999999.99, 0.01)
-						$(this).val(value)
-					})
-				},
+                formatFloat: function () {
+                    $('.js-bidden-ipt')
+                        .on('input', function () {
+                            var value = common.formatFloat($(this).val(), 999.99)
+                            $(this).val(value)
+                        })
+                        .on('blur', function () {
+                            var value = common.controlValue($(this).val(), 999999.99, 0.01)
+                            $(this).val(value)
+                        })
+                },
 
-				sureBidden: function() {
-					var isBiddening = false
-					$('.js-sure-bidden').on('click', function() {
-						var self = this
-						if (!$('.js-bidden-ipt').val()) {
-							layer.open({
-								content: '请输入报价价格',
-								skin: 'msg',
-								time: 2 //2秒后自动关闭
-							})
-							return
-						}
-						if (isBiddening) return
-						isBiddening = true
-						common.ajax({
-							// url: '../../assets/mock/carseller/bidden.json',
-							url: common.erpDomain + '/carDealer/startQuote',
-							param: {
-								carId: carId,
-								supplierId: supplierId,
-								biddenPrice: $('.js-bidden-ipt').val()
-							},
-							success: function(res) {
-								var content = ''
-								if (res.code == '1') {
-									layer.open({
-										content: '报价成功',
-										skin: 'msg',
-										time: 2 //2秒后自动关闭
-									})
-									setTimeout(function() {
-										history.go(-1)
-									}, 2000)
-								} else {
-									isBiddening = false
-									if (res.code == '100004') {
-										var str = ''
-										if (env) {
-											str += 'env=' + env
-										}
-										location.href = './user/new_login.html?' + str
-									} else {
-										layer.open({
-											content: res.message || '报价失败',
-											skin: 'msg',
-											time: 2 //2秒后自动关闭
-										})
-									}
-								}
+                sureBidden: function () {
+                    var isBiddening = false
+                    $('.js-sure-bidden').on('click', function () {
+                        var self = this
+                        if (!$('.js-bidden-ipt').val()) {
+                            layer.open({
+                                content: '请输入报价价格',
+                                skin: 'msg',
+                                time: 2 //2秒后自动关闭
+                            })
+                            return
+                        }
+                        if (isBiddening) return
+                        isBiddening = true
+                        common.ajax({
+                            // url: '../../assets/mock/carseller/bidden.json',
+                            url: common.erpDomain + '/carDealer/startQuote',
+                            param: {
+                                carId: carId,
+                                supplierId: supplierId,
+                                biddenPrice: $('.js-bidden-ipt').val()
+                            },
+                            success: function (res) {
+                                var content = ''
+                                if (res.code == '1') {
+                                    layer.open({
+                                        content: '报价成功',
+                                        skin: 'msg',
+                                        time: 2 //2秒后自动关闭
+                                    })
+                                    setTimeout(function () {
+                                        history.go(-1)
+                                    }, 2000)
+                                } else {
+                                    isBiddening = false
+                                    if (res.code == '100004') {
+                                        var str = ''
+                                        if (env) {
+                                            str += 'env=' + env
+                                        }
+                                        location.href = './user/new_login.html?' + str
+                                    } else {
+                                        layer.open({
+                                            content: res.message || '报价失败',
+                                            skin: 'msg',
+                                            time: 2 //2秒后自动关闭
+                                        })
+                                    }
+                                }
+                            },
+                            error: function () {
+                                isBiddening = false
+                                layer.open({
+                                    content: '网络异常，报价失败',
+                                    skin: 'msg',
+                                    time: 2 //2秒后自动关闭
+                                })
+                            }
+                        })
+                    })
+                },
 
-							},
-							error: function() {
-								isBiddening = false
-								layer.open({
-									content: '网络异常，报价失败',
-									skin: 'msg',
-									time: 2 //2秒后自动关闭
-								})
-							}
-						})
-					})
-				},
+                cancelBidden: function () {
+                    var isCancelBiddening = false
+                    $('.js-cancel-bidden').on('click', function () {
+                        var self = this
+                        if (isCancelBiddening) return
+                        isCancelBiddening = true
+                        common.ajax({
+                            // url: '../../assets/mock/carseller/bidden.json',
+                            url: common.erpDomain + '/carDealer/abandonQuote',
+                            param: {
+                                carId: carId,
+                                supplierId: supplierId
+                            },
+                            success: function (res) {
+                                var content = ''
+                                if (res.code == '1') {
+                                    layer.open({
+                                        content: '放弃报价成功',
+                                        skin: 'msg',
+                                        time: 2 //2秒后自动关闭
+                                    })
+                                    setTimeout(function () {
+                                        window.location.reload()
+                                    }, 2000)
+                                } else {
+                                    if (res.code == '100004') {
+                                        var str = ''
+                                        if (env) {
+                                            str += 'env=' + env
+                                        }
+                                        location.href = './user/new_login.html?' + str
+                                    } else {
+                                        layer.open({
+                                            content: res.message || '放弃报价失败',
+                                            skin: 'msg',
+                                            time: 2 //2秒后自动关闭
+                                        })
+                                    }
+                                }
+                                isCancelBiddening = false
+                            },
+                            error: function () {
+                                isCancelBiddening = false
+                                layer.open({
+                                    content: '网络异常',
+                                    skin: 'msg',
+                                    time: 2 //2秒后自动关闭
+                                })
+                            }
+                        })
+                    })
+                }
+            }
 
-				cancelBidden: function() {
-					var isCancelBiddening = false
-					$('.js-cancel-bidden').on('click', function() {
-						var self = this
-						if (isCancelBiddening) return
-						isCancelBiddening = true
-						common.ajax({
-							// url: '../../assets/mock/carseller/bidden.json',
-							url: common.erpDomain + '/carDealer/abandonQuote',
-							param: {
-								carId: carId,
-								supplierId: supplierId
-							},
-							success: function(res) {
-								var content = ''
-								if (res.code == '1') {
-									layer.open({
-										content: '放弃报价成功',
-										skin: 'msg',
-										time: 2 //2秒后自动关闭
-									})
-									setTimeout(function() {
-										window.location.reload()
-									}, 2000)
-								} else {
-									if (res.code == '100004') {
-										var str = ''
-										if (env) {
-											str += 'env=' + env
-										}
-										location.href = './user/new_login.html?' + str
-									} else {
-										layer.open({
-											content: res.message || '放弃报价失败',
-											skin: 'msg',
-											time: 2 //2秒后自动关闭
-										})
-									}
-								}
-								isCancelBiddening = false
-							},
-							error: function() {
-								isCancelBiddening = false
-								layer.open({
-									content: '网络异常',
-									skin: 'msg',
-									time: 2 //2秒后自动关闭
-								})
-							}
-						})
-					})
-				}
-			}
-
-			detailModule.init()
-		</script>
-	</body>
-
+            detailModule.init()
+        </script>
+    </body>
 </html>
