@@ -55,7 +55,7 @@ function minifyCss() {
         .pipe(filterCss.restore)
         .pipe(dest(DESTINATION))
         .pipe(rev.manifest())
-        .pipe(dest('dist/rev/css'))
+        .pipe(dest('src/rev/css'))
 }
 
 // 压缩js
@@ -77,7 +77,7 @@ function minifyJs() {
         .pipe(filterJs.restore)
         .pipe(dest(DESTINATION))
         .pipe(rev.manifest())
-        .pipe(dest('dist/rev/js'))
+        .pipe(dest('src/rev/js'))
 }
 
 // 压缩图片
@@ -96,28 +96,40 @@ function minifyImage() {
         .pipe(dest(DESTINATION))
 }
 
+// 控制静态资源版本号
 function revFile() {
-    console.log('================')
-    return src(['dist/rev/**/*.json', 'src/**/*.html'])
+    const options = {
+        removeComments: true, //清除HTML注释
+        collapseWhitespace: true, //压缩HTML
+        collapseBooleanAttributes: true, //省略布尔属性的值 <input checked="true"/> ==> <input checked />
+        removeEmptyAttributes: true, //删除所有空格作属性值 <input id="" /> ==> <input />
+        removeScriptTypeAttributes: true, //删除<script>的type="text/javascript"
+        removeStyleLinkTypeAttributes: true, //删除<style>和<link>的type="text/css"
+        minifyJS: true, //压缩页面JS
+        minifyCSS: true //压缩页面CSS
+    }
+
+    return src(['src/rev/**/*.json', 'src/**/*.html'])
         .pipe(
             revCollector({
                 replaceReved: true
             })
         )
+        .pipe(htmlmin(options))
         .pipe(dest(DESTINATION))
 }
 
 function watchFile() {
-    watch('src/**/*.html', minifyHtml)
+    // watch('src/**/*.html', minifyHtml)
     watch('src/**/*.js', minifyJs)
     watch('src/**/*.{png,jpg,gif,jpeg}', minifyImage)
     watch('src/**/*.css', minifyCss)
     watch('src/**/*.scss', sassToCss)
-    watch(['dist/rev/**/*.json', 'src/**/*.html'], revFile)
+    watch(['src/rev/**/*.json', 'src/**/*.html'], revFile)
 }
 
 function defaultTask() {
-    let tasks = [delDir, minifyImage, sassToCss, minifyCss, minifyJs, minifyHtml, revFile]
+    let tasks = [delDir, minifyImage, sassToCss, minifyCss, minifyJs, revFile]
     return series(tasks, parallel(watchFile))
 }
 
