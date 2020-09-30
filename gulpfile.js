@@ -68,8 +68,8 @@ function minifyJs() {
         .pipe(filterJs)
         .pipe(
             babel({
-                presets: ['env'],
-                plugins: ['@babel/plugin-proposal-object-rest-spread']
+                presets: ['@babel/env']
+                // plugins: ['@babel/plugin-proposal-object-rest-spread']
             })
         )
         .pipe(uglify())

@@ -1,8 +1,7 @@
-$(function () {
-    var headerSwiper,
-        env = common.getQuery().env,
-        carId = common.getQuery().carId,
-        supplierId = common.getStorage('userId'),
+window.$(function () {
+    let env = window.common.getQuery().env,
+        carId = window.common.getQuery().carId,
+        supplierId = window.common.getStorage('userId'),
         InterValObj = null,
         newPriceBase = 100,
         newBidStarPrice = 0,
@@ -22,8 +21,8 @@ $(function () {
         },
         loadDatail: function () {
             var that = this
-            common.ajax({
-                url: common.erpDomain + '/carDealer/fastUsedCar/detail',
+            window.common.ajax({
+                url: window.common.erpDomain + '/carDealer/fastUsedCar/detail',
                 param: {
                     id: carId
                 },
@@ -38,7 +37,7 @@ $(function () {
                         // 拍卖  + (bidInfo.bidStarPrice ? bidInfo.bidStarPrice : 0) +
                         var auctionTtml =
                             '<li style="color: #FA5767;"><span>留</span>¥******</li>' + '<li style="color: #FA5767;"><span>加</span>¥100</li>' + '<li style="color: #FA5767;"><span>保</span>¥1000</li>' + '<li style="color: #FA5767;"><span>延</span>5min</li>'
-                        $('.auction-statement .wrapper1 ul').html(auctionTtml)
+                        window.$('.auction-statement .wrapper1 ul').html(auctionTtml)
 
                         // 最高价
                         var maxPriceHtml = ''
@@ -52,7 +51,7 @@ $(function () {
                         } else {
                             maxPriceHtml = '<div>暂无出价</div>'
                         }
-                        $('.maximum_price_box .maximum_price_user').html(maxPriceHtml)
+                        window.$('.maximum_price_box .maximum_price_user').html(maxPriceHtml)
 
                         // 基本信息
                         var basicHtml = ''
@@ -87,13 +86,13 @@ $(function () {
                             (carInfo.strongRiskExpireDate ? carInfo.strongRiskExpireDate : '暂无') +
                             '</p>' +
                             '</li></ul>'
-                        // $('.basic-info .info-wrapper').html(basicHtml);
-                        $('.basic-ul').html(basicHtml)
-                        $('.more-car-info').data('url', carInfo.carCollocate)
+                        // window.$('.basic-info .info-wrapper').html(basicHtml);
+                        window.$('.basic-ul').html(basicHtml)
+                        window.$('.more-car-info').data('url', carInfo.carCollocate)
 
                         // 检测师信息
                         if (checkInfo.evaluateId) {
-                            $('.car-detection').removeClass('hide')
+                            window.$('.car-detection').removeClass('hide')
                             var detectionUserHtml = ''
                             // ''
                             let imgUrl = '../img/detectionImg.png'
@@ -101,22 +100,21 @@ $(function () {
                                 imgUrl = checkInfo.headImg
                             }
                             detectionUserHtml = '<div><img src="' + imgUrl + '"></div>' + '<div>' + '<p class="name">' + checkInfo.name + '</p>' + '<p class="desc">4S店专业检测师</p>' + '</div>'
-                            $('.car-detection .detectio-user').html(detectionUserHtml)
-                            $('.car-detection .detectio-desc').html(checkInfo.evaluate)
-                            $('.car-detection .more-btn').data('id', carId)
+                            window.$('.car-detection .detectio-user').html(detectionUserHtml)
+                            window.$('.car-detection .detectio-desc').html(checkInfo.evaluate)
+                            window.$('.car-detection .more-btn').data('id', carId)
                         } else {
-                            $('.car-detection').addClass('hide')
+                            window.$('.car-detection').addClass('hide')
                         }
 
-                        if (!$('.mask-modal-box').hasClass('hide')) {
-                            $('.mask-modal-box .offer-price .price').text('￥' + newMaximumPrice)
+                        if (!window.$('.mask-modal-box').hasClass('hide')) {
+                            window.$('.mask-modal-box .offer-price .price').text('￥' + newMaximumPrice)
                         }
                     }
                 }
             })
         },
         addCarInfo: function (title, date, mileage, city, standard) {
-            let that = this
             let html = '',
                 dateStr = '',
                 mileageStr = '',
@@ -136,7 +134,7 @@ $(function () {
             }
             html = '<div class="title">' + title + '</div>' + '<div class="condition">车况：' + dateStr + mileageStr + cityStr + standardStr + '</div>'
 
-            $('.car-info').html(html)
+            window.$('.car-info').html(html)
         },
         addBidInfo: function (info) {
             // bidState 0：已下架，1：已拍卖，2：未开始，3：竞拍中，4：已流拍
@@ -146,12 +144,12 @@ $(function () {
             let html = ''
             if (info.bidState === 0 || info.bidState === 1 || info.bidState === 4) {
                 html = '<div class="car-bid-status bg3">' + '<div>' + that.bidState(info.bidState) + '</div>' + '</div>'
-                $('.footer-btn').addClass('hide')
+                window.$('.footer-btn').addClass('hide')
             } else if (info.bidState === 2) {
-                $('.footer-btn').removeClass('hide')
+                window.$('.footer-btn').removeClass('hide')
                 html = '<div class="car-bid-status bg2">' + '<div>起拍价：' + info.bidStarPrice + '</div>' + '<div>' + '<div>' + info.bidStarTime + '</div>' + '<div>开始</div>' + '</div>' + '</div>'
             } else if (info.bidState === 3) {
-                $('.footer-btn').removeClass('hide')
+                window.$('.footer-btn').removeClass('hide')
                 html = '<div class="car-bid-status bg1">' + '<div>' + that.bidState(info.bidState) + '</div>' + '<div class="state-right">' + '<div>距结束</div>' + '<div class="time"></div>' + '</div>' + '</div>'
                 var SysSecond = Number(info.endTimestamp) - Number(info.nowTimestamp)
                 if (SysSecond > 0) {
@@ -159,7 +157,7 @@ $(function () {
                 }
             }
             newBidStarPrice = info.bidStarPrice ? Number(info.bidStarPrice) : 0
-            $('.bid-info').html(html)
+            window.$('.bid-info').html(html)
         },
         addHeaderSwiper: function (list) {
             console.log('轮播图')
@@ -169,10 +167,10 @@ $(function () {
             list.map(item => {
                 html += '<div class="swiper-slide" data-img-url="' + item.url + '" data-img-txt="' + that.imgTypeFormat(item.type) + '">' + '<img src="' + item.url + '" >' + '<div class="car-type">' + that.imgTypeFormat(item.type) + '</div>' + '</div>'
             })
-            $('.header-swiper .swiper-wrapper').html(html)
+            window.$('.header-swiper .swiper-wrapper').html(html)
 
             if (list.length > 0) {
-                headerSwiper = new Swiper('.header-swiper', {
+                window.headerSwiper = new window.Swiper('.header-swiper', {
                     pagination: {
                         el: '.swiper-pagination',
                         type: 'fraction'
@@ -185,46 +183,46 @@ $(function () {
         },
         // 大图-start
         bigImgSwiper: function () {
-            let myBigSwiper = new Swiper('.showBigImgWrap', {
+            window.myBigSwiper = new window.Swiper('.showBigImgWrap', {
                 // pagination: {
                 // 	el: '.swiper-pagination',
                 // 	type: 'fraction',
                 // },
             })
-            $('.showBigImg').click(function () {
-                $('.showBigImg').css('display', 'none') //显示
+            window.$('.showBigImg').click(function () {
+                window.$('.showBigImg').css('display', 'none') //显示
             })
         },
         openBigImg: function () {
             var that = this
-            var $img = $('.header-swiper .swiper-wrapper .swiper-slide')
+            var $img = window.$('.header-swiper .swiper-wrapper .swiper-slide')
             $img.on('click', function () {
                 var arr = []
-                $img.each(function () {
+                window.$img.each(function () {
                     let obj = {
-                        name: $(this).data('img-txt'),
-                        url: $(this).data('img-url')
+                        name: window.$(this).data('img-txt'),
+                        url: window.$(this).data('img-url')
                     }
                     arr.push(obj)
                 })
-                that.bigImgSlide(arr, $img.index(this))
+                that.bigImgSlide(arr, window.$img.index(this))
             })
         },
         bigImgSlide: function (scArr, posi) {
-            $('.showBigImg').css('display', 'block') //显示
+            window.$('.showBigImg').css('display', 'block') //显示
             var str = ''
             for (var i = 0; i < scArr.length; i++) {
                 str += '<div class="imgIte swiper-slide" style="color:#fff;text-align:center">' + scArr[i].name + '<img src=' + scArr[i].url + ' alt="" style="height:auto"></div>'
             }
-            $('.allImgBox').html(str)
-            myBigSwiper.update()
-            myBigSwiper.slideTo(posi, 0)
+            window.$('.allImgBox').html(str)
+            window.myBigSwiper.update()
+            window.myBigSwiper.slideTo(posi, 0)
         },
         // 大图-end
         handleClick: function () {
             let that = this
-            $('.auction-statement .wrapper1').click(function () {
-                layer.open({
+            window.$('.auction-statement .wrapper1').click(function () {
+                window.layer.open({
                     className: 'auction-layer',
                     type: 1,
                     content:
@@ -244,26 +242,26 @@ $(function () {
                 })
             })
             // 刷新出价
-            $('.maximum_price_box .refresh-btn').click(function () {
+            window.$('.maximum_price_box .refresh-btn').click(function () {
                 that.loadDatail()
             })
             // 更多车辆信息
-            $('.more-car-info').click(function () {
-                let url = $(this).data('url')
+            window.$('.more-car-info').click(function () {
+                let url = window.$(this).data('url')
                 location.href = url
             })
             // 检测报告
-            $('.car-detection .more-btn').click(function () {
-                let id = $(this).data('id')
+            window.$('.car-detection .more-btn').click(function () {
+                let id = window.$(this).data('id')
                 location.href = './test-report.html?carId=' + id + '&' + envStr
             })
             // 缴纳保证金
-            $('.footer-btn .payPrice').click(function () {
+            window.$('.footer-btn .payPrice').click(function () {
                 location.href = '../caution-money/caution-money.html?' + envStr
             })
-            $('.footer-btn .offerPrice').click(function () {
-                $('.mask-modal-box').removeClass('hide')
-                addNewPriceBase = newPriceBase
+            window.$('.footer-btn .offerPrice').click(function () {
+                window.$('.mask-modal-box').removeClass('hide')
+                window.addNewPriceBase = newPriceBase
                 var str = ''
                 str =
                     '<div class="offer-price">' +
@@ -280,45 +278,45 @@ $(function () {
                     '</div>' +
                     '</div>' +
                     '<button class="btn">确认出价</button>'
-                $('.mask-modal-box .mask-modal-content').html(str)
+                window.$('.mask-modal-box .mask-modal-content').html(str)
             })
-            $('.mask-modal-bg').click(function () {
-                $('.mask-modal-box').addClass('hide')
+            window.$('.mask-modal-bg').click(function () {
+                window.$('.mask-modal-box').addClass('hide')
             })
-            $('body').on('click', '.mask-modal-box .decrease', function () {
+            window.$('body').on('click', '.mask-modal-box .decrease', function () {
                 let price = newPriceBase
-                if (addNewPriceBase <= newPriceBase) {
+                if (window.addNewPriceBase <= newPriceBase) {
                     return
                 }
-                addNewPriceBase -= price
-                $('.mask-modal-box .price-base').text('￥' + addNewPriceBase)
+                window.addNewPriceBase -= price
+                window.$('.mask-modal-box .price-base').text('￥' + window.addNewPriceBase)
             })
-            $('body').on('click', '.mask-modal-box .increase', function () {
+            window.$('body').on('click', '.mask-modal-box .increase', function () {
                 let price = newPriceBase
-                addNewPriceBase += price
-                $('.mask-modal-box .price-base').text('￥' + addNewPriceBase)
+                window.addNewPriceBase += price
+                window.$('.mask-modal-box .price-base').text('￥' + window.addNewPriceBase)
             })
-            $('body').on('click', '.mask-modal-box .btn', function () {
-                var layerLoading = layer.open({ type: 2 })
+            window.$('body').on('click', '.mask-modal-box .btn', function () {
+                var layerLoading = window.layer.open({ type: 2 })
                 let max_price = newMaximumPrice ? newMaximumPrice : newBidStarPrice
-                let price = max_price + addNewPriceBase
+                let price = max_price + window.addNewPriceBase
 
                 let param = {
                     id: carId,
                     price: price
                 }
-                common.ajax({
-                    url: common.erpDomain + '/carDealer/fastUsedCar/confirmedBid',
+                window.common.ajax({
+                    url: window.common.erpDomain + '/carDealer/fastUsedCar/confirmedBid',
                     param: param,
                     success: function (res) {
-                        layer.close(layerLoading)
+                        window.layer.close(layerLoading)
                         if (res.code === '1' && res.success) {
-                            $('.mask-modal-box').addClass('hide')
+                            window.$('.mask-modal-box').addClass('hide')
                             that.loadDatail()
                             that.depositInfo()
                             return
                         }
-                        layer.open({
+                        window.layer.open({
                             content: res.message,
                             skin: 'msg',
                             style: 'top: 0;',
@@ -328,7 +326,7 @@ $(function () {
                         setTimeout(function () {
                             that.loadDatail()
                         }, 1000)
-                        $('.mask-modal-box').addClass('hide')
+                        window.$('.mask-modal-box').addClass('hide')
                         // }
                     }
                 })
@@ -339,18 +337,18 @@ $(function () {
             let param = {
                 id: supplierId
             }
-            common.ajax({
-                url: common.erpDomain + '/carDealer/deposit/info',
+            window.common.ajax({
+                url: window.common.erpDomain + '/carDealer/deposit/info',
                 param: param,
                 success: function (res) {
                     if (res.code === '1') {
                         let { useablePrice } = res.result
                         if (Number(useablePrice) >= 0.02) {
-                            $('.footer-btn .offerPrice').removeClass('hide')
-                            $('.footer-btn .payPrice').addClass('hide')
+                            window.$('.footer-btn .offerPrice').removeClass('hide')
+                            window.$('.footer-btn .payPrice').addClass('hide')
                         } else {
-                            $('.footer-btn .offerPrice').addClass('hide')
-                            $('.footer-btn .payPrice').removeClass('hide')
+                            window.$('.footer-btn .offerPrice').addClass('hide')
+                            window.$('.footer-btn .payPrice').removeClass('hide')
                         }
                     } else {
                         if (res.code == '100004') {
@@ -366,7 +364,7 @@ $(function () {
             var that = this
             var SysSecond = Number(data.endTimestamp) - Number(data.nowTimestamp)
 
-            $(document).ready(function () {
+            window.$(document).ready(function () {
                 InterValObj = window.setInterval(SetRemainTime, 1000) //间隔函数，1秒执行
             })
 
@@ -389,7 +387,7 @@ $(function () {
                     } else {
                         //倒计时已完成
                     }
-                    $('.bid-info .car-bid-status .state-right .time').html(endStr)
+                    window.$('.bid-info .car-bid-status .state-right .time').html(endStr)
                 } else {
                     //剩余时间小于或等于0的时候，就停止间隔函数
                     that.init()
@@ -398,7 +396,7 @@ $(function () {
             }
         },
         strFormat: function (str) {
-            return str < 10 ? `0${str}` : str
+            return str < 10 ? `0window.${str}` : str
         },
         imgTypeFormat: function (type) {
             if (type === 1) {
@@ -442,13 +440,14 @@ $(function () {
         },
         /* 获取维保记录 */
         getReport() {
-            common.ajax({
-                url: common.erpDomain + '/carDealer/fastUsedCar/detail',
+            window.common.ajax({
+                url: window.common.erpDomain + '/carDealer/fastUsedCar/detail',
                 param: {
                     id: carId
                 },
-                success: function (res) {
-                    if (true) {
+                success: function () {
+                    let flag = true
+                    if (flag) {
                         // 有维保记录
                         this.getUserBuyReport()
                     }
@@ -457,17 +456,17 @@ $(function () {
         },
         /* 获取用户是否已经购买过报告 */
         getUserBuyReport() {
-            common.ajax({
-                url: common.erpDomain + '/carDealer/fastUsedCar/detail',
+            window.common.ajax({
+                url: window.common.erpDomain + '/carDealer/fastUsedCar/detail',
                 param: {
                     id: carId
                 },
-                success: function (res) {
+                success: function () {
                     //显示模块
                     var reportDom = document.querySelector('.js-report')
                     reportDom.style.display = 'block'
-
-                    if (true) {
+                    let flag = true
+                    if (flag) {
                         //购买过
                         var reportDetails = document.querySelector('.js-report-details')
                         reportDetails.style.display = 'block'
